@@ -4,29 +4,27 @@ sys.path.insert(0, "../..")
 if sys.version_info[0] >= 3:
     raw_input = input
 
-reserved = {
-    'Proc':'PROC',
-    }
-
 tokens = [
-    'NAME', 'NUMBER', 'BOOL','COMMENT',
-    
-] + list(reserved.values())
+    'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
+    'PROC',   
+]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
 
 # Tokens
-t_DEF = '[Def]+'
+t_DEF = 'Def'
+t_PROC ='Proc'
 t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
 t_NAME = r'[@][a-zA-Z0-9_#]*'
+t_ALTER = 'Alter'
 
-def t_NUMBER(t):
-    r'\d+'
+def t_INTEGER(t):
+    r'-?\d+'
     t.value = int(t.value)
     return t
 
 def t_BOOL(t):
-    r'\d+'
+    r'[a-zA-Z]'
     t.value = bool(t.value)
     return t
 
@@ -66,12 +64,26 @@ def p_statement_assign(p):
     else:
         print("Las variables deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @")
 
-#def p_statement_proc(p):
-#    'statement :  NAME "(" expression ")"'
-#    if len(p[3])>1 and len(p[3])<10 :
-#        procs[p[2]+p[3]] = p[4]+p[5]+p[6]
-#    else:
-#        print("Las variables deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @")
+def p_statement_math(p):
+    'statement : ALTER "(" NAME "," expression ")"'
+    if isinstance(p[5],int) and isinstance(names[p[3]],int) :
+        if p[5]=="-":
+            names[p[3]]=names[p[3]]-p[5]
+        else:
+            names[p[3]]=names[p[3]]+p[5]
+    else:
+        print ("La funcion alter solo cambia el valor de las variables númericas")
+
+def p_statement_change(p):
+    'statement : NAME "(" statement ")"'
+    names[p[1]] = p[3]
+
+def p_statement_proc(p):
+    'statement : PROC NAME "(" expression ")"'
+    if len(p[2])>1 and len(p[2])<10 :
+        procs[p[2]] = p[4]
+    else:
+        print("Los procesos deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @")
 
 def p_statement_comment(p):
     'statement : COMMENT '
@@ -107,8 +119,8 @@ def p_expression_group(p):
     p[0] = p[2]
 
 
-def p_expression_number(p):
-    "expression : NUMBER"
+def p_expression_integer(p):
+    "expression : INTEGER"
     p[0] = p[1]
 
 def p_expression_bool(p):
