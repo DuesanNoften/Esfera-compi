@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROCstatement : DEF "(" NAME "," expression ")"statement : ALTER "(" NAME "," expression ")"statement : NAME "(" statement ")"statement : PROC NAME "(" expression ")"statement : COMMENT statement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAME'
+_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROCstatement : PROC NAME "(" expression ")"statement : COMMENT statement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," expression ")"expression : NAME "(" statement ")"expression : ALTER "(" NAME "," expression ")"'
     
-_lr_action_items = {'DEF':([0,15,],[2,2,]),'ALTER':([0,15,],[6,6,]),'NAME':([0,3,7,9,12,15,16,17,18,19,20,31,32,34,],[4,14,21,14,23,4,14,14,14,14,30,14,14,14,]),'PROC':([0,15,],[7,7,]),'COMMENT':([0,15,],[8,8,]),'-':([0,3,4,5,9,10,11,13,14,15,16,17,18,19,22,24,26,27,28,29,31,32,34,35,36,37,],[9,9,-15,17,9,-13,-14,17,-15,9,9,9,9,9,-11,-12,-7,-8,-9,-10,9,9,9,17,17,17,]),'(':([0,2,3,4,6,9,15,16,17,18,19,21,31,32,34,],[3,12,3,15,20,3,3,3,3,3,3,31,3,3,3,]),'INTEGER':([0,3,9,15,16,17,18,19,31,32,34,],[10,10,10,10,10,10,10,10,10,10,10,]),'BOOL':([0,3,9,15,16,17,18,19,31,32,34,],[11,11,11,11,11,11,11,11,11,11,11,]),'$end':([1,4,5,8,10,11,14,22,24,26,27,28,29,33,38,39,40,],[0,-15,-6,-5,-13,-14,-15,-11,-12,-7,-8,-9,-10,-3,-4,-1,-2,]),'+':([4,5,10,11,13,14,22,24,26,27,28,29,35,36,37,],[-15,16,-13,-14,16,-15,-11,-12,-7,-8,-9,-10,16,16,16,]),'*':([4,5,10,11,13,14,22,24,26,27,28,29,35,36,37,],[-15,18,-13,-14,18,-15,-11,-12,18,18,-9,-10,18,18,18,]),'/':([4,5,10,11,13,14,22,24,26,27,28,29,35,36,37,],[-15,19,-13,-14,19,-15,-11,-12,19,19,-9,-10,19,19,19,]),')':([4,5,8,10,11,13,14,22,24,25,26,27,28,29,33,35,36,37,38,39,40,],[-15,-6,-5,-13,-14,24,-15,-11,-12,33,-7,-8,-9,-10,-3,38,39,40,-4,-1,-2,]),',':([23,30,],[32,34,]),}
+_lr_action_items = {'PROC':([0,13,],[2,2,]),'COMMENT':([0,13,],[6,6,]),'-':([0,3,4,5,7,8,9,13,14,15,16,17,18,19,22,24,25,26,27,28,31,32,33,34,36,37,38,39,],[7,-12,7,16,7,-10,-11,7,16,7,7,7,7,-8,7,-9,-4,-5,-6,-7,16,-14,7,7,16,16,-13,-15,]),'(':([0,3,4,7,10,11,12,13,15,16,17,18,22,33,34,],[4,13,4,4,20,21,22,4,4,4,4,4,4,4,4,]),'INTEGER':([0,4,7,13,15,16,17,18,22,33,34,],[8,8,8,8,8,8,8,8,8,8,8,]),'BOOL':([0,4,7,13,15,16,17,18,22,33,34,],[9,9,9,9,9,9,9,9,9,9,9,]),'NAME':([0,2,4,7,13,15,16,17,18,20,21,22,33,34,],[3,12,3,3,3,3,3,3,3,29,30,3,3,3,]),'DEF':([0,4,7,13,15,16,17,18,22,33,34,],[10,10,10,10,10,10,10,10,10,10,10,]),'ALTER':([0,4,7,13,15,16,17,18,22,33,34,],[11,11,11,11,11,11,11,11,11,11,11,]),'$end':([1,3,5,6,8,9,19,24,25,26,27,28,32,35,38,39,],[0,-12,-3,-2,-10,-11,-8,-9,-4,-5,-6,-7,-14,-1,-13,-15,]),'+':([3,5,8,9,14,19,24,25,26,27,28,31,32,36,37,38,39,],[-12,15,-10,-11,15,-8,-9,-4,-5,-6,-7,15,-14,15,15,-13,-15,]),'*':([3,5,8,9,14,19,24,25,26,27,28,31,32,36,37,38,39,],[-12,17,-10,-11,17,-8,-9,17,17,-6,-7,17,-14,17,17,-13,-15,]),'/':([3,5,8,9,14,19,24,25,26,27,28,31,32,36,37,38,39,],[-12,18,-10,-11,18,-8,-9,18,18,-6,-7,18,-14,18,18,-13,-15,]),')':([3,5,6,8,9,14,19,23,24,25,26,27,28,31,32,35,36,37,38,39,],[-12,-3,-2,-10,-11,24,-8,32,-9,-4,-5,-6,-7,35,-14,-1,38,39,-13,-15,]),',':([29,30,],[33,34,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,15,],[1,25,]),'expression':([0,3,9,15,16,17,18,19,31,32,34,],[5,13,22,5,26,27,28,29,35,36,37,]),}
+_lr_goto_items = {'statement':([0,13,],[1,23,]),'expression':([0,4,7,13,15,16,17,18,22,33,34,],[5,14,19,5,25,26,27,28,31,36,37,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,19 +26,19 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> DEF ( NAME , expression )','statement',6,'p_statement_assign','Compilador.py',64),
-  ('statement -> ALTER ( NAME , expression )','statement',6,'p_statement_math','Compilador.py',71),
-  ('statement -> NAME ( statement )','statement',4,'p_statement_change','Compilador.py',81),
-  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',85),
-  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',92),
-  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',96),
-  ('expression -> expression + expression','expression',3,'p_expression_binop','Compilador.py',101),
-  ('expression -> expression - expression','expression',3,'p_expression_binop','Compilador.py',102),
-  ('expression -> expression * expression','expression',3,'p_expression_binop','Compilador.py',103),
-  ('expression -> expression / expression','expression',3,'p_expression_binop','Compilador.py',104),
-  ('expression -> - expression','expression',2,'p_expression_uminus','Compilador.py',116),
-  ('expression -> ( expression )','expression',3,'p_expression_group','Compilador.py',121),
-  ('expression -> INTEGER','expression',1,'p_expression_integer','Compilador.py',126),
-  ('expression -> BOOL','expression',1,'p_expression_bool','Compilador.py',130),
-  ('expression -> NAME','expression',1,'p_expression_name','Compilador.py',135),
+  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',60),
+  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',67),
+  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',71),
+  ('expression -> expression + expression','expression',3,'p_expression_binop','Compilador.py',76),
+  ('expression -> expression - expression','expression',3,'p_expression_binop','Compilador.py',77),
+  ('expression -> expression * expression','expression',3,'p_expression_binop','Compilador.py',78),
+  ('expression -> expression / expression','expression',3,'p_expression_binop','Compilador.py',79),
+  ('expression -> - expression','expression',2,'p_expression_uminus','Compilador.py',91),
+  ('expression -> ( expression )','expression',3,'p_expression_group','Compilador.py',96),
+  ('expression -> INTEGER','expression',1,'p_expression_integer','Compilador.py',101),
+  ('expression -> BOOL','expression',1,'p_expression_bool','Compilador.py',105),
+  ('expression -> NAME','expression',1,'p_expression_name','Compilador.py',110),
+  ('expression -> DEF ( NAME , expression )','expression',6,'p_expression_def','Compilador.py',118),
+  ('expression -> NAME ( statement )','expression',4,'p_expression_change','Compilador.py',123),
+  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Compilador.py',127),
 ]

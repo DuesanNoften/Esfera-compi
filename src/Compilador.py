@@ -24,8 +24,11 @@ def t_INTEGER(t):
     return t
 
 def t_BOOL(t):
-    r'[a-zA-Z]'
-    t.value = bool(t.value)
+    r'(True||False)[.]'
+    if t.value == "True.":
+        t.value=True
+    elif t.value == "False.":
+        t.value=False
     return t
 
 t_ignore = " \t"
@@ -55,28 +58,6 @@ precedence = (
 # dictionary of names
 names = {}
 procs = {}
-
-
-def p_statement_assign(p):
-    'statement : DEF "(" NAME "," expression ")"'
-    if len(p[3])>1 and len(p[3])<=10 :
-        names[p[3]] = p[5]
-    else:
-        print("Las variables deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @")
-
-def p_statement_math(p):
-    'statement : ALTER "(" NAME "," expression ")"'
-    if isinstance(p[5],int) and isinstance(names[p[3]],int) :
-        if p[5]=="-":
-            names[p[3]]=names[p[3]]-p[5]
-        else:
-            names[p[3]]=names[p[3]]+p[5]
-    else:
-        print ("La funcion alter solo cambia el valor de las variables númericas")
-
-def p_statement_change(p):
-    'statement : NAME "(" statement ")"'
-    names[p[1]] = p[3]
 
 def p_statement_proc(p):
     'statement : PROC NAME "(" expression ")"'
@@ -135,7 +116,26 @@ def p_expression_name(p):
     except LookupError:
         print("Undefined name '%s'" % p[1])
         p[0] = 0
-        
+
+def p_expression_def(p):
+    'expression : DEF "(" NAME "," expression ")"'
+    if len(p[3])>1 and len(p[3])<=10 :
+        names[p[3]] = p[5]
+
+def p_expression_change(p):
+    'expression : NAME "(" statement ")"'
+    names[p[1]] = p[3]
+
+def p_expression_math(p):
+    'expression : ALTER "(" NAME "," expression ")"'
+    if isinstance(p[5],int) and isinstance(names[p[3]],int) :
+        if p[5]=="-":
+            names[p[3]]=names[p[3]]-p[5]
+        else:
+            names[p[3]]=names[p[3]]+p[5]
+    else:
+        print ("La funcion alter solo cambia el valor de las variables númericas")
+
 
 def p_error(p):
     if p:
