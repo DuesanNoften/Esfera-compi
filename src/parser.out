@@ -16,7 +16,7 @@ Rule 10    expression -> INTEGER
 Rule 11    expression -> BOOL
 Rule 12    expression -> NAME
 Rule 13    expression -> DEF ( NAME , expression )
-Rule 14    expression -> NAME ( statement )
+Rule 14    expression -> NAME ( expression )
 Rule 15    expression -> ALTER ( NAME , expression )
 
 Terminals, with rules where they appear
@@ -39,8 +39,8 @@ error                :
 
 Nonterminals, with rules where they appear
 
-expression           : 1 3 4 4 5 5 6 6 7 7 8 9 13 15
-statement            : 14 0
+expression           : 1 3 4 4 5 5 6 6 7 7 8 9 13 14 15
+statement            : 0
 
 Parsing method: LALR
 
@@ -60,7 +60,7 @@ state 0
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     PROC            shift and go to state 2
@@ -92,7 +92,7 @@ state 2
 state 3
 
     (12) expression -> NAME .
-    (14) expression -> NAME . ( statement )
+    (14) expression -> NAME . ( expression )
 
     +               reduce using rule 12 (expression -> NAME .)
     -               reduce using rule 12 (expression -> NAME .)
@@ -116,7 +116,7 @@ state 4
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -138,7 +138,6 @@ state 5
     (7) expression -> expression . / expression
 
     $end            reduce using rule 3 (statement -> expression .)
-    )               reduce using rule 3 (statement -> expression .)
     +               shift and go to state 15
     -               shift and go to state 16
     *               shift and go to state 17
@@ -150,7 +149,6 @@ state 6
     (2) statement -> COMMENT .
 
     $end            reduce using rule 2 (statement -> COMMENT .)
-    )               reduce using rule 2 (statement -> COMMENT .)
 
 
 state 7
@@ -166,7 +164,7 @@ state 7
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -226,10 +224,7 @@ state 12
 
 state 13
 
-    (14) expression -> NAME ( . statement )
-    (1) statement -> . PROC NAME ( expression )
-    (2) statement -> . COMMENT
-    (3) statement -> . expression
+    (14) expression -> NAME ( . expression )
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
@@ -240,11 +235,9 @@ state 13
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
-    PROC            shift and go to state 2
-    COMMENT         shift and go to state 6
     -               shift and go to state 7
     (               shift and go to state 4
     INTEGER         shift and go to state 8
@@ -253,8 +246,7 @@ state 13
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
 
-    statement                      shift and go to state 23
-    expression                     shift and go to state 5
+    expression                     shift and go to state 23
 
 state 14
 
@@ -284,7 +276,7 @@ state 15
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -310,7 +302,7 @@ state 16
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -336,7 +328,7 @@ state 17
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -362,7 +354,7 @@ state 18
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -423,7 +415,7 @@ state 22
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -438,9 +430,17 @@ state 22
 
 state 23
 
-    (14) expression -> NAME ( statement . )
+    (14) expression -> NAME ( expression . )
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
 
     )               shift and go to state 32
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
 
 
 state 24
@@ -570,14 +570,14 @@ state 31
 
 state 32
 
-    (14) expression -> NAME ( statement ) .
+    (14) expression -> NAME ( expression ) .
 
-    +               reduce using rule 14 (expression -> NAME ( statement ) .)
-    -               reduce using rule 14 (expression -> NAME ( statement ) .)
-    *               reduce using rule 14 (expression -> NAME ( statement ) .)
-    /               reduce using rule 14 (expression -> NAME ( statement ) .)
-    $end            reduce using rule 14 (expression -> NAME ( statement ) .)
-    )               reduce using rule 14 (expression -> NAME ( statement ) .)
+    +               reduce using rule 14 (expression -> NAME ( expression ) .)
+    -               reduce using rule 14 (expression -> NAME ( expression ) .)
+    *               reduce using rule 14 (expression -> NAME ( expression ) .)
+    /               reduce using rule 14 (expression -> NAME ( expression ) .)
+    $end            reduce using rule 14 (expression -> NAME ( expression ) .)
+    )               reduce using rule 14 (expression -> NAME ( expression ) .)
 
 
 state 33
@@ -593,7 +593,7 @@ state 33
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -619,7 +619,7 @@ state 34
     (11) expression -> . BOOL
     (12) expression -> . NAME
     (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( statement )
+    (14) expression -> . NAME ( expression )
     (15) expression -> . ALTER ( NAME , expression )
 
     -               shift and go to state 7
@@ -637,7 +637,6 @@ state 35
     (1) statement -> PROC NAME ( expression ) .
 
     $end            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
-    )               reduce using rule 1 (statement -> PROC NAME ( expression ) .)
 
 
 state 36

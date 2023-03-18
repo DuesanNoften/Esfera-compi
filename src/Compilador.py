@@ -24,10 +24,10 @@ def t_INTEGER(t):
     return t
 
 def t_BOOL(t):
-    r'(True||False)[.]'
-    if t.value == "True.":
+    r'(True|False)'
+    if t.value == "True":
         t.value=True
-    elif t.value == "False.":
+    elif t.value == "False":
         t.value=False
     return t
 
@@ -123,8 +123,12 @@ def p_expression_def(p):
         names[p[3]] = p[5]
 
 def p_expression_change(p):
-    'expression : NAME "(" statement ")"'
-    names[p[1]] = p[3]
+    'expression : NAME "(" expression ")"'
+    breakpoint()
+    if names[p[1]]!=None and isinstance(names[p[1]], int)^isinstance(p[3],bool):
+        names.update({p[1]:p[3]})
+    else:
+        print("El valor asignado a la variabl debe ser del mismo tipo")
 
 def p_expression_math(p):
     'expression : ALTER "(" NAME "," expression ")"'
