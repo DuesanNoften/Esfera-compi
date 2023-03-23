@@ -6,7 +6,7 @@ if sys.version_info[0] >= 3:
 
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC',   
+    'PROC', 'PRINT', 'PRINTLINE'
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
@@ -17,6 +17,10 @@ t_PROC ='Proc'
 t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
 t_NAME = r'[@][a-zA-Z0-9_#]*'
 t_ALTER = 'Alter'
+t_PRINT = r'\=>'
+t_PRINTLINE='[("][a-zA-z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[")]'
+
+
 
 def t_INTEGER(t):
     r'-?\d+'
@@ -69,11 +73,17 @@ def p_statement_proc(p):
 def p_statement_comment(p):
     'statement : COMMENT '
     
-    
+def p_statement_printline(p):
+    'statement : PRINTLINE'
 def p_statement_expr(p):
     'statement : expression'
     print(p[1])
 
+def p_statement_print(p):
+    '''
+    statement : PRINT PRINTLINE
+    '''
+    print(p[2])
 
 def p_expression_binop(p):
     '''expression : expression '+' expression
