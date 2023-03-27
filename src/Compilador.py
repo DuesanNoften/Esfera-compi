@@ -6,7 +6,8 @@ if sys.version_info[0] >= 3:
 
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC', 'PRINT', 'PRINTLINE'
+    'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
+    'RPAREN', 'BREAK', 'REPEAT'
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
@@ -19,6 +20,11 @@ t_NAME = r'[@][a-zA-Z0-9_#]*'
 t_ALTER = 'Alter'
 t_PRINT = r'\=>'
 t_PRINTLINE='[("][a-zA-z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[")]'
+t_SEMICOLON = r'\;'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_BREAK = 'break'
+t_REPEAT = 'Repeat'
 
 
 
@@ -150,6 +156,11 @@ def p_expression_math(p):
     else:
         print ("La funcion alter solo cambia el valor de las variables númericas")
 
+def p_expression_repeat(p):
+    '''
+    expression : REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+    '''
+    p[0]=(p[1],p[3])
 
 def p_error(p):
     if p:

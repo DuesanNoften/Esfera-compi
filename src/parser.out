@@ -20,6 +20,7 @@ Rule 14    expression -> NAME
 Rule 15    expression -> DEF ( NAME , expression )
 Rule 16    expression -> NAME ( expression )
 Rule 17    expression -> ALTER ( NAME , expression )
+Rule 18    expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
 Terminals, with rules where they appear
 
@@ -32,18 +33,23 @@ Terminals, with rules where they appear
 /                    : 9
 ALTER                : 17
 BOOL                 : 13
+BREAK                : 18
 COMMENT              : 2
 DEF                  : 15
 INTEGER              : 12
+LPAREN               : 18
 NAME                 : 1 14 15 16 17
 PRINT                : 5
 PRINTLINE            : 3 5
 PROC                 : 1
+REPEAT               : 18
+RPAREN               : 18
+SEMICOLON            : 18 18 18
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 4 6 6 7 7 8 8 9 9 10 11 15 16 17
+expression           : 1 4 6 6 7 7 8 8 9 9 10 11 15 16 17 18
 statement            : 0
 
 Parsing method: LALR
@@ -68,6 +74,7 @@ state 0
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     PROC            shift and go to state 2
     COMMENT         shift and go to state 6
@@ -80,6 +87,7 @@ state 0
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
     statement                      shift and go to state 1
     expression                     shift and go to state 5
@@ -94,7 +102,7 @@ state 2
 
     (1) statement -> PROC . NAME ( expression )
 
-    NAME            shift and go to state 14
+    NAME            shift and go to state 15
 
 
 state 3
@@ -108,7 +116,8 @@ state 3
     /               reduce using rule 14 (expression -> NAME .)
     $end            reduce using rule 14 (expression -> NAME .)
     )               reduce using rule 14 (expression -> NAME .)
-    (               shift and go to state 15
+    SEMICOLON       reduce using rule 14 (expression -> NAME .)
+    (               shift and go to state 16
 
 
 state 4
@@ -126,6 +135,7 @@ state 4
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -134,8 +144,9 @@ state 4
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 16
+    expression                     shift and go to state 17
 
 state 5
 
@@ -146,10 +157,10 @@ state 5
     (9) expression -> expression . / expression
 
     $end            reduce using rule 4 (statement -> expression .)
-    +               shift and go to state 17
-    -               shift and go to state 18
-    *               shift and go to state 19
-    /               shift and go to state 20
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
 
 
 state 6
@@ -170,7 +181,7 @@ state 8
 
     (5) statement -> PRINT . PRINTLINE
 
-    PRINTLINE       shift and go to state 21
+    PRINTLINE       shift and go to state 22
 
 
 state 9
@@ -188,6 +199,7 @@ state 9
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -196,8 +208,9 @@ state 9
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 22
+    expression                     shift and go to state 23
 
 state 10
 
@@ -209,6 +222,7 @@ state 10
     /               reduce using rule 12 (expression -> INTEGER .)
     $end            reduce using rule 12 (expression -> INTEGER .)
     )               reduce using rule 12 (expression -> INTEGER .)
+    SEMICOLON       reduce using rule 12 (expression -> INTEGER .)
 
 
 state 11
@@ -221,30 +235,38 @@ state 11
     /               reduce using rule 13 (expression -> BOOL .)
     $end            reduce using rule 13 (expression -> BOOL .)
     )               reduce using rule 13 (expression -> BOOL .)
+    SEMICOLON       reduce using rule 13 (expression -> BOOL .)
 
 
 state 12
 
     (15) expression -> DEF . ( NAME , expression )
 
-    (               shift and go to state 23
+    (               shift and go to state 24
 
 
 state 13
 
     (17) expression -> ALTER . ( NAME , expression )
 
-    (               shift and go to state 24
+    (               shift and go to state 25
 
 
 state 14
 
-    (1) statement -> PROC NAME . ( expression )
+    (18) expression -> REPEAT . LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
-    (               shift and go to state 25
+    LPAREN          shift and go to state 26
 
 
 state 15
+
+    (1) statement -> PROC NAME . ( expression )
+
+    (               shift and go to state 27
+
+
+state 16
 
     (16) expression -> NAME ( . expression )
     (6) expression -> . expression + expression
@@ -259,6 +281,7 @@ state 15
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -267,10 +290,11 @@ state 15
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 28
 
-state 16
+state 17
 
     (11) expression -> ( expression . )
     (6) expression -> expression . + expression
@@ -278,14 +302,14 @@ state 16
     (8) expression -> expression . * expression
     (9) expression -> expression . / expression
 
-    )               shift and go to state 27
-    +               shift and go to state 17
-    -               shift and go to state 18
-    *               shift and go to state 19
-    /               shift and go to state 20
+    )               shift and go to state 29
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
 
 
-state 17
+state 18
 
     (6) expression -> expression + . expression
     (6) expression -> . expression + expression
@@ -300,6 +324,7 @@ state 17
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -308,10 +333,11 @@ state 17
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 30
 
-state 18
+state 19
 
     (7) expression -> expression - . expression
     (6) expression -> . expression + expression
@@ -326,6 +352,7 @@ state 18
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -334,10 +361,11 @@ state 18
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 29
+    expression                     shift and go to state 31
 
-state 19
+state 20
 
     (8) expression -> expression * . expression
     (6) expression -> . expression + expression
@@ -352,6 +380,7 @@ state 19
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -360,10 +389,11 @@ state 19
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 30
+    expression                     shift and go to state 32
 
-state 20
+state 21
 
     (9) expression -> expression / . expression
     (6) expression -> . expression + expression
@@ -378,6 +408,7 @@ state 20
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -386,17 +417,18 @@ state 20
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 31
+    expression                     shift and go to state 33
 
-state 21
+state 22
 
     (5) statement -> PRINT PRINTLINE .
 
     $end            reduce using rule 5 (statement -> PRINT PRINTLINE .)
 
 
-state 22
+state 23
 
     (10) expression -> - expression .
     (6) expression -> expression . + expression
@@ -410,28 +442,57 @@ state 22
     /               reduce using rule 10 (expression -> - expression .)
     $end            reduce using rule 10 (expression -> - expression .)
     )               reduce using rule 10 (expression -> - expression .)
+    SEMICOLON       reduce using rule 10 (expression -> - expression .)
 
-  ! +               [ shift and go to state 17 ]
-  ! -               [ shift and go to state 18 ]
-  ! *               [ shift and go to state 19 ]
-  ! /               [ shift and go to state 20 ]
-
-
-state 23
-
-    (15) expression -> DEF ( . NAME , expression )
-
-    NAME            shift and go to state 32
+  ! +               [ shift and go to state 18 ]
+  ! -               [ shift and go to state 19 ]
+  ! *               [ shift and go to state 20 ]
+  ! /               [ shift and go to state 21 ]
 
 
 state 24
 
-    (17) expression -> ALTER ( . NAME , expression )
+    (15) expression -> DEF ( . NAME , expression )
 
-    NAME            shift and go to state 33
+    NAME            shift and go to state 34
 
 
 state 25
+
+    (17) expression -> ALTER ( . NAME , expression )
+
+    NAME            shift and go to state 35
+
+
+state 26
+
+    (18) expression -> REPEAT LPAREN . expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . - expression
+    (11) expression -> . ( expression )
+    (12) expression -> . INTEGER
+    (13) expression -> . BOOL
+    (14) expression -> . NAME
+    (15) expression -> . DEF ( NAME , expression )
+    (16) expression -> . NAME ( expression )
+    (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    -               shift and go to state 9
+    (               shift and go to state 4
+    INTEGER         shift and go to state 10
+    BOOL            shift and go to state 11
+    NAME            shift and go to state 3
+    DEF             shift and go to state 12
+    ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
+
+    expression                     shift and go to state 36
+
+state 27
 
     (1) statement -> PROC NAME ( . expression )
     (6) expression -> . expression + expression
@@ -446,6 +507,7 @@ state 25
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -454,10 +516,11 @@ state 25
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 34
+    expression                     shift and go to state 37
 
-state 26
+state 28
 
     (16) expression -> NAME ( expression . )
     (6) expression -> expression . + expression
@@ -465,14 +528,14 @@ state 26
     (8) expression -> expression . * expression
     (9) expression -> expression . / expression
 
-    )               shift and go to state 35
-    +               shift and go to state 17
-    -               shift and go to state 18
-    *               shift and go to state 19
-    /               shift and go to state 20
+    )               shift and go to state 38
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
 
 
-state 27
+state 29
 
     (11) expression -> ( expression ) .
 
@@ -482,9 +545,10 @@ state 27
     /               reduce using rule 11 (expression -> ( expression ) .)
     $end            reduce using rule 11 (expression -> ( expression ) .)
     )               reduce using rule 11 (expression -> ( expression ) .)
+    SEMICOLON       reduce using rule 11 (expression -> ( expression ) .)
 
 
-state 28
+state 30
 
     (6) expression -> expression + expression .
     (6) expression -> expression . + expression
@@ -496,16 +560,17 @@ state 28
     -               reduce using rule 6 (expression -> expression + expression .)
     $end            reduce using rule 6 (expression -> expression + expression .)
     )               reduce using rule 6 (expression -> expression + expression .)
-    *               shift and go to state 19
-    /               shift and go to state 20
+    SEMICOLON       reduce using rule 6 (expression -> expression + expression .)
+    *               shift and go to state 20
+    /               shift and go to state 21
 
   ! *               [ reduce using rule 6 (expression -> expression + expression .) ]
   ! /               [ reduce using rule 6 (expression -> expression + expression .) ]
-  ! +               [ shift and go to state 17 ]
-  ! -               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 18 ]
+  ! -               [ shift and go to state 19 ]
 
 
-state 29
+state 31
 
     (7) expression -> expression - expression .
     (6) expression -> expression . + expression
@@ -517,16 +582,17 @@ state 29
     -               reduce using rule 7 (expression -> expression - expression .)
     $end            reduce using rule 7 (expression -> expression - expression .)
     )               reduce using rule 7 (expression -> expression - expression .)
-    *               shift and go to state 19
-    /               shift and go to state 20
+    SEMICOLON       reduce using rule 7 (expression -> expression - expression .)
+    *               shift and go to state 20
+    /               shift and go to state 21
 
   ! *               [ reduce using rule 7 (expression -> expression - expression .) ]
   ! /               [ reduce using rule 7 (expression -> expression - expression .) ]
-  ! +               [ shift and go to state 17 ]
-  ! -               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 18 ]
+  ! -               [ shift and go to state 19 ]
 
 
-state 30
+state 32
 
     (8) expression -> expression * expression .
     (6) expression -> expression . + expression
@@ -540,14 +606,15 @@ state 30
     /               reduce using rule 8 (expression -> expression * expression .)
     $end            reduce using rule 8 (expression -> expression * expression .)
     )               reduce using rule 8 (expression -> expression * expression .)
+    SEMICOLON       reduce using rule 8 (expression -> expression * expression .)
 
-  ! +               [ shift and go to state 17 ]
-  ! -               [ shift and go to state 18 ]
-  ! *               [ shift and go to state 19 ]
-  ! /               [ shift and go to state 20 ]
+  ! +               [ shift and go to state 18 ]
+  ! -               [ shift and go to state 19 ]
+  ! *               [ shift and go to state 20 ]
+  ! /               [ shift and go to state 21 ]
 
 
-state 31
+state 33
 
     (9) expression -> expression / expression .
     (6) expression -> expression . + expression
@@ -561,28 +628,44 @@ state 31
     /               reduce using rule 9 (expression -> expression / expression .)
     $end            reduce using rule 9 (expression -> expression / expression .)
     )               reduce using rule 9 (expression -> expression / expression .)
+    SEMICOLON       reduce using rule 9 (expression -> expression / expression .)
 
-  ! +               [ shift and go to state 17 ]
-  ! -               [ shift and go to state 18 ]
-  ! *               [ shift and go to state 19 ]
-  ! /               [ shift and go to state 20 ]
-
-
-state 32
-
-    (15) expression -> DEF ( NAME . , expression )
-
-    ,               shift and go to state 36
-
-
-state 33
-
-    (17) expression -> ALTER ( NAME . , expression )
-
-    ,               shift and go to state 37
+  ! +               [ shift and go to state 18 ]
+  ! -               [ shift and go to state 19 ]
+  ! *               [ shift and go to state 20 ]
+  ! /               [ shift and go to state 21 ]
 
 
 state 34
+
+    (15) expression -> DEF ( NAME . , expression )
+
+    ,               shift and go to state 39
+
+
+state 35
+
+    (17) expression -> ALTER ( NAME . , expression )
+
+    ,               shift and go to state 40
+
+
+state 36
+
+    (18) expression -> REPEAT LPAREN expression . SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+
+    SEMICOLON       shift and go to state 41
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
+
+
+state 37
 
     (1) statement -> PROC NAME ( expression . )
     (6) expression -> expression . + expression
@@ -590,14 +673,14 @@ state 34
     (8) expression -> expression . * expression
     (9) expression -> expression . / expression
 
-    )               shift and go to state 38
-    +               shift and go to state 17
-    -               shift and go to state 18
-    *               shift and go to state 19
-    /               shift and go to state 20
+    )               shift and go to state 42
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
 
 
-state 35
+state 38
 
     (16) expression -> NAME ( expression ) .
 
@@ -607,9 +690,10 @@ state 35
     /               reduce using rule 16 (expression -> NAME ( expression ) .)
     $end            reduce using rule 16 (expression -> NAME ( expression ) .)
     )               reduce using rule 16 (expression -> NAME ( expression ) .)
+    SEMICOLON       reduce using rule 16 (expression -> NAME ( expression ) .)
 
 
-state 36
+state 39
 
     (15) expression -> DEF ( NAME , . expression )
     (6) expression -> . expression + expression
@@ -624,6 +708,7 @@ state 36
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -632,10 +717,11 @@ state 36
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 39
+    expression                     shift and go to state 43
 
-state 37
+state 40
 
     (17) expression -> ALTER ( NAME , . expression )
     (6) expression -> . expression + expression
@@ -650,6 +736,7 @@ state 37
     (15) expression -> . DEF ( NAME , expression )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 
     -               shift and go to state 9
     (               shift and go to state 4
@@ -658,17 +745,25 @@ state 37
     NAME            shift and go to state 3
     DEF             shift and go to state 12
     ALTER           shift and go to state 13
+    REPEAT          shift and go to state 14
 
-    expression                     shift and go to state 40
+    expression                     shift and go to state 44
 
-state 38
+state 41
+
+    (18) expression -> REPEAT LPAREN expression SEMICOLON . BREAK SEMICOLON RPAREN SEMICOLON
+
+    BREAK           shift and go to state 45
+
+
+state 42
 
     (1) statement -> PROC NAME ( expression ) .
 
     $end            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
 
 
-state 39
+state 43
 
     (15) expression -> DEF ( NAME , expression . )
     (6) expression -> expression . + expression
@@ -676,14 +771,14 @@ state 39
     (8) expression -> expression . * expression
     (9) expression -> expression . / expression
 
-    )               shift and go to state 41
-    +               shift and go to state 17
-    -               shift and go to state 18
-    *               shift and go to state 19
-    /               shift and go to state 20
+    )               shift and go to state 46
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
 
 
-state 40
+state 44
 
     (17) expression -> ALTER ( NAME , expression . )
     (6) expression -> expression . + expression
@@ -691,14 +786,21 @@ state 40
     (8) expression -> expression . * expression
     (9) expression -> expression . / expression
 
-    )               shift and go to state 42
-    +               shift and go to state 17
-    -               shift and go to state 18
-    *               shift and go to state 19
-    /               shift and go to state 20
+    )               shift and go to state 47
+    +               shift and go to state 18
+    -               shift and go to state 19
+    *               shift and go to state 20
+    /               shift and go to state 21
 
 
-state 41
+state 45
+
+    (18) expression -> REPEAT LPAREN expression SEMICOLON BREAK . SEMICOLON RPAREN SEMICOLON
+
+    SEMICOLON       shift and go to state 48
+
+
+state 46
 
     (15) expression -> DEF ( NAME , expression ) .
 
@@ -708,9 +810,10 @@ state 41
     /               reduce using rule 15 (expression -> DEF ( NAME , expression ) .)
     $end            reduce using rule 15 (expression -> DEF ( NAME , expression ) .)
     )               reduce using rule 15 (expression -> DEF ( NAME , expression ) .)
+    SEMICOLON       reduce using rule 15 (expression -> DEF ( NAME , expression ) .)
 
 
-state 42
+state 47
 
     (17) expression -> ALTER ( NAME , expression ) .
 
@@ -720,4 +823,32 @@ state 42
     /               reduce using rule 17 (expression -> ALTER ( NAME , expression ) .)
     $end            reduce using rule 17 (expression -> ALTER ( NAME , expression ) .)
     )               reduce using rule 17 (expression -> ALTER ( NAME , expression ) .)
+    SEMICOLON       reduce using rule 17 (expression -> ALTER ( NAME , expression ) .)
+
+
+state 48
+
+    (18) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 49
+
+
+state 49
+
+    (18) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 50
+
+
+state 50
+
+    (18) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .
+
+    +               reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    -               reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    *               reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    /               reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    $end            reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    )               reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    SEMICOLON       reduce using rule 18 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
 
