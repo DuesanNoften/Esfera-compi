@@ -2,13 +2,17 @@ import ply.yacc as yacc
 import os
 import codecs
 import re
-import Lexer
+from Lexer import tokens
+
+precedence = (
+    ('left', '+', '-'),
+    ('left', '*', '/'),
+    ('right', 'UMINUS'),
+)
 
 run_flag = True
 pars = []
 errors = []
-
-start = 'Body'
 names = {}
 procs = {}
 
@@ -117,16 +121,12 @@ def p_error(p):
     else:
         print("Syntax error at EOF")
 
-
-def p_error(p):
-    print("Syntax Error")
-
 def readFile(dir):
     fp = codecs.open(dir, "r", "utf-8")
     cadena = fp.read()
-    parser = yacc.yacc()
+    Parser = yacc.yacc()
     fp.close()
-    par = parser.parse(cadena)
+    par = Parser.parse(cadena)
     print(str(par))
     print(pars)
     return errors
