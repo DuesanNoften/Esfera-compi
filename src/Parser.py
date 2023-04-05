@@ -1,65 +1,8 @@
-import sys
-sys.path.insert(0, "../..")
-
-if sys.version_info[0] >= 3:
-    raw_input = input
-
-tokens = [
-    'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
-    'RPAREN', 'BREAK', 'REPEAT'
-]
-
-pars =[]
-
-literals = ['=', '+', '-', '*', '/', '(', ')', ',']
-
-# Tokens
-t_DEF = 'Def'
-t_PROC ='Proc'
-t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
-t_NAME = r'[@][a-zA-Z0-9_#]*'
-t_ALTER = 'Alter'
-t_PRINT = r'\=>'
-t_PRINTLINE='[("][a-zA-z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[")]'
-t_SEMICOLON = r'\;'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_BREAK = 'break'
-t_REPEAT = 'Repeat'
-
-
-
-def t_INTEGER(t):
-    r'-?\d+'
-    t.value = int(t.value)
-    return t
-
-def t_BOOL(t):
-    r'(True|False)'
-    if t.value == "True":
-        t.value=True
-    elif t.value == "False":
-        t.value=False
-    return t
-
-t_ignore = " \t"
-
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
-
-
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
-
-# Build the lexer
-import ply.lex as lex
-lex.lex()
-
-# Parsing rules
+import ply.yacc as yacc
+import os
+import codecs
+import re
+from Lexer import tokens
 
 precedence = (
     ('left', '+', '-'),
@@ -67,9 +10,20 @@ precedence = (
     ('right', 'UMINUS'),
 )
 
-# dictionary of names
+run_flag = True
+pars = []
+errors = []
 names = {}
 procs = {}
+
+def p_symbols(p):
+    '''
+    symbol : Name
+           | Integer
+           | Repeat
+
+    '''
+    p[0] = p[1]
 
 def p_statement_proc(p):
     'statement : PROC NAME "(" expression ")"'
@@ -80,9 +34,10 @@ def p_statement_proc(p):
 
 def p_statement_comment(p):
     'statement : COMMENT '
-    
+
 def p_statement_printline(p):
     'statement : PRINTLINE'
+
 def p_statement_expr(p):
     'statement : expression'
     print(p[1])
@@ -107,16 +62,13 @@ def p_expression_binop(p):
     elif p[2] == '/':
         p[0] = p[1] / p[3]
 
-
 def p_expression_uminus(p):
     "expression : '-' expression %prec UMINUS"
     p[0] = -p[2]
 
-
 def p_expression_group(p):
     "expression : '(' expression ')'"
     p[0] = p[2]
-
 
 def p_expression_integer(p):
     "expression : INTEGER"
@@ -125,7 +77,6 @@ def p_expression_integer(p):
 def p_expression_bool(p):
     "expression : BOOL"
     p[0] = p[1]
-
 
 def p_expression_name(p):
     "expression : NAME"
@@ -170,14 +121,16 @@ def p_error(p):
     else:
         print("Syntax error at EOF")
 
-import ply.yacc as yacc
-yacc.yacc()
+def readFile(dir):
+    fp = codecs.open(dir, "r", "utf-8")
+    cadena = fp.read()
+    Parser = yacc.yacc()
+    fp.close()
+    par = Parser.parse(cadena)
+    print(str(par))
+    print(pars)
+    return errors
 
-while 1:
-    try:
-        s = raw_input('Esfera-Compi > ')
-    except EOFError:
-        break
-    if not s:
-        continue
-    yacc.parse(s)
+def clearpars():
+    errors.clear()
+    pars.clear()
