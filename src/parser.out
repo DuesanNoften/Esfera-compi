@@ -10,36 +10,50 @@ Rule 4     expression -> expression + expression
 Rule 5     expression -> expression - expression
 Rule 6     expression -> expression * expression
 Rule 7     expression -> expression / expression
-Rule 8     expression -> - expression
-Rule 9     expression -> ( expression )
-Rule 10    expression -> INTEGER
-Rule 11    expression -> BOOL
-Rule 12    expression -> NAME
-Rule 13    expression -> DEF ( NAME , expression )
-Rule 14    expression -> NAME ( expression )
-Rule 15    expression -> ALTER ( NAME , expression )
+Rule 8     expression -> expression < expression
+Rule 9     expression -> expression > expression
+Rule 10    expression -> expression LTE expression
+Rule 11    expression -> expression GTE expression
+Rule 12    expression -> expression NE expression
+Rule 13    expression -> expression EQUAL expression
+Rule 14    expression -> ISTRUE ( expression )
+Rule 15    expression -> - expression
+Rule 16    expression -> ( expression )
+Rule 17    expression -> INTEGER
+Rule 18    expression -> BOOL
+Rule 19    expression -> NAME
+Rule 20    expression -> DEF ( NAME , expression )
+Rule 21    expression -> NAME ( expression )
+Rule 22    expression -> ALTER ( NAME , expression )
 
 Terminals, with rules where they appear
 
-(                    : 1 9 13 14 15
-)                    : 1 9 13 14 15
+(                    : 1 14 16 20 21 22
+)                    : 1 14 16 20 21 22
 *                    : 6
 +                    : 4
-,                    : 13 15
--                    : 5 8
+,                    : 20 22
+-                    : 5 15
 /                    : 7
-ALTER                : 15
-BOOL                 : 11
+<                    : 8
+>                    : 9
+ALTER                : 22
+BOOL                 : 18
 COMMENT              : 2
-DEF                  : 13
-INTEGER              : 10
-NAME                 : 1 12 13 14 15
+DEF                  : 20
+EQUAL                : 13
+GTE                  : 11
+INTEGER              : 17
+ISTRUE               : 14
+LTE                  : 10
+NAME                 : 1 19 20 21 22
+NE                   : 12
 PROC                 : 1
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 3 4 4 5 5 6 6 7 7 8 9 13 14 15
+expression           : 1 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 15 16 20 21 22
 statement            : 0
 
 Parsing method: LALR
@@ -54,24 +68,32 @@ state 0
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
     PROC            shift and go to state 2
     COMMENT         shift and go to state 6
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
     statement                      shift and go to state 1
     expression                     shift and go to state 5
@@ -86,48 +108,62 @@ state 2
 
     (1) statement -> PROC . NAME ( expression )
 
-    NAME            shift and go to state 12
+    NAME            shift and go to state 13
 
 
 state 3
 
-    (12) expression -> NAME .
-    (14) expression -> NAME . ( expression )
+    (19) expression -> NAME .
+    (21) expression -> NAME . ( expression )
 
-    +               reduce using rule 12 (expression -> NAME .)
-    -               reduce using rule 12 (expression -> NAME .)
-    *               reduce using rule 12 (expression -> NAME .)
-    /               reduce using rule 12 (expression -> NAME .)
-    $end            reduce using rule 12 (expression -> NAME .)
-    )               reduce using rule 12 (expression -> NAME .)
-    (               shift and go to state 13
+    +               reduce using rule 19 (expression -> NAME .)
+    -               reduce using rule 19 (expression -> NAME .)
+    *               reduce using rule 19 (expression -> NAME .)
+    /               reduce using rule 19 (expression -> NAME .)
+    <               reduce using rule 19 (expression -> NAME .)
+    >               reduce using rule 19 (expression -> NAME .)
+    LTE             reduce using rule 19 (expression -> NAME .)
+    GTE             reduce using rule 19 (expression -> NAME .)
+    NE              reduce using rule 19 (expression -> NAME .)
+    EQUAL           reduce using rule 19 (expression -> NAME .)
+    $end            reduce using rule 19 (expression -> NAME .)
+    )               reduce using rule 19 (expression -> NAME .)
+    (               shift and go to state 14
 
 
 state 4
 
-    (9) expression -> ( . expression )
+    (16) expression -> ( . expression )
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 15
 
 state 5
 
@@ -136,12 +172,24 @@ state 5
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
     $end            reduce using rule 3 (statement -> expression .)
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
 
 
 state 6
@@ -153,542 +201,1447 @@ state 6
 
 state 7
 
-    (8) expression -> - . expression
+    (15) expression -> - . expression
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 26
 
 state 8
 
-    (10) expression -> INTEGER .
+    (14) expression -> ISTRUE . ( expression )
 
-    +               reduce using rule 10 (expression -> INTEGER .)
-    -               reduce using rule 10 (expression -> INTEGER .)
-    *               reduce using rule 10 (expression -> INTEGER .)
-    /               reduce using rule 10 (expression -> INTEGER .)
-    $end            reduce using rule 10 (expression -> INTEGER .)
-    )               reduce using rule 10 (expression -> INTEGER .)
+    (               shift and go to state 27
 
 
 state 9
 
-    (11) expression -> BOOL .
+    (17) expression -> INTEGER .
 
-    +               reduce using rule 11 (expression -> BOOL .)
-    -               reduce using rule 11 (expression -> BOOL .)
-    *               reduce using rule 11 (expression -> BOOL .)
-    /               reduce using rule 11 (expression -> BOOL .)
-    $end            reduce using rule 11 (expression -> BOOL .)
-    )               reduce using rule 11 (expression -> BOOL .)
+    +               reduce using rule 17 (expression -> INTEGER .)
+    -               reduce using rule 17 (expression -> INTEGER .)
+    *               reduce using rule 17 (expression -> INTEGER .)
+    /               reduce using rule 17 (expression -> INTEGER .)
+    <               reduce using rule 17 (expression -> INTEGER .)
+    >               reduce using rule 17 (expression -> INTEGER .)
+    LTE             reduce using rule 17 (expression -> INTEGER .)
+    GTE             reduce using rule 17 (expression -> INTEGER .)
+    NE              reduce using rule 17 (expression -> INTEGER .)
+    EQUAL           reduce using rule 17 (expression -> INTEGER .)
+    $end            reduce using rule 17 (expression -> INTEGER .)
+    )               reduce using rule 17 (expression -> INTEGER .)
 
 
 state 10
 
-    (13) expression -> DEF . ( NAME , expression )
+    (18) expression -> BOOL .
 
-    (               shift and go to state 20
+    +               reduce using rule 18 (expression -> BOOL .)
+    -               reduce using rule 18 (expression -> BOOL .)
+    *               reduce using rule 18 (expression -> BOOL .)
+    /               reduce using rule 18 (expression -> BOOL .)
+    <               reduce using rule 18 (expression -> BOOL .)
+    >               reduce using rule 18 (expression -> BOOL .)
+    LTE             reduce using rule 18 (expression -> BOOL .)
+    GTE             reduce using rule 18 (expression -> BOOL .)
+    NE              reduce using rule 18 (expression -> BOOL .)
+    EQUAL           reduce using rule 18 (expression -> BOOL .)
+    $end            reduce using rule 18 (expression -> BOOL .)
+    )               reduce using rule 18 (expression -> BOOL .)
 
 
 state 11
 
-    (15) expression -> ALTER . ( NAME , expression )
+    (20) expression -> DEF . ( NAME , expression )
 
-    (               shift and go to state 21
+    (               shift and go to state 28
 
 
 state 12
 
-    (1) statement -> PROC NAME . ( expression )
+    (22) expression -> ALTER . ( NAME , expression )
 
-    (               shift and go to state 22
+    (               shift and go to state 29
 
 
 state 13
 
-    (14) expression -> NAME ( . expression )
+    (1) statement -> PROC NAME . ( expression )
+
+    (               shift and go to state 30
+
+
+state 14
+
+    (21) expression -> NAME ( . expression )
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 23
+    expression                     shift and go to state 31
 
-state 14
+state 15
 
-    (9) expression -> ( expression . )
+    (16) expression -> ( expression . )
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    )               shift and go to state 24
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 32
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
 
 
-state 15
+state 16
 
     (4) expression -> expression + . expression
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 25
+    expression                     shift and go to state 33
 
-state 16
+state 17
 
     (5) expression -> expression - . expression
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 34
 
-state 17
+state 18
 
     (6) expression -> expression * . expression
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 27
+    expression                     shift and go to state 35
 
-state 18
+state 19
 
     (7) expression -> expression / . expression
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 36
 
-state 19
+state 20
 
-    (8) expression -> - expression .
+    (8) expression -> expression < . expression
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 37
+
+state 21
+
+    (9) expression -> expression > . expression
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 38
+
+state 22
+
+    (10) expression -> expression LTE . expression
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 39
+
+state 23
+
+    (11) expression -> expression GTE . expression
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 40
+
+state 24
+
+    (12) expression -> expression NE . expression
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 41
+
+state 25
+
+    (13) expression -> expression EQUAL . expression
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 42
+
+state 26
+
+    (15) expression -> - expression .
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    +               reduce using rule 8 (expression -> - expression .)
-    -               reduce using rule 8 (expression -> - expression .)
-    *               reduce using rule 8 (expression -> - expression .)
-    /               reduce using rule 8 (expression -> - expression .)
-    $end            reduce using rule 8 (expression -> - expression .)
-    )               reduce using rule 8 (expression -> - expression .)
+    +               reduce using rule 15 (expression -> - expression .)
+    -               reduce using rule 15 (expression -> - expression .)
+    *               reduce using rule 15 (expression -> - expression .)
+    /               reduce using rule 15 (expression -> - expression .)
+    <               reduce using rule 15 (expression -> - expression .)
+    >               reduce using rule 15 (expression -> - expression .)
+    LTE             reduce using rule 15 (expression -> - expression .)
+    GTE             reduce using rule 15 (expression -> - expression .)
+    NE              reduce using rule 15 (expression -> - expression .)
+    EQUAL           reduce using rule 15 (expression -> - expression .)
+    $end            reduce using rule 15 (expression -> - expression .)
+    )               reduce using rule 15 (expression -> - expression .)
 
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
-  ! *               [ shift and go to state 17 ]
-  ! /               [ shift and go to state 18 ]
-
-
-state 20
-
-    (13) expression -> DEF ( . NAME , expression )
-
-    NAME            shift and go to state 29
-
-
-state 21
-
-    (15) expression -> ALTER ( . NAME , expression )
-
-    NAME            shift and go to state 30
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! *               [ shift and go to state 18 ]
+  ! /               [ shift and go to state 19 ]
+  ! <               [ shift and go to state 20 ]
+  ! >               [ shift and go to state 21 ]
+  ! LTE             [ shift and go to state 22 ]
+  ! GTE             [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
 
 
-state 22
+state 27
+
+    (14) expression -> ISTRUE ( . expression )
+    (4) expression -> . expression + expression
+    (5) expression -> . expression - expression
+    (6) expression -> . expression * expression
+    (7) expression -> . expression / expression
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
+
+    ISTRUE          shift and go to state 8
+    -               shift and go to state 7
+    (               shift and go to state 4
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
+    NAME            shift and go to state 3
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
+
+    expression                     shift and go to state 43
+
+state 28
+
+    (20) expression -> DEF ( . NAME , expression )
+
+    NAME            shift and go to state 44
+
+
+state 29
+
+    (22) expression -> ALTER ( . NAME , expression )
+
+    NAME            shift and go to state 45
+
+
+state 30
 
     (1) statement -> PROC NAME ( . expression )
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 31
+    expression                     shift and go to state 46
 
-state 23
+state 31
 
-    (14) expression -> NAME ( expression . )
+    (21) expression -> NAME ( expression . )
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    )               shift and go to state 32
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 47
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
 
 
-state 24
+state 32
 
-    (9) expression -> ( expression ) .
+    (16) expression -> ( expression ) .
 
-    +               reduce using rule 9 (expression -> ( expression ) .)
-    -               reduce using rule 9 (expression -> ( expression ) .)
-    *               reduce using rule 9 (expression -> ( expression ) .)
-    /               reduce using rule 9 (expression -> ( expression ) .)
-    $end            reduce using rule 9 (expression -> ( expression ) .)
-    )               reduce using rule 9 (expression -> ( expression ) .)
+    +               reduce using rule 16 (expression -> ( expression ) .)
+    -               reduce using rule 16 (expression -> ( expression ) .)
+    *               reduce using rule 16 (expression -> ( expression ) .)
+    /               reduce using rule 16 (expression -> ( expression ) .)
+    <               reduce using rule 16 (expression -> ( expression ) .)
+    >               reduce using rule 16 (expression -> ( expression ) .)
+    LTE             reduce using rule 16 (expression -> ( expression ) .)
+    GTE             reduce using rule 16 (expression -> ( expression ) .)
+    NE              reduce using rule 16 (expression -> ( expression ) .)
+    EQUAL           reduce using rule 16 (expression -> ( expression ) .)
+    $end            reduce using rule 16 (expression -> ( expression ) .)
+    )               reduce using rule 16 (expression -> ( expression ) .)
 
 
-state 25
+state 33
 
     (4) expression -> expression + expression .
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
     +               reduce using rule 4 (expression -> expression + expression .)
     -               reduce using rule 4 (expression -> expression + expression .)
+    <               reduce using rule 4 (expression -> expression + expression .)
+    >               reduce using rule 4 (expression -> expression + expression .)
+    LTE             reduce using rule 4 (expression -> expression + expression .)
+    GTE             reduce using rule 4 (expression -> expression + expression .)
+    NE              reduce using rule 4 (expression -> expression + expression .)
+    EQUAL           reduce using rule 4 (expression -> expression + expression .)
     $end            reduce using rule 4 (expression -> expression + expression .)
     )               reduce using rule 4 (expression -> expression + expression .)
-    *               shift and go to state 17
-    /               shift and go to state 18
+    *               shift and go to state 18
+    /               shift and go to state 19
 
   ! *               [ reduce using rule 4 (expression -> expression + expression .) ]
   ! /               [ reduce using rule 4 (expression -> expression + expression .) ]
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! <               [ shift and go to state 20 ]
+  ! >               [ shift and go to state 21 ]
+  ! LTE             [ shift and go to state 22 ]
+  ! GTE             [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
 
 
-state 26
+state 34
 
     (5) expression -> expression - expression .
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
     +               reduce using rule 5 (expression -> expression - expression .)
     -               reduce using rule 5 (expression -> expression - expression .)
+    <               reduce using rule 5 (expression -> expression - expression .)
+    >               reduce using rule 5 (expression -> expression - expression .)
+    LTE             reduce using rule 5 (expression -> expression - expression .)
+    GTE             reduce using rule 5 (expression -> expression - expression .)
+    NE              reduce using rule 5 (expression -> expression - expression .)
+    EQUAL           reduce using rule 5 (expression -> expression - expression .)
     $end            reduce using rule 5 (expression -> expression - expression .)
     )               reduce using rule 5 (expression -> expression - expression .)
-    *               shift and go to state 17
-    /               shift and go to state 18
+    *               shift and go to state 18
+    /               shift and go to state 19
 
   ! *               [ reduce using rule 5 (expression -> expression - expression .) ]
   ! /               [ reduce using rule 5 (expression -> expression - expression .) ]
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! <               [ shift and go to state 20 ]
+  ! >               [ shift and go to state 21 ]
+  ! LTE             [ shift and go to state 22 ]
+  ! GTE             [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
 
 
-state 27
+state 35
 
     (6) expression -> expression * expression .
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
     +               reduce using rule 6 (expression -> expression * expression .)
     -               reduce using rule 6 (expression -> expression * expression .)
     *               reduce using rule 6 (expression -> expression * expression .)
     /               reduce using rule 6 (expression -> expression * expression .)
+    <               reduce using rule 6 (expression -> expression * expression .)
+    >               reduce using rule 6 (expression -> expression * expression .)
+    LTE             reduce using rule 6 (expression -> expression * expression .)
+    GTE             reduce using rule 6 (expression -> expression * expression .)
+    NE              reduce using rule 6 (expression -> expression * expression .)
+    EQUAL           reduce using rule 6 (expression -> expression * expression .)
     $end            reduce using rule 6 (expression -> expression * expression .)
     )               reduce using rule 6 (expression -> expression * expression .)
 
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
-  ! *               [ shift and go to state 17 ]
-  ! /               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! *               [ shift and go to state 18 ]
+  ! /               [ shift and go to state 19 ]
+  ! <               [ shift and go to state 20 ]
+  ! >               [ shift and go to state 21 ]
+  ! LTE             [ shift and go to state 22 ]
+  ! GTE             [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
 
 
-state 28
+state 36
 
     (7) expression -> expression / expression .
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
     +               reduce using rule 7 (expression -> expression / expression .)
     -               reduce using rule 7 (expression -> expression / expression .)
     *               reduce using rule 7 (expression -> expression / expression .)
     /               reduce using rule 7 (expression -> expression / expression .)
+    <               reduce using rule 7 (expression -> expression / expression .)
+    >               reduce using rule 7 (expression -> expression / expression .)
+    LTE             reduce using rule 7 (expression -> expression / expression .)
+    GTE             reduce using rule 7 (expression -> expression / expression .)
+    NE              reduce using rule 7 (expression -> expression / expression .)
+    EQUAL           reduce using rule 7 (expression -> expression / expression .)
     $end            reduce using rule 7 (expression -> expression / expression .)
     )               reduce using rule 7 (expression -> expression / expression .)
 
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
-  ! *               [ shift and go to state 17 ]
-  ! /               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! *               [ shift and go to state 18 ]
+  ! /               [ shift and go to state 19 ]
+  ! <               [ shift and go to state 20 ]
+  ! >               [ shift and go to state 21 ]
+  ! LTE             [ shift and go to state 22 ]
+  ! GTE             [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! EQUAL           [ shift and go to state 25 ]
 
 
-state 29
+state 37
 
-    (13) expression -> DEF ( NAME . , expression )
+    (8) expression -> expression < expression .
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    ,               shift and go to state 33
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for < resolved as shift
+  ! shift/reduce conflict for > resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    $end            reduce using rule 8 (expression -> expression < expression .)
+    )               reduce using rule 8 (expression -> expression < expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+  ! +               [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! -               [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! *               [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! /               [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! <               [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! >               [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! LTE             [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! GTE             [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! NE              [ reduce using rule 8 (expression -> expression < expression .) ]
+  ! EQUAL           [ reduce using rule 8 (expression -> expression < expression .) ]
 
 
-state 30
+state 38
 
-    (15) expression -> ALTER ( NAME . , expression )
+    (9) expression -> expression > expression .
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    ,               shift and go to state 34
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for < resolved as shift
+  ! shift/reduce conflict for > resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    $end            reduce using rule 9 (expression -> expression > expression .)
+    )               reduce using rule 9 (expression -> expression > expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+  ! +               [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! -               [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! *               [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! /               [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! <               [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! >               [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! LTE             [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! GTE             [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! NE              [ reduce using rule 9 (expression -> expression > expression .) ]
+  ! EQUAL           [ reduce using rule 9 (expression -> expression > expression .) ]
 
 
-state 31
+state 39
+
+    (10) expression -> expression LTE expression .
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for < resolved as shift
+  ! shift/reduce conflict for > resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    $end            reduce using rule 10 (expression -> expression LTE expression .)
+    )               reduce using rule 10 (expression -> expression LTE expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+  ! +               [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! -               [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! *               [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! /               [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! <               [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! >               [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! LTE             [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! GTE             [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! NE              [ reduce using rule 10 (expression -> expression LTE expression .) ]
+  ! EQUAL           [ reduce using rule 10 (expression -> expression LTE expression .) ]
+
+
+state 40
+
+    (11) expression -> expression GTE expression .
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for < resolved as shift
+  ! shift/reduce conflict for > resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    $end            reduce using rule 11 (expression -> expression GTE expression .)
+    )               reduce using rule 11 (expression -> expression GTE expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+  ! +               [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! -               [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! *               [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! /               [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! <               [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! >               [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! LTE             [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! GTE             [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! NE              [ reduce using rule 11 (expression -> expression GTE expression .) ]
+  ! EQUAL           [ reduce using rule 11 (expression -> expression GTE expression .) ]
+
+
+state 41
+
+    (12) expression -> expression NE expression .
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for < resolved as shift
+  ! shift/reduce conflict for > resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    $end            reduce using rule 12 (expression -> expression NE expression .)
+    )               reduce using rule 12 (expression -> expression NE expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+  ! +               [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! -               [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! *               [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! /               [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! <               [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! >               [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! LTE             [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! GTE             [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! NE              [ reduce using rule 12 (expression -> expression NE expression .) ]
+  ! EQUAL           [ reduce using rule 12 (expression -> expression NE expression .) ]
+
+
+state 42
+
+    (13) expression -> expression EQUAL expression .
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for < resolved as shift
+  ! shift/reduce conflict for > resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    $end            reduce using rule 13 (expression -> expression EQUAL expression .)
+    )               reduce using rule 13 (expression -> expression EQUAL expression .)
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+  ! +               [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! -               [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! *               [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! /               [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! <               [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! >               [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! LTE             [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! GTE             [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! NE              [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+  ! EQUAL           [ reduce using rule 13 (expression -> expression EQUAL expression .) ]
+
+
+state 43
+
+    (14) expression -> ISTRUE ( expression . )
+    (4) expression -> expression . + expression
+    (5) expression -> expression . - expression
+    (6) expression -> expression . * expression
+    (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
+
+    )               shift and go to state 48
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
+
+
+state 44
+
+    (20) expression -> DEF ( NAME . , expression )
+
+    ,               shift and go to state 49
+
+
+state 45
+
+    (22) expression -> ALTER ( NAME . , expression )
+
+    ,               shift and go to state 50
+
+
+state 46
 
     (1) statement -> PROC NAME ( expression . )
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    )               shift and go to state 35
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 51
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
 
 
-state 32
+state 47
 
-    (14) expression -> NAME ( expression ) .
+    (21) expression -> NAME ( expression ) .
 
-    +               reduce using rule 14 (expression -> NAME ( expression ) .)
-    -               reduce using rule 14 (expression -> NAME ( expression ) .)
-    *               reduce using rule 14 (expression -> NAME ( expression ) .)
-    /               reduce using rule 14 (expression -> NAME ( expression ) .)
-    $end            reduce using rule 14 (expression -> NAME ( expression ) .)
-    )               reduce using rule 14 (expression -> NAME ( expression ) .)
+    +               reduce using rule 21 (expression -> NAME ( expression ) .)
+    -               reduce using rule 21 (expression -> NAME ( expression ) .)
+    *               reduce using rule 21 (expression -> NAME ( expression ) .)
+    /               reduce using rule 21 (expression -> NAME ( expression ) .)
+    <               reduce using rule 21 (expression -> NAME ( expression ) .)
+    >               reduce using rule 21 (expression -> NAME ( expression ) .)
+    LTE             reduce using rule 21 (expression -> NAME ( expression ) .)
+    GTE             reduce using rule 21 (expression -> NAME ( expression ) .)
+    NE              reduce using rule 21 (expression -> NAME ( expression ) .)
+    EQUAL           reduce using rule 21 (expression -> NAME ( expression ) .)
+    $end            reduce using rule 21 (expression -> NAME ( expression ) .)
+    )               reduce using rule 21 (expression -> NAME ( expression ) .)
 
 
-state 33
+state 48
 
-    (13) expression -> DEF ( NAME , . expression )
+    (14) expression -> ISTRUE ( expression ) .
+
+    +               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    -               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    *               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    /               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    <               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    >               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    LTE             reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    GTE             reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    NE              reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    EQUAL           reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    $end            reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+    )               reduce using rule 14 (expression -> ISTRUE ( expression ) .)
+
+
+state 49
+
+    (20) expression -> DEF ( NAME , . expression )
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 36
+    expression                     shift and go to state 52
 
-state 34
+state 50
 
-    (15) expression -> ALTER ( NAME , . expression )
+    (22) expression -> ALTER ( NAME , . expression )
     (4) expression -> . expression + expression
     (5) expression -> . expression - expression
     (6) expression -> . expression * expression
     (7) expression -> . expression / expression
-    (8) expression -> . - expression
-    (9) expression -> . ( expression )
-    (10) expression -> . INTEGER
-    (11) expression -> . BOOL
-    (12) expression -> . NAME
-    (13) expression -> . DEF ( NAME , expression )
-    (14) expression -> . NAME ( expression )
-    (15) expression -> . ALTER ( NAME , expression )
+    (8) expression -> . expression < expression
+    (9) expression -> . expression > expression
+    (10) expression -> . expression LTE expression
+    (11) expression -> . expression GTE expression
+    (12) expression -> . expression NE expression
+    (13) expression -> . expression EQUAL expression
+    (14) expression -> . ISTRUE ( expression )
+    (15) expression -> . - expression
+    (16) expression -> . ( expression )
+    (17) expression -> . INTEGER
+    (18) expression -> . BOOL
+    (19) expression -> . NAME
+    (20) expression -> . DEF ( NAME , expression )
+    (21) expression -> . NAME ( expression )
+    (22) expression -> . ALTER ( NAME , expression )
 
+    ISTRUE          shift and go to state 8
     -               shift and go to state 7
     (               shift and go to state 4
-    INTEGER         shift and go to state 8
-    BOOL            shift and go to state 9
+    INTEGER         shift and go to state 9
+    BOOL            shift and go to state 10
     NAME            shift and go to state 3
-    DEF             shift and go to state 10
-    ALTER           shift and go to state 11
+    DEF             shift and go to state 11
+    ALTER           shift and go to state 12
 
-    expression                     shift and go to state 37
+    expression                     shift and go to state 53
 
-state 35
+state 51
 
     (1) statement -> PROC NAME ( expression ) .
 
     $end            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
 
 
-state 36
+state 52
 
-    (13) expression -> DEF ( NAME , expression . )
+    (20) expression -> DEF ( NAME , expression . )
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    )               shift and go to state 38
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 54
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
 
 
-state 37
+state 53
 
-    (15) expression -> ALTER ( NAME , expression . )
+    (22) expression -> ALTER ( NAME , expression . )
     (4) expression -> expression . + expression
     (5) expression -> expression . - expression
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
+    (8) expression -> expression . < expression
+    (9) expression -> expression . > expression
+    (10) expression -> expression . LTE expression
+    (11) expression -> expression . GTE expression
+    (12) expression -> expression . NE expression
+    (13) expression -> expression . EQUAL expression
 
-    )               shift and go to state 39
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 55
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
+    <               shift and go to state 20
+    >               shift and go to state 21
+    LTE             shift and go to state 22
+    GTE             shift and go to state 23
+    NE              shift and go to state 24
+    EQUAL           shift and go to state 25
 
 
-state 38
+state 54
 
-    (13) expression -> DEF ( NAME , expression ) .
+    (20) expression -> DEF ( NAME , expression ) .
 
-    +               reduce using rule 13 (expression -> DEF ( NAME , expression ) .)
-    -               reduce using rule 13 (expression -> DEF ( NAME , expression ) .)
-    *               reduce using rule 13 (expression -> DEF ( NAME , expression ) .)
-    /               reduce using rule 13 (expression -> DEF ( NAME , expression ) .)
-    $end            reduce using rule 13 (expression -> DEF ( NAME , expression ) .)
-    )               reduce using rule 13 (expression -> DEF ( NAME , expression ) .)
+    +               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    -               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    *               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    /               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    <               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    >               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    LTE             reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    GTE             reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    NE              reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    EQUAL           reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    $end            reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
+    )               reduce using rule 20 (expression -> DEF ( NAME , expression ) .)
 
 
-state 39
+state 55
 
-    (15) expression -> ALTER ( NAME , expression ) .
+    (22) expression -> ALTER ( NAME , expression ) .
 
-    +               reduce using rule 15 (expression -> ALTER ( NAME , expression ) .)
-    -               reduce using rule 15 (expression -> ALTER ( NAME , expression ) .)
-    *               reduce using rule 15 (expression -> ALTER ( NAME , expression ) .)
-    /               reduce using rule 15 (expression -> ALTER ( NAME , expression ) .)
-    $end            reduce using rule 15 (expression -> ALTER ( NAME , expression ) .)
-    )               reduce using rule 15 (expression -> ALTER ( NAME , expression ) .)
+    +               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    -               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    *               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    /               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    <               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    >               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    LTE             reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    GTE             reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    NE              reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    EQUAL           reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    $end            reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
+    )               reduce using rule 22 (expression -> ALTER ( NAME , expression ) .)
 
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for + in state 37 resolved as shift
+WARNING: shift/reduce conflict for - in state 37 resolved as shift
+WARNING: shift/reduce conflict for * in state 37 resolved as shift
+WARNING: shift/reduce conflict for / in state 37 resolved as shift
+WARNING: shift/reduce conflict for < in state 37 resolved as shift
+WARNING: shift/reduce conflict for > in state 37 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 37 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 37 resolved as shift
+WARNING: shift/reduce conflict for NE in state 37 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 37 resolved as shift
+WARNING: shift/reduce conflict for + in state 38 resolved as shift
+WARNING: shift/reduce conflict for - in state 38 resolved as shift
+WARNING: shift/reduce conflict for * in state 38 resolved as shift
+WARNING: shift/reduce conflict for / in state 38 resolved as shift
+WARNING: shift/reduce conflict for < in state 38 resolved as shift
+WARNING: shift/reduce conflict for > in state 38 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 38 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 38 resolved as shift
+WARNING: shift/reduce conflict for NE in state 38 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 38 resolved as shift
+WARNING: shift/reduce conflict for + in state 39 resolved as shift
+WARNING: shift/reduce conflict for - in state 39 resolved as shift
+WARNING: shift/reduce conflict for * in state 39 resolved as shift
+WARNING: shift/reduce conflict for / in state 39 resolved as shift
+WARNING: shift/reduce conflict for < in state 39 resolved as shift
+WARNING: shift/reduce conflict for > in state 39 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 39 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 39 resolved as shift
+WARNING: shift/reduce conflict for NE in state 39 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 39 resolved as shift
+WARNING: shift/reduce conflict for + in state 40 resolved as shift
+WARNING: shift/reduce conflict for - in state 40 resolved as shift
+WARNING: shift/reduce conflict for * in state 40 resolved as shift
+WARNING: shift/reduce conflict for / in state 40 resolved as shift
+WARNING: shift/reduce conflict for < in state 40 resolved as shift
+WARNING: shift/reduce conflict for > in state 40 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 40 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 40 resolved as shift
+WARNING: shift/reduce conflict for NE in state 40 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 40 resolved as shift
+WARNING: shift/reduce conflict for + in state 41 resolved as shift
+WARNING: shift/reduce conflict for - in state 41 resolved as shift
+WARNING: shift/reduce conflict for * in state 41 resolved as shift
+WARNING: shift/reduce conflict for / in state 41 resolved as shift
+WARNING: shift/reduce conflict for < in state 41 resolved as shift
+WARNING: shift/reduce conflict for > in state 41 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 41 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 41 resolved as shift
+WARNING: shift/reduce conflict for NE in state 41 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 41 resolved as shift
+WARNING: shift/reduce conflict for + in state 42 resolved as shift
+WARNING: shift/reduce conflict for - in state 42 resolved as shift
+WARNING: shift/reduce conflict for * in state 42 resolved as shift
+WARNING: shift/reduce conflict for / in state 42 resolved as shift
+WARNING: shift/reduce conflict for < in state 42 resolved as shift
+WARNING: shift/reduce conflict for > in state 42 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 42 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 42 resolved as shift
+WARNING: shift/reduce conflict for NE in state 42 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 42 resolved as shift

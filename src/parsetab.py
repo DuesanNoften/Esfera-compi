@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROCstatement : PROC NAME "(" expression ")"statement : COMMENT statement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," expression ")"expression : NAME "(" expression ")"expression : ALTER "(" NAME "," expression ")"'
+_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROC LTE GTE NE EQUAL ISTRUEstatement : PROC NAME "(" expression ")"statement : COMMENT statement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : expression \'<\' expression\n                  | expression \'>\' expression\n                  | expression LTE expression\n                  | expression GTE expression\n                  | expression NE expression\n                  | expression EQUAL expressionexpression : ISTRUE \'(\' expression \')\' expression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," expression ")"expression : NAME "(" expression ")"expression : ALTER "(" NAME "," expression ")"'
     
-_lr_action_items = {'PROC':([0,],[2,]),'COMMENT':([0,],[6,]),'-':([0,3,4,5,7,8,9,13,14,15,16,17,18,19,22,23,24,25,26,27,28,31,32,33,34,36,37,38,39,],[7,-12,7,16,7,-10,-11,7,16,7,7,7,7,-8,7,16,-9,-4,-5,-6,-7,16,-14,7,7,16,16,-13,-15,]),'(':([0,3,4,7,10,11,12,13,15,16,17,18,22,33,34,],[4,13,4,4,20,21,22,4,4,4,4,4,4,4,4,]),'INTEGER':([0,4,7,13,15,16,17,18,22,33,34,],[8,8,8,8,8,8,8,8,8,8,8,]),'BOOL':([0,4,7,13,15,16,17,18,22,33,34,],[9,9,9,9,9,9,9,9,9,9,9,]),'NAME':([0,2,4,7,13,15,16,17,18,20,21,22,33,34,],[3,12,3,3,3,3,3,3,3,29,30,3,3,3,]),'DEF':([0,4,7,13,15,16,17,18,22,33,34,],[10,10,10,10,10,10,10,10,10,10,10,]),'ALTER':([0,4,7,13,15,16,17,18,22,33,34,],[11,11,11,11,11,11,11,11,11,11,11,]),'$end':([1,3,5,6,8,9,19,24,25,26,27,28,32,35,38,39,],[0,-12,-3,-2,-10,-11,-8,-9,-4,-5,-6,-7,-14,-1,-13,-15,]),'+':([3,5,8,9,14,19,23,24,25,26,27,28,31,32,36,37,38,39,],[-12,15,-10,-11,15,-8,15,-9,-4,-5,-6,-7,15,-14,15,15,-13,-15,]),'*':([3,5,8,9,14,19,23,24,25,26,27,28,31,32,36,37,38,39,],[-12,17,-10,-11,17,-8,17,-9,17,17,-6,-7,17,-14,17,17,-13,-15,]),'/':([3,5,8,9,14,19,23,24,25,26,27,28,31,32,36,37,38,39,],[-12,18,-10,-11,18,-8,18,-9,18,18,-6,-7,18,-14,18,18,-13,-15,]),')':([3,8,9,14,19,23,24,25,26,27,28,31,32,36,37,38,39,],[-12,-10,-11,24,-8,32,-9,-4,-5,-6,-7,35,-14,38,39,-13,-15,]),',':([29,30,],[33,34,]),}
+_lr_action_items = {'PROC':([0,],[2,]),'COMMENT':([0,],[6,]),'ISTRUE':([0,4,7,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,]),'-':([0,3,4,5,7,9,10,14,15,16,17,18,19,20,21,22,23,24,25,26,27,30,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,49,50,52,53,54,55,],[7,-19,7,17,7,-17,-18,7,17,7,7,7,7,7,7,7,7,7,7,-15,7,7,17,-16,-4,-5,-6,-7,17,17,17,17,17,17,17,17,-21,-14,7,7,17,17,-20,-22,]),'(':([0,3,4,7,8,11,12,13,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[4,14,4,4,27,28,29,30,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,]),'INTEGER':([0,4,7,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,]),'BOOL':([0,4,7,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,]),'NAME':([0,2,4,7,14,16,17,18,19,20,21,22,23,24,25,27,28,29,30,49,50,],[3,13,3,3,3,3,3,3,3,3,3,3,3,3,3,3,44,45,3,3,3,]),'DEF':([0,4,7,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,]),'ALTER':([0,4,7,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,]),'$end':([1,3,5,6,9,10,26,32,33,34,35,36,37,38,39,40,41,42,47,48,51,54,55,],[0,-19,-3,-2,-17,-18,-15,-16,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-21,-14,-1,-20,-22,]),'+':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,16,-17,-18,16,-15,16,-16,-4,-5,-6,-7,16,16,16,16,16,16,16,16,-21,-14,16,16,-20,-22,]),'*':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,18,-17,-18,18,-15,18,-16,18,18,-6,-7,18,18,18,18,18,18,18,18,-21,-14,18,18,-20,-22,]),'/':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,19,-17,-18,19,-15,19,-16,19,19,-6,-7,19,19,19,19,19,19,19,19,-21,-14,19,19,-20,-22,]),'<':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,20,-17,-18,20,-15,20,-16,-4,-5,-6,-7,20,20,20,20,20,20,20,20,-21,-14,20,20,-20,-22,]),'>':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,21,-17,-18,21,-15,21,-16,-4,-5,-6,-7,21,21,21,21,21,21,21,21,-21,-14,21,21,-20,-22,]),'LTE':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,22,-17,-18,22,-15,22,-16,-4,-5,-6,-7,22,22,22,22,22,22,22,22,-21,-14,22,22,-20,-22,]),'GTE':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,23,-17,-18,23,-15,23,-16,-4,-5,-6,-7,23,23,23,23,23,23,23,23,-21,-14,23,23,-20,-22,]),'NE':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,24,-17,-18,24,-15,24,-16,-4,-5,-6,-7,24,24,24,24,24,24,24,24,-21,-14,24,24,-20,-22,]),'EQUAL':([3,5,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,25,-17,-18,25,-15,25,-16,-4,-5,-6,-7,25,25,25,25,25,25,25,25,-21,-14,25,25,-20,-22,]),')':([3,9,10,15,26,31,32,33,34,35,36,37,38,39,40,41,42,43,46,47,48,52,53,54,55,],[-19,-17,-18,32,-15,47,-16,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,48,51,-21,-14,54,55,-20,-22,]),',':([44,45,],[49,50,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,4,7,13,15,16,17,18,22,33,34,],[5,14,19,23,25,26,27,28,31,36,37,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,4,7,14,16,17,18,19,20,21,22,23,24,25,27,30,49,50,],[5,15,26,31,33,34,35,36,37,38,39,40,41,42,43,46,52,53,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,19 +26,26 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',63),
-  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',70),
-  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',74),
-  ('expression -> expression + expression','expression',3,'p_expression_binop','Compilador.py',79),
-  ('expression -> expression - expression','expression',3,'p_expression_binop','Compilador.py',80),
-  ('expression -> expression * expression','expression',3,'p_expression_binop','Compilador.py',81),
-  ('expression -> expression / expression','expression',3,'p_expression_binop','Compilador.py',82),
-  ('expression -> - expression','expression',2,'p_expression_uminus','Compilador.py',94),
-  ('expression -> ( expression )','expression',3,'p_expression_group','Compilador.py',99),
-  ('expression -> INTEGER','expression',1,'p_expression_integer','Compilador.py',104),
-  ('expression -> BOOL','expression',1,'p_expression_bool','Compilador.py',108),
-  ('expression -> NAME','expression',1,'p_expression_name','Compilador.py',113),
-  ('expression -> DEF ( NAME , expression )','expression',6,'p_expression_def','Compilador.py',121),
-  ('expression -> NAME ( expression )','expression',4,'p_expression_change','Compilador.py',126),
-  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Compilador.py',134),
+  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',68),
+  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',75),
+  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',79),
+  ('expression -> expression + expression','expression',3,'p_expression_binop','Compilador.py',84),
+  ('expression -> expression - expression','expression',3,'p_expression_binop','Compilador.py',85),
+  ('expression -> expression * expression','expression',3,'p_expression_binop','Compilador.py',86),
+  ('expression -> expression / expression','expression',3,'p_expression_binop','Compilador.py',87),
+  ('expression -> expression < expression','expression',3,'p_expression_compr','Compilador.py',98),
+  ('expression -> expression > expression','expression',3,'p_expression_compr','Compilador.py',99),
+  ('expression -> expression LTE expression','expression',3,'p_expression_compr','Compilador.py',100),
+  ('expression -> expression GTE expression','expression',3,'p_expression_compr','Compilador.py',101),
+  ('expression -> expression NE expression','expression',3,'p_expression_compr','Compilador.py',102),
+  ('expression -> expression EQUAL expression','expression',3,'p_expression_compr','Compilador.py',103),
+  ('expression -> ISTRUE ( expression )','expression',4,'p_expression_istrue','Compilador.py',119),
+  ('expression -> - expression','expression',2,'p_expression_uminus','Compilador.py',127),
+  ('expression -> ( expression )','expression',3,'p_expression_group','Compilador.py',132),
+  ('expression -> INTEGER','expression',1,'p_expression_integer','Compilador.py',137),
+  ('expression -> BOOL','expression',1,'p_expression_bool','Compilador.py',141),
+  ('expression -> NAME','expression',1,'p_expression_name','Compilador.py',146),
+  ('expression -> DEF ( NAME , expression )','expression',6,'p_expression_def','Compilador.py',154),
+  ('expression -> NAME ( expression )','expression',4,'p_expression_change','Compilador.py',159),
+  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Compilador.py',167),
 ]

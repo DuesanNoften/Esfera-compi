@@ -5,11 +5,11 @@ if sys.version_info[0] >= 3:
     raw_input = input
 
 tokens = [
-    'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC',   
+    'NAME', 'INTEGER', 'BOOL', 'COMMENT', 'ALTER', 'DEF',
+    'PROC', 'LTE', 'GTE', 'NE', 'EQUAL', 'ISTRUE'
 ]
 
-literals = ['=', '+', '-', '*', '/', '(', ')', ',']
+literals = ['=', '+', '-', '*', '/', '(', ')', ',', '<', '>']
 
 # Tokens
 t_DEF = 'Def'
@@ -17,6 +17,11 @@ t_PROC ='Proc'
 t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
 t_NAME = r'[@][a-zA-Z0-9_#]*'
 t_ALTER = 'Alter'
+t_LTE = '<='
+t_GTE = '>='
+t_NE = '<>'
+t_EQUAL = '=='
+t_ISTRUE = "IsTrue"
 
 def t_INTEGER(t):
     r'-?\d+'
@@ -89,6 +94,34 @@ def p_expression_binop(p):
     elif p[2] == '/':
         p[0] = p[1] / p[3]
 
+def p_expression_compr(p):
+    '''expression : expression '<' expression
+                  | expression '>' expression
+                  | expression LTE expression
+                  | expression GTE expression
+                  | expression NE expression
+                  | expression EQUAL expression'''
+
+    if p[2] == '<':
+        print (p[1] < p[3])
+    elif p[2] == '>':
+        print (p[1] > p[3])
+    elif p[2] == '<=':
+        print (p[1] <= p[3])
+    elif p[2] == '>=':
+        print (p[1] >= p[3])
+    elif p[2] == '<>':
+        print (p[1] != p[3])
+    elif p[2] == '==':
+        print (p[1] == p[3])
+
+def p_expression_istrue(p):
+    '''expression : ISTRUE '(' expression ')' '''
+
+    if p[3] == True:
+        print("True")
+    else:
+        print("False")
 
 def p_expression_uminus(p):
     "expression : '-' expression %prec UMINUS"
