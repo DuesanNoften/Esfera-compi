@@ -11,7 +11,7 @@ toks = []
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
     'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
-    'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO'
+    'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO',
     'MOVIMIENTO'
 ]
 

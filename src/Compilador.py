@@ -7,7 +7,8 @@ if sys.version_info[0] >= 3:
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
     'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
-    'RPAREN', 'BREAK', 'REPEAT'
+    'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO',
+    'MOVIMIENTO'
 ]
 
 pars =[]
@@ -27,7 +28,9 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_BREAK = 'break'
 t_REPEAT = 'Repeat'
-
+t_MOVER = 'Mover'
+t_ALEATORIO = 'Aleatorio'
+t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
 
 
 def t_INTEGER(t):
@@ -92,6 +95,15 @@ def p_statement_print(p):
     statement : PRINT PRINTLINE
     '''
     print(p[2])
+
+def p_statement_aleatorio(p):
+    '''
+    statement : ALEATORIO LPAREN RPAREN
+    '''
+def p_statement_mover(p):
+    '''
+    statement : MOVER LPAREN MOVIMIENTO RPAREN
+    '''
 
 def p_expression_binop(p):
     '''expression : expression '+' expression
