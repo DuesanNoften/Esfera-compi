@@ -11,7 +11,8 @@ toks = []
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
     'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
-    'RPAREN', 'BREAK', 'REPEAT'
+    'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO'
+    'MOVIMIENTO'
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
@@ -51,6 +52,9 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_BREAK = 'break'
 t_REPEAT = 'Repeat'
+t_MOVER = 'Mover'
+t_ALEATORIO = 'Aleatorio'
+t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
 
 lexer = lex.lex()
 

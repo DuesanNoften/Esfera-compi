@@ -48,6 +48,38 @@ def p_statement_print(p):
     '''
     print(p[2])
 
+def p_statement_aleatorio(p):
+    '''
+    statement : ALEATORIO LPAREN RPAREN
+    '''
+def p_statement_mover(p):
+    '''
+    statement : MOVER LPAREN MOVIMIENTO RPAREN
+    '''
+    if p[3].value == 'ATR':
+        print("Aqui va a moverse hacia atras")
+    
+    elif p[3].value == 'ADL':
+        print("Aqui va a moverse hacia delante")
+    
+    elif p[3].value == 'ADE':
+        print("Aqui va a moverse hacia atras a la derecha")
+    
+    elif p[3].value == 'AIZ':
+        print("Aqui va a moverse hacia atras a la izquierda")
+    
+    elif p[3].value == 'IZQ':
+        print("Aqui va a moverse hacia la izquierda")
+
+    elif p[3].value == 'DER':
+        print("Aqui va a moverse hacia la derecha")
+
+    elif p[3].value == 'DDE':
+        print("Aqui va a moverse hacia delante a la derecha")
+    
+    elif p[3].value == 'DIZ':
+        print("Aqui va a moverse hacia delante a la izquierda")
+
 def p_expression_binop(p):
     '''expression : expression '+' expression
                   | expression '-' expression
@@ -97,7 +129,7 @@ def p_expression_change(p):
     if names[p[1]]!=None and isinstance(names[p[1]], int)^isinstance(p[3],bool):
         names.update({p[1]:p[3]})
     else:
-        print("El valor asignado a la variabl debe ser del mismo tipo")
+        print("El valor asignado a la variable debe ser del mismo tipo")
 
 def p_expression_math(p):
     'expression : ALTER "(" NAME "," expression ")"'
