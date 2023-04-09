@@ -8,6 +8,7 @@ precedence = (
     ('left', '+', '-'),
     ('left', '*', '/'),
     ('right', 'UMINUS'),
+    ('right', 'CASE', 'WHEN')
 )
 
 run_flag = True
@@ -48,6 +49,20 @@ def p_statement_print(p):
     '''
     print(p[2])
 
+def p_statement_case(p):
+    '''statement : CASE WHEN expression THEN statement'''
+
+    if p[3]:
+        print('Esto es para separar')
+        print(p[5])
+        p[0] = p[5]
+
+def statement_else(p):
+    '''statement : ELSE statement
+                    | empty'''
+
+    print(p[1])
+    p[0] = p[1]
 def p_statement_aleatorio(p):
     '''
     statement : ALEATORIO LPAREN RPAREN
@@ -94,6 +109,63 @@ def p_expression_binop(p):
     elif p[2] == '/':
         p[0] = p[1] / p[3]
 
+def p_relation_GT(p):
+    """ relation : GT """
+    p[0] = '>'
+
+def p_relation_LT(p):
+    """ relation : LT """
+    p[0] = '<'
+
+def p_relation_GTE(p):
+    """ relation : GTE """
+    p[0] = '>='
+
+def p_relation_LTE(p):
+    """ relation : LTE """
+    p[0] = '<='
+
+def p_relation_NE(p):
+    """ relation : NE """
+    p[0] = '<>'
+
+def p_relation_EQUAL(p):
+    ''' relation : EQUAL '''
+    p[0] = '=='
+
+def p_expression_compr(p):
+    '''expression : expression relation expression'''
+
+    if p[2] == '<':
+        print(p[1] < p[3])
+        p[0] = p[1] < p[3]
+    elif p[2] == '>':
+        print(p[1] > p[3])
+        p[0] = p[1] > p[3]
+    elif p[2] == '<=':
+        print(p[1] <= p[3])
+        p[0] = p[1] <= p[3]
+    elif p[2] == '>=':
+        print(p[1] >= p[3])
+        p[0] = p[1] >= p[3]
+    elif p[2] == '<>':
+        print(p[1] != p[3])
+        p[0] = p[1] != p[3]
+    elif p[2] == '==':
+        print(p[1] == p[3])
+        p[0] = p[1] == p[3]
+    else:
+        print("no sirve")
+
+def p_expression_istrue(p):
+    '''expression : ISTRUE '(' expression ')' '''
+
+    if p[3]:
+        p[0] = True
+        print("True")
+    else:
+        p[0] = False
+        print("False")
 def p_expression_uminus(p):
     "expression : '-' expression %prec UMINUS"
     p[0] = -p[2]
@@ -152,6 +224,10 @@ def p_error(p):
         print("Syntax error at '%s'" % p.value)
     else:
         print("Syntax error at EOF")
+
+def p_empty(p):
+    """empty :"""
+    pass
 
 def readFile(dir):
     fp = codecs.open(dir, "r", "utf-8")

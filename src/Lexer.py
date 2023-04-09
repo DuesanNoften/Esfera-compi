@@ -12,7 +12,8 @@ tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
     'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
     'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO',
-    'MOVIMIENTO'
+    'MOVIMIENTO', 'GT', 'LT', 'GTE', 'LTE', 'NE', 'EQUAL',
+    'ISTRUE', 'CASE', 'WHEN', 'THEN', 'ELSE'
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
@@ -55,6 +56,17 @@ t_REPEAT = 'Repeat'
 t_MOVER = 'Mover'
 t_ALEATORIO = 'Aleatorio'
 t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
+t_GT = '>'
+t_LT = '<'
+t_LTE = '<='
+t_GTE = '>='
+t_NE = '<>'
+t_EQUAL = '=='
+t_ISTRUE = "IsTrue"
+t_CASE = "case"
+t_WHEN = "when"
+t_THEN = "then"
+t_ELSE = "else"
 
 lexer = lex.lex()
 
@@ -62,6 +74,7 @@ precedence = (
     ('left', '+', '-'),
     ('left', '*', '/'),
     ('right', 'UMINUS'),
+    ('right', 'CASE', 'WHEN')
 )
 
 def read_File(dir):

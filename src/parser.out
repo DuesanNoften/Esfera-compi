@@ -1,5 +1,9 @@
 Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    ELSE
+
 Grammar
 
 Rule 0     S' -> symbol
@@ -11,43 +15,69 @@ Rule 5     statement -> COMMENT
 Rule 6     statement -> PRINTLINE
 Rule 7     statement -> expression
 Rule 8     statement -> PRINT PRINTLINE
-Rule 9     expression -> expression + expression
-Rule 10    expression -> expression - expression
-Rule 11    expression -> expression * expression
-Rule 12    expression -> expression / expression
-Rule 13    expression -> - expression
-Rule 14    expression -> ( expression )
-Rule 15    expression -> INTEGER
-Rule 16    expression -> BOOL
-Rule 17    expression -> NAME
-Rule 18    expression -> DEF ( NAME , expression )
-Rule 19    expression -> NAME ( expression )
-Rule 20    expression -> ALTER ( NAME , expression )
-Rule 21    expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+Rule 9     statement -> CASE WHEN expression THEN statement
+Rule 10    statement -> ALEATORIO LPAREN RPAREN
+Rule 11    statement -> MOVER LPAREN MOVIMIENTO RPAREN
+Rule 12    expression -> expression + expression
+Rule 13    expression -> expression - expression
+Rule 14    expression -> expression * expression
+Rule 15    expression -> expression / expression
+Rule 16    relation -> GT
+Rule 17    relation -> LT
+Rule 18    relation -> GTE
+Rule 19    relation -> LTE
+Rule 20    relation -> NE
+Rule 21    relation -> EQUAL
+Rule 22    expression -> expression relation expression
+Rule 23    expression -> ISTRUE ( expression )
+Rule 24    expression -> - expression
+Rule 25    expression -> ( expression )
+Rule 26    expression -> INTEGER
+Rule 27    expression -> BOOL
+Rule 28    expression -> NAME
+Rule 29    expression -> DEF ( NAME , expression )
+Rule 30    expression -> NAME ( expression )
+Rule 31    expression -> ALTER ( NAME , expression )
+Rule 32    expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+Rule 33    empty -> <empty>
 
 Terminals, with rules where they appear
 
-(                    : 4 14 18 19 20
-)                    : 4 14 18 19 20
-*                    : 11
-+                    : 9
-,                    : 18 20
--                    : 10 13
-/                    : 12
-ALTER                : 20
-BOOL                 : 16
-BREAK                : 21
+(                    : 4 23 25 29 30 31
+)                    : 4 23 25 29 30 31
+*                    : 14
++                    : 12
+,                    : 29 31
+-                    : 13 24
+/                    : 15
+ALEATORIO            : 10
+ALTER                : 31
+BOOL                 : 27
+BREAK                : 32
+CASE                 : 9
 COMMENT              : 5
-DEF                  : 18
-INTEGER              : 15
-LPAREN               : 21
-NAME                 : 4 17 18 19 20
+DEF                  : 29
+ELSE                 : 
+EQUAL                : 21
+GT                   : 16
+GTE                  : 18
+INTEGER              : 26
+ISTRUE               : 23
+LPAREN               : 10 11 32
+LT                   : 17
+LTE                  : 19
+MOVER                : 11
+MOVIMIENTO           : 11
+NAME                 : 4 28 29 30 31
+NE                   : 20
 PRINT                : 8
 PRINTLINE            : 6 8
 PROC                 : 4
-REPEAT               : 21
-RPAREN               : 21
-SEMICOLON            : 21 21 21
+REPEAT               : 32
+RPAREN               : 10 11 32
+SEMICOLON            : 32 32 32
+THEN                 : 9
+WHEN                 : 9
 error                : 
 
 Nonterminals, with rules where they appear
@@ -55,7 +85,9 @@ Nonterminals, with rules where they appear
 Integer              : 2
 Name                 : 1
 Repeat               : 3
-expression           : 4 7 9 9 10 10 11 11 12 12 13 14 18 19 20 21
-statement            : 
+empty                : 
+expression           : 4 7 9 12 12 13 13 14 14 15 15 22 22 23 24 25 29 30 31 32
+relation             : 22
+statement            : 9
 symbol               : 0
 
