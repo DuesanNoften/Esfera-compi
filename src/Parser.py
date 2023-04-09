@@ -57,6 +57,22 @@ def p_statement_case(p):
         print(p[5])
         p[0] = p[5]
 
+def p_statement_cases(p):
+    """ statement : CASE expression """
+    p[1] = p[2]
+    p[0] = p[2]
+
+def p_statement_when(p):
+    """statement : statement WHEN expression THEN statement"""
+
+    if p[1] == p[3]:
+        print("vamos bien")
+        print(p[5])
+        p[0] = p[5]
+    else:
+        p[0] = p[1]
+        print("no entro")
+
 def statement_else(p):
     '''statement : ELSE statement
                     | empty'''
