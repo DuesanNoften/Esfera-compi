@@ -143,36 +143,42 @@ def p_relation_EQUAL(p):
 def p_expression_compr(p):
     '''expression : expression relation expression'''
 
-    if p[2] == '<':
-        print(p[1] < p[3])
-        p[0] = p[1] < p[3]
-    elif p[2] == '>':
-        print(p[1] > p[3])
-        p[0] = p[1] > p[3]
-    elif p[2] == '<=':
-        print(p[1] <= p[3])
-        p[0] = p[1] <= p[3]
-    elif p[2] == '>=':
-        print(p[1] >= p[3])
-        p[0] = p[1] >= p[3]
-    elif p[2] == '<>':
-        print(p[1] != p[3])
-        p[0] = p[1] != p[3]
-    elif p[2] == '==':
-        print(p[1] == p[3])
-        p[0] = p[1] == p[3]
+    if p[1] == int and p[2] == int:
+        if p[2] == '<':
+            print(p[1] < p[3])
+            p[0] = p[1] < p[3]
+        elif p[2] == '>':
+            print(p[1] > p[3])
+            p[0] = p[1] > p[3]
+        elif p[2] == '<=':
+            print(p[1] <= p[3])
+            p[0] = p[1] <= p[3]
+        elif p[2] == '>=':
+            print(p[1] >= p[3])
+            p[0] = p[1] >= p[3]
+        elif p[2] == '<>':
+            print(p[1] != p[3])
+            p[0] = p[1] != p[3]
+        elif p[2] == '==':
+            print(p[1] == p[3])
+            p[0] = p[1] == p[3]
+        else:
+            print("no sirve")
     else:
-        print("no sirve")
+        print("Compara valores no validos")
 
 def p_expression_istrue(p):
     '''expression : ISTRUE '(' expression ')' '''
 
-    if p[3]:
-        p[0] = True
-        print("True")
+    if p[3] == bool:
+        if p[3] == True:
+            p[0] = True
+            print("True")
+        else:
+            p[0] = False
+            print("False")
     else:
-        p[0] = False
-        print("False")
+        print("IsTrue con formatos no validos ")
 def p_expression_uminus(p):
     "expression : '-' expression %prec UMINUS"
     p[0] = -p[2]
