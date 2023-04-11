@@ -17,7 +17,32 @@ tokens = [
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
-
+t_DEF = 'Def'
+t_PROC ='Proc'
+t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
+t_NAME = r'[@][a-zA-Z0-9_#]*'
+t_ALTER = 'Alter'
+t_PRINT = r'\=>'
+t_PRINTLINE='[("][ a-zA-z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[")]'
+t_SEMICOLON = r'\;'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_BREAK = 'break'
+t_REPEAT = 'Repeat'
+t_MOVER = 'Mover'
+t_ALEATORIO = 'Aleatorio'
+t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
+t_GT = '>'
+t_LT = '<'
+t_LTE = '<='
+t_GTE = '>='
+t_NE = '<>'
+t_EQUAL = '=='
+t_ISTRUE = "IsTrue"
+t_CASE = "case"
+t_WHEN = "when"
+t_THEN = "then"
+t_ELSE = "else"
 def t_INTEGER(t):
     r'-?\d+'
     t.value = int(t.value)
@@ -41,32 +66,7 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
-t_DEF = 'Def'
-t_PROC ='Proc'
-t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
-t_NAME = r'[@][a-zA-Z0-9_#]*'
-t_ALTER = 'Alter'
-t_PRINT = r'\=>'
-t_PRINTLINE='[("][a-zA-z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[")]'
-t_SEMICOLON = r'\;'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_BREAK = 'break'
-t_REPEAT = 'Repeat'
-t_MOVER = 'Mover'
-t_ALEATORIO = 'Aleatorio'
-t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
-t_GT = '>'
-t_LT = '<'
-t_LTE = '<='
-t_GTE = '>='
-t_NE = '<>'
-t_EQUAL = '=='
-t_ISTRUE = "IsTrue"
-t_CASE = "case"
-t_WHEN = "when"
-t_THEN = "then"
-t_ELSE = "else"
+
 
 lexer = lex.lex()
 
@@ -76,6 +76,8 @@ precedence = (
     ('right', 'UMINUS'),
     ('right', 'CASE', 'WHEN')
 )
+
+
 
 def read_File(dir):
     fp = codecs.open(dir, "r", "utf-8")

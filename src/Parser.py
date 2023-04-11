@@ -17,15 +17,6 @@ errors = []
 names = {}
 procs = {}
 
-def p_symbols(p):
-    '''
-    symbol : Name
-           | Integer
-           | Repeat
-
-    '''
-    p[0] = p[1]
-
 def p_statement_proc(p):
     'statement : PROC NAME "(" expression ")"'
     if len(p[2])>1 and len(p[2])<10 :

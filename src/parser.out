@@ -6,88 +6,1840 @@ Unused terminals:
 
 Grammar
 
-Rule 0     S' -> symbol
-Rule 1     symbol -> Name
-Rule 2     symbol -> Integer
-Rule 3     symbol -> Repeat
-Rule 4     statement -> PROC NAME ( expression )
-Rule 5     statement -> COMMENT
-Rule 6     statement -> PRINTLINE
-Rule 7     statement -> expression
-Rule 8     statement -> PRINT PRINTLINE
-Rule 9     statement -> CASE WHEN expression THEN statement
-Rule 10    statement -> ALEATORIO LPAREN RPAREN
-Rule 11    statement -> MOVER LPAREN MOVIMIENTO RPAREN
-Rule 12    expression -> expression + expression
-Rule 13    expression -> expression - expression
-Rule 14    expression -> expression * expression
-Rule 15    expression -> expression / expression
-Rule 16    relation -> GT
-Rule 17    relation -> LT
-Rule 18    relation -> GTE
-Rule 19    relation -> LTE
-Rule 20    relation -> NE
-Rule 21    relation -> EQUAL
-Rule 22    expression -> expression relation expression
-Rule 23    expression -> ISTRUE ( expression )
-Rule 24    expression -> - expression
-Rule 25    expression -> ( expression )
-Rule 26    expression -> INTEGER
-Rule 27    expression -> BOOL
-Rule 28    expression -> NAME
-Rule 29    expression -> DEF ( NAME , expression )
-Rule 30    expression -> NAME ( expression )
-Rule 31    expression -> ALTER ( NAME , expression )
-Rule 32    expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
-Rule 33    empty -> <empty>
+Rule 0     S' -> statement
+Rule 1     statement -> PROC NAME ( expression )
+Rule 2     statement -> COMMENT
+Rule 3     statement -> PRINTLINE
+Rule 4     statement -> expression
+Rule 5     statement -> PRINT PRINTLINE
+Rule 6     statement -> CASE WHEN expression THEN statement
+Rule 7     statement -> CASE expression
+Rule 8     statement -> statement WHEN expression THEN statement
+Rule 9     statement -> ALEATORIO LPAREN RPAREN
+Rule 10    statement -> MOVER LPAREN MOVIMIENTO RPAREN
+Rule 11    expression -> expression + expression
+Rule 12    expression -> expression - expression
+Rule 13    expression -> expression * expression
+Rule 14    expression -> expression / expression
+Rule 15    relation -> GT
+Rule 16    relation -> LT
+Rule 17    relation -> GTE
+Rule 18    relation -> LTE
+Rule 19    relation -> NE
+Rule 20    relation -> EQUAL
+Rule 21    expression -> expression relation expression
+Rule 22    expression -> ISTRUE ( expression )
+Rule 23    expression -> - expression
+Rule 24    expression -> ( expression )
+Rule 25    expression -> INTEGER
+Rule 26    expression -> BOOL
+Rule 27    expression -> NAME
+Rule 28    expression -> DEF ( NAME , expression )
+Rule 29    expression -> NAME ( expression )
+Rule 30    expression -> ALTER ( NAME , expression )
+Rule 31    expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+Rule 32    empty -> <empty>
 
 Terminals, with rules where they appear
 
-(                    : 4 23 25 29 30 31
-)                    : 4 23 25 29 30 31
-*                    : 14
-+                    : 12
-,                    : 29 31
--                    : 13 24
-/                    : 15
-ALEATORIO            : 10
-ALTER                : 31
-BOOL                 : 27
-BREAK                : 32
-CASE                 : 9
-COMMENT              : 5
-DEF                  : 29
+(                    : 1 22 24 28 29 30
+)                    : 1 22 24 28 29 30
+*                    : 13
++                    : 11
+,                    : 28 30
+-                    : 12 23
+/                    : 14
+ALEATORIO            : 9
+ALTER                : 30
+BOOL                 : 26
+BREAK                : 31
+CASE                 : 6 7
+COMMENT              : 2
+DEF                  : 28
 ELSE                 : 
-EQUAL                : 21
-GT                   : 16
-GTE                  : 18
-INTEGER              : 26
-ISTRUE               : 23
-LPAREN               : 10 11 32
-LT                   : 17
-LTE                  : 19
-MOVER                : 11
-MOVIMIENTO           : 11
-NAME                 : 4 28 29 30 31
-NE                   : 20
-PRINT                : 8
-PRINTLINE            : 6 8
-PROC                 : 4
-REPEAT               : 32
-RPAREN               : 10 11 32
-SEMICOLON            : 32 32 32
-THEN                 : 9
-WHEN                 : 9
+EQUAL                : 20
+GT                   : 15
+GTE                  : 17
+INTEGER              : 25
+ISTRUE               : 22
+LPAREN               : 9 10 31
+LT                   : 16
+LTE                  : 18
+MOVER                : 10
+MOVIMIENTO           : 10
+NAME                 : 1 27 28 29 30
+NE                   : 19
+PRINT                : 5
+PRINTLINE            : 3 5
+PROC                 : 1
+REPEAT               : 31
+RPAREN               : 9 10 31
+SEMICOLON            : 31 31 31
+THEN                 : 6 8
+WHEN                 : 6 8
 error                : 
 
 Nonterminals, with rules where they appear
 
-Integer              : 2
-Name                 : 1
-Repeat               : 3
 empty                : 
-expression           : 4 7 9 12 12 13 13 14 14 15 15 22 22 23 24 25 29 30 31 32
-relation             : 22
-statement            : 9
-symbol               : 0
+expression           : 1 4 6 7 8 11 11 12 12 13 13 14 14 21 21 22 23 24 28 29 30 31
+relation             : 21
+statement            : 6 8 8 0
 
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . PROC NAME ( expression )
+    (2) statement -> . COMMENT
+    (3) statement -> . PRINTLINE
+    (4) statement -> . expression
+    (5) statement -> . PRINT PRINTLINE
+    (6) statement -> . CASE WHEN expression THEN statement
+    (7) statement -> . CASE expression
+    (8) statement -> . statement WHEN expression THEN statement
+    (9) statement -> . ALEATORIO LPAREN RPAREN
+    (10) statement -> . MOVER LPAREN MOVIMIENTO RPAREN
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    PROC            shift and go to state 2
+    COMMENT         shift and go to state 6
+    PRINTLINE       shift and go to state 7
+    PRINT           shift and go to state 8
+    CASE            shift and go to state 9
+    ALEATORIO       shift and go to state 10
+    MOVER           shift and go to state 11
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    statement                      shift and go to state 1
+    expression                     shift and go to state 5
+
+state 1
+
+    (0) S' -> statement .
+    (8) statement -> statement . WHEN expression THEN statement
+
+    WHEN            shift and go to state 19
+
+
+state 2
+
+    (1) statement -> PROC . NAME ( expression )
+
+    NAME            shift and go to state 20
+
+
+state 3
+
+    (27) expression -> NAME .
+    (29) expression -> NAME . ( expression )
+
+    +               reduce using rule 27 (expression -> NAME .)
+    -               reduce using rule 27 (expression -> NAME .)
+    *               reduce using rule 27 (expression -> NAME .)
+    /               reduce using rule 27 (expression -> NAME .)
+    GT              reduce using rule 27 (expression -> NAME .)
+    LT              reduce using rule 27 (expression -> NAME .)
+    GTE             reduce using rule 27 (expression -> NAME .)
+    LTE             reduce using rule 27 (expression -> NAME .)
+    NE              reduce using rule 27 (expression -> NAME .)
+    EQUAL           reduce using rule 27 (expression -> NAME .)
+    WHEN            reduce using rule 27 (expression -> NAME .)
+    $end            reduce using rule 27 (expression -> NAME .)
+    )               reduce using rule 27 (expression -> NAME .)
+    THEN            reduce using rule 27 (expression -> NAME .)
+    SEMICOLON       reduce using rule 27 (expression -> NAME .)
+    (               shift and go to state 21
+
+
+state 4
+
+    (24) expression -> ( . expression )
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 22
+
+state 5
+
+    (4) statement -> expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    WHEN            reduce using rule 4 (statement -> expression .)
+    $end            reduce using rule 4 (statement -> expression .)
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 6
+
+    (2) statement -> COMMENT .
+
+    WHEN            reduce using rule 2 (statement -> COMMENT .)
+    $end            reduce using rule 2 (statement -> COMMENT .)
+
+
+state 7
+
+    (3) statement -> PRINTLINE .
+
+    WHEN            reduce using rule 3 (statement -> PRINTLINE .)
+    $end            reduce using rule 3 (statement -> PRINTLINE .)
+
+
+state 8
+
+    (5) statement -> PRINT . PRINTLINE
+
+    PRINTLINE       shift and go to state 34
+
+
+state 9
+
+    (6) statement -> CASE . WHEN expression THEN statement
+    (7) statement -> CASE . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    WHEN            shift and go to state 35
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 36
+
+state 10
+
+    (9) statement -> ALEATORIO . LPAREN RPAREN
+
+    LPAREN          shift and go to state 37
+
+
+state 11
+
+    (10) statement -> MOVER . LPAREN MOVIMIENTO RPAREN
+
+    LPAREN          shift and go to state 38
+
+
+state 12
+
+    (23) expression -> - . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 39
+
+state 13
+
+    (22) expression -> ISTRUE . ( expression )
+
+    (               shift and go to state 40
+
+
+state 14
+
+    (25) expression -> INTEGER .
+
+    +               reduce using rule 25 (expression -> INTEGER .)
+    -               reduce using rule 25 (expression -> INTEGER .)
+    *               reduce using rule 25 (expression -> INTEGER .)
+    /               reduce using rule 25 (expression -> INTEGER .)
+    GT              reduce using rule 25 (expression -> INTEGER .)
+    LT              reduce using rule 25 (expression -> INTEGER .)
+    GTE             reduce using rule 25 (expression -> INTEGER .)
+    LTE             reduce using rule 25 (expression -> INTEGER .)
+    NE              reduce using rule 25 (expression -> INTEGER .)
+    EQUAL           reduce using rule 25 (expression -> INTEGER .)
+    WHEN            reduce using rule 25 (expression -> INTEGER .)
+    $end            reduce using rule 25 (expression -> INTEGER .)
+    )               reduce using rule 25 (expression -> INTEGER .)
+    THEN            reduce using rule 25 (expression -> INTEGER .)
+    SEMICOLON       reduce using rule 25 (expression -> INTEGER .)
+
+
+state 15
+
+    (26) expression -> BOOL .
+
+    +               reduce using rule 26 (expression -> BOOL .)
+    -               reduce using rule 26 (expression -> BOOL .)
+    *               reduce using rule 26 (expression -> BOOL .)
+    /               reduce using rule 26 (expression -> BOOL .)
+    GT              reduce using rule 26 (expression -> BOOL .)
+    LT              reduce using rule 26 (expression -> BOOL .)
+    GTE             reduce using rule 26 (expression -> BOOL .)
+    LTE             reduce using rule 26 (expression -> BOOL .)
+    NE              reduce using rule 26 (expression -> BOOL .)
+    EQUAL           reduce using rule 26 (expression -> BOOL .)
+    WHEN            reduce using rule 26 (expression -> BOOL .)
+    $end            reduce using rule 26 (expression -> BOOL .)
+    )               reduce using rule 26 (expression -> BOOL .)
+    THEN            reduce using rule 26 (expression -> BOOL .)
+    SEMICOLON       reduce using rule 26 (expression -> BOOL .)
+
+
+state 16
+
+    (28) expression -> DEF . ( NAME , expression )
+
+    (               shift and go to state 41
+
+
+state 17
+
+    (30) expression -> ALTER . ( NAME , expression )
+
+    (               shift and go to state 42
+
+
+state 18
+
+    (31) expression -> REPEAT . LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 43
+
+
+state 19
+
+    (8) statement -> statement WHEN . expression THEN statement
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 44
+
+state 20
+
+    (1) statement -> PROC NAME . ( expression )
+
+    (               shift and go to state 45
+
+
+state 21
+
+    (29) expression -> NAME ( . expression )
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 46
+
+state 22
+
+    (24) expression -> ( expression . )
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    )               shift and go to state 47
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 23
+
+    (11) expression -> expression + . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 48
+
+state 24
+
+    (12) expression -> expression - . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 49
+
+state 25
+
+    (13) expression -> expression * . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 50
+
+state 26
+
+    (14) expression -> expression / . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 51
+
+state 27
+
+    (21) expression -> expression relation . expression
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 52
+
+state 28
+
+    (15) relation -> GT .
+
+    ISTRUE          reduce using rule 15 (relation -> GT .)
+    -               reduce using rule 15 (relation -> GT .)
+    (               reduce using rule 15 (relation -> GT .)
+    INTEGER         reduce using rule 15 (relation -> GT .)
+    BOOL            reduce using rule 15 (relation -> GT .)
+    NAME            reduce using rule 15 (relation -> GT .)
+    DEF             reduce using rule 15 (relation -> GT .)
+    ALTER           reduce using rule 15 (relation -> GT .)
+    REPEAT          reduce using rule 15 (relation -> GT .)
+
+
+state 29
+
+    (16) relation -> LT .
+
+    ISTRUE          reduce using rule 16 (relation -> LT .)
+    -               reduce using rule 16 (relation -> LT .)
+    (               reduce using rule 16 (relation -> LT .)
+    INTEGER         reduce using rule 16 (relation -> LT .)
+    BOOL            reduce using rule 16 (relation -> LT .)
+    NAME            reduce using rule 16 (relation -> LT .)
+    DEF             reduce using rule 16 (relation -> LT .)
+    ALTER           reduce using rule 16 (relation -> LT .)
+    REPEAT          reduce using rule 16 (relation -> LT .)
+
+
+state 30
+
+    (17) relation -> GTE .
+
+    ISTRUE          reduce using rule 17 (relation -> GTE .)
+    -               reduce using rule 17 (relation -> GTE .)
+    (               reduce using rule 17 (relation -> GTE .)
+    INTEGER         reduce using rule 17 (relation -> GTE .)
+    BOOL            reduce using rule 17 (relation -> GTE .)
+    NAME            reduce using rule 17 (relation -> GTE .)
+    DEF             reduce using rule 17 (relation -> GTE .)
+    ALTER           reduce using rule 17 (relation -> GTE .)
+    REPEAT          reduce using rule 17 (relation -> GTE .)
+
+
+state 31
+
+    (18) relation -> LTE .
+
+    ISTRUE          reduce using rule 18 (relation -> LTE .)
+    -               reduce using rule 18 (relation -> LTE .)
+    (               reduce using rule 18 (relation -> LTE .)
+    INTEGER         reduce using rule 18 (relation -> LTE .)
+    BOOL            reduce using rule 18 (relation -> LTE .)
+    NAME            reduce using rule 18 (relation -> LTE .)
+    DEF             reduce using rule 18 (relation -> LTE .)
+    ALTER           reduce using rule 18 (relation -> LTE .)
+    REPEAT          reduce using rule 18 (relation -> LTE .)
+
+
+state 32
+
+    (19) relation -> NE .
+
+    ISTRUE          reduce using rule 19 (relation -> NE .)
+    -               reduce using rule 19 (relation -> NE .)
+    (               reduce using rule 19 (relation -> NE .)
+    INTEGER         reduce using rule 19 (relation -> NE .)
+    BOOL            reduce using rule 19 (relation -> NE .)
+    NAME            reduce using rule 19 (relation -> NE .)
+    DEF             reduce using rule 19 (relation -> NE .)
+    ALTER           reduce using rule 19 (relation -> NE .)
+    REPEAT          reduce using rule 19 (relation -> NE .)
+
+
+state 33
+
+    (20) relation -> EQUAL .
+
+    ISTRUE          reduce using rule 20 (relation -> EQUAL .)
+    -               reduce using rule 20 (relation -> EQUAL .)
+    (               reduce using rule 20 (relation -> EQUAL .)
+    INTEGER         reduce using rule 20 (relation -> EQUAL .)
+    BOOL            reduce using rule 20 (relation -> EQUAL .)
+    NAME            reduce using rule 20 (relation -> EQUAL .)
+    DEF             reduce using rule 20 (relation -> EQUAL .)
+    ALTER           reduce using rule 20 (relation -> EQUAL .)
+    REPEAT          reduce using rule 20 (relation -> EQUAL .)
+
+
+state 34
+
+    (5) statement -> PRINT PRINTLINE .
+
+    WHEN            reduce using rule 5 (statement -> PRINT PRINTLINE .)
+    $end            reduce using rule 5 (statement -> PRINT PRINTLINE .)
+
+
+state 35
+
+    (6) statement -> CASE WHEN . expression THEN statement
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 53
+
+state 36
+
+    (7) statement -> CASE expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    WHEN            reduce using rule 7 (statement -> CASE expression .)
+    $end            reduce using rule 7 (statement -> CASE expression .)
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 37
+
+    (9) statement -> ALEATORIO LPAREN . RPAREN
+
+    RPAREN          shift and go to state 54
+
+
+state 38
+
+    (10) statement -> MOVER LPAREN . MOVIMIENTO RPAREN
+
+    MOVIMIENTO      shift and go to state 55
+
+
+state 39
+
+    (23) expression -> - expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    +               reduce using rule 23 (expression -> - expression .)
+    -               reduce using rule 23 (expression -> - expression .)
+    *               reduce using rule 23 (expression -> - expression .)
+    /               reduce using rule 23 (expression -> - expression .)
+    GT              reduce using rule 23 (expression -> - expression .)
+    LT              reduce using rule 23 (expression -> - expression .)
+    GTE             reduce using rule 23 (expression -> - expression .)
+    LTE             reduce using rule 23 (expression -> - expression .)
+    NE              reduce using rule 23 (expression -> - expression .)
+    EQUAL           reduce using rule 23 (expression -> - expression .)
+    WHEN            reduce using rule 23 (expression -> - expression .)
+    $end            reduce using rule 23 (expression -> - expression .)
+    )               reduce using rule 23 (expression -> - expression .)
+    THEN            reduce using rule 23 (expression -> - expression .)
+    SEMICOLON       reduce using rule 23 (expression -> - expression .)
+
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! *               [ shift and go to state 25 ]
+  ! /               [ shift and go to state 26 ]
+  ! GT              [ shift and go to state 28 ]
+  ! LT              [ shift and go to state 29 ]
+  ! GTE             [ shift and go to state 30 ]
+  ! LTE             [ shift and go to state 31 ]
+  ! NE              [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+
+    relation                       shift and go to state 27
+
+state 40
+
+    (22) expression -> ISTRUE ( . expression )
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 56
+
+state 41
+
+    (28) expression -> DEF ( . NAME , expression )
+
+    NAME            shift and go to state 57
+
+
+state 42
+
+    (30) expression -> ALTER ( . NAME , expression )
+
+    NAME            shift and go to state 58
+
+
+state 43
+
+    (31) expression -> REPEAT LPAREN . expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 59
+
+state 44
+
+    (8) statement -> statement WHEN expression . THEN statement
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    THEN            shift and go to state 60
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 45
+
+    (1) statement -> PROC NAME ( . expression )
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 61
+
+state 46
+
+    (29) expression -> NAME ( expression . )
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    )               shift and go to state 62
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 47
+
+    (24) expression -> ( expression ) .
+
+    +               reduce using rule 24 (expression -> ( expression ) .)
+    -               reduce using rule 24 (expression -> ( expression ) .)
+    *               reduce using rule 24 (expression -> ( expression ) .)
+    /               reduce using rule 24 (expression -> ( expression ) .)
+    GT              reduce using rule 24 (expression -> ( expression ) .)
+    LT              reduce using rule 24 (expression -> ( expression ) .)
+    GTE             reduce using rule 24 (expression -> ( expression ) .)
+    LTE             reduce using rule 24 (expression -> ( expression ) .)
+    NE              reduce using rule 24 (expression -> ( expression ) .)
+    EQUAL           reduce using rule 24 (expression -> ( expression ) .)
+    WHEN            reduce using rule 24 (expression -> ( expression ) .)
+    $end            reduce using rule 24 (expression -> ( expression ) .)
+    )               reduce using rule 24 (expression -> ( expression ) .)
+    THEN            reduce using rule 24 (expression -> ( expression ) .)
+    SEMICOLON       reduce using rule 24 (expression -> ( expression ) .)
+
+
+state 48
+
+    (11) expression -> expression + expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    +               reduce using rule 11 (expression -> expression + expression .)
+    -               reduce using rule 11 (expression -> expression + expression .)
+    GT              reduce using rule 11 (expression -> expression + expression .)
+    LT              reduce using rule 11 (expression -> expression + expression .)
+    GTE             reduce using rule 11 (expression -> expression + expression .)
+    LTE             reduce using rule 11 (expression -> expression + expression .)
+    NE              reduce using rule 11 (expression -> expression + expression .)
+    EQUAL           reduce using rule 11 (expression -> expression + expression .)
+    WHEN            reduce using rule 11 (expression -> expression + expression .)
+    $end            reduce using rule 11 (expression -> expression + expression .)
+    )               reduce using rule 11 (expression -> expression + expression .)
+    THEN            reduce using rule 11 (expression -> expression + expression .)
+    SEMICOLON       reduce using rule 11 (expression -> expression + expression .)
+    *               shift and go to state 25
+    /               shift and go to state 26
+
+  ! *               [ reduce using rule 11 (expression -> expression + expression .) ]
+  ! /               [ reduce using rule 11 (expression -> expression + expression .) ]
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! GT              [ shift and go to state 28 ]
+  ! LT              [ shift and go to state 29 ]
+  ! GTE             [ shift and go to state 30 ]
+  ! LTE             [ shift and go to state 31 ]
+  ! NE              [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+
+    relation                       shift and go to state 27
+
+state 49
+
+    (12) expression -> expression - expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    +               reduce using rule 12 (expression -> expression - expression .)
+    -               reduce using rule 12 (expression -> expression - expression .)
+    GT              reduce using rule 12 (expression -> expression - expression .)
+    LT              reduce using rule 12 (expression -> expression - expression .)
+    GTE             reduce using rule 12 (expression -> expression - expression .)
+    LTE             reduce using rule 12 (expression -> expression - expression .)
+    NE              reduce using rule 12 (expression -> expression - expression .)
+    EQUAL           reduce using rule 12 (expression -> expression - expression .)
+    WHEN            reduce using rule 12 (expression -> expression - expression .)
+    $end            reduce using rule 12 (expression -> expression - expression .)
+    )               reduce using rule 12 (expression -> expression - expression .)
+    THEN            reduce using rule 12 (expression -> expression - expression .)
+    SEMICOLON       reduce using rule 12 (expression -> expression - expression .)
+    *               shift and go to state 25
+    /               shift and go to state 26
+
+  ! *               [ reduce using rule 12 (expression -> expression - expression .) ]
+  ! /               [ reduce using rule 12 (expression -> expression - expression .) ]
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! GT              [ shift and go to state 28 ]
+  ! LT              [ shift and go to state 29 ]
+  ! GTE             [ shift and go to state 30 ]
+  ! LTE             [ shift and go to state 31 ]
+  ! NE              [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+
+    relation                       shift and go to state 27
+
+state 50
+
+    (13) expression -> expression * expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    +               reduce using rule 13 (expression -> expression * expression .)
+    -               reduce using rule 13 (expression -> expression * expression .)
+    *               reduce using rule 13 (expression -> expression * expression .)
+    /               reduce using rule 13 (expression -> expression * expression .)
+    GT              reduce using rule 13 (expression -> expression * expression .)
+    LT              reduce using rule 13 (expression -> expression * expression .)
+    GTE             reduce using rule 13 (expression -> expression * expression .)
+    LTE             reduce using rule 13 (expression -> expression * expression .)
+    NE              reduce using rule 13 (expression -> expression * expression .)
+    EQUAL           reduce using rule 13 (expression -> expression * expression .)
+    WHEN            reduce using rule 13 (expression -> expression * expression .)
+    $end            reduce using rule 13 (expression -> expression * expression .)
+    )               reduce using rule 13 (expression -> expression * expression .)
+    THEN            reduce using rule 13 (expression -> expression * expression .)
+    SEMICOLON       reduce using rule 13 (expression -> expression * expression .)
+
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! *               [ shift and go to state 25 ]
+  ! /               [ shift and go to state 26 ]
+  ! GT              [ shift and go to state 28 ]
+  ! LT              [ shift and go to state 29 ]
+  ! GTE             [ shift and go to state 30 ]
+  ! LTE             [ shift and go to state 31 ]
+  ! NE              [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+
+    relation                       shift and go to state 27
+
+state 51
+
+    (14) expression -> expression / expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    +               reduce using rule 14 (expression -> expression / expression .)
+    -               reduce using rule 14 (expression -> expression / expression .)
+    *               reduce using rule 14 (expression -> expression / expression .)
+    /               reduce using rule 14 (expression -> expression / expression .)
+    GT              reduce using rule 14 (expression -> expression / expression .)
+    LT              reduce using rule 14 (expression -> expression / expression .)
+    GTE             reduce using rule 14 (expression -> expression / expression .)
+    LTE             reduce using rule 14 (expression -> expression / expression .)
+    NE              reduce using rule 14 (expression -> expression / expression .)
+    EQUAL           reduce using rule 14 (expression -> expression / expression .)
+    WHEN            reduce using rule 14 (expression -> expression / expression .)
+    $end            reduce using rule 14 (expression -> expression / expression .)
+    )               reduce using rule 14 (expression -> expression / expression .)
+    THEN            reduce using rule 14 (expression -> expression / expression .)
+    SEMICOLON       reduce using rule 14 (expression -> expression / expression .)
+
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! *               [ shift and go to state 25 ]
+  ! /               [ shift and go to state 26 ]
+  ! GT              [ shift and go to state 28 ]
+  ! LT              [ shift and go to state 29 ]
+  ! GTE             [ shift and go to state 30 ]
+  ! LTE             [ shift and go to state 31 ]
+  ! NE              [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+
+    relation                       shift and go to state 27
+
+state 52
+
+    (21) expression -> expression relation expression .
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+    WHEN            reduce using rule 21 (expression -> expression relation expression .)
+    $end            reduce using rule 21 (expression -> expression relation expression .)
+    )               reduce using rule 21 (expression -> expression relation expression .)
+    THEN            reduce using rule 21 (expression -> expression relation expression .)
+    SEMICOLON       reduce using rule 21 (expression -> expression relation expression .)
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+  ! +               [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! -               [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! *               [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! /               [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! GT              [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! LT              [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! GTE             [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! LTE             [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! NE              [ reduce using rule 21 (expression -> expression relation expression .) ]
+  ! EQUAL           [ reduce using rule 21 (expression -> expression relation expression .) ]
+
+    relation                       shift and go to state 27
+
+state 53
+
+    (6) statement -> CASE WHEN expression . THEN statement
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    THEN            shift and go to state 63
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 54
+
+    (9) statement -> ALEATORIO LPAREN RPAREN .
+
+    WHEN            reduce using rule 9 (statement -> ALEATORIO LPAREN RPAREN .)
+    $end            reduce using rule 9 (statement -> ALEATORIO LPAREN RPAREN .)
+
+
+state 55
+
+    (10) statement -> MOVER LPAREN MOVIMIENTO . RPAREN
+
+    RPAREN          shift and go to state 64
+
+
+state 56
+
+    (22) expression -> ISTRUE ( expression . )
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    )               shift and go to state 65
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 57
+
+    (28) expression -> DEF ( NAME . , expression )
+
+    ,               shift and go to state 66
+
+
+state 58
+
+    (30) expression -> ALTER ( NAME . , expression )
+
+    ,               shift and go to state 67
+
+
+state 59
+
+    (31) expression -> REPEAT LPAREN expression . SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    SEMICOLON       shift and go to state 68
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 60
+
+    (8) statement -> statement WHEN expression THEN . statement
+    (1) statement -> . PROC NAME ( expression )
+    (2) statement -> . COMMENT
+    (3) statement -> . PRINTLINE
+    (4) statement -> . expression
+    (5) statement -> . PRINT PRINTLINE
+    (6) statement -> . CASE WHEN expression THEN statement
+    (7) statement -> . CASE expression
+    (8) statement -> . statement WHEN expression THEN statement
+    (9) statement -> . ALEATORIO LPAREN RPAREN
+    (10) statement -> . MOVER LPAREN MOVIMIENTO RPAREN
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    PROC            shift and go to state 2
+    COMMENT         shift and go to state 6
+    PRINTLINE       shift and go to state 7
+    PRINT           shift and go to state 8
+    CASE            shift and go to state 9
+    ALEATORIO       shift and go to state 10
+    MOVER           shift and go to state 11
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    statement                      shift and go to state 69
+    expression                     shift and go to state 5
+
+state 61
+
+    (1) statement -> PROC NAME ( expression . )
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    )               shift and go to state 70
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 62
+
+    (29) expression -> NAME ( expression ) .
+
+    +               reduce using rule 29 (expression -> NAME ( expression ) .)
+    -               reduce using rule 29 (expression -> NAME ( expression ) .)
+    *               reduce using rule 29 (expression -> NAME ( expression ) .)
+    /               reduce using rule 29 (expression -> NAME ( expression ) .)
+    GT              reduce using rule 29 (expression -> NAME ( expression ) .)
+    LT              reduce using rule 29 (expression -> NAME ( expression ) .)
+    GTE             reduce using rule 29 (expression -> NAME ( expression ) .)
+    LTE             reduce using rule 29 (expression -> NAME ( expression ) .)
+    NE              reduce using rule 29 (expression -> NAME ( expression ) .)
+    EQUAL           reduce using rule 29 (expression -> NAME ( expression ) .)
+    WHEN            reduce using rule 29 (expression -> NAME ( expression ) .)
+    $end            reduce using rule 29 (expression -> NAME ( expression ) .)
+    )               reduce using rule 29 (expression -> NAME ( expression ) .)
+    THEN            reduce using rule 29 (expression -> NAME ( expression ) .)
+    SEMICOLON       reduce using rule 29 (expression -> NAME ( expression ) .)
+
+
+state 63
+
+    (6) statement -> CASE WHEN expression THEN . statement
+    (1) statement -> . PROC NAME ( expression )
+    (2) statement -> . COMMENT
+    (3) statement -> . PRINTLINE
+    (4) statement -> . expression
+    (5) statement -> . PRINT PRINTLINE
+    (6) statement -> . CASE WHEN expression THEN statement
+    (7) statement -> . CASE expression
+    (8) statement -> . statement WHEN expression THEN statement
+    (9) statement -> . ALEATORIO LPAREN RPAREN
+    (10) statement -> . MOVER LPAREN MOVIMIENTO RPAREN
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    PROC            shift and go to state 2
+    COMMENT         shift and go to state 6
+    PRINTLINE       shift and go to state 7
+    PRINT           shift and go to state 8
+    CASE            shift and go to state 9
+    ALEATORIO       shift and go to state 10
+    MOVER           shift and go to state 11
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 5
+    statement                      shift and go to state 71
+
+state 64
+
+    (10) statement -> MOVER LPAREN MOVIMIENTO RPAREN .
+
+    WHEN            reduce using rule 10 (statement -> MOVER LPAREN MOVIMIENTO RPAREN .)
+    $end            reduce using rule 10 (statement -> MOVER LPAREN MOVIMIENTO RPAREN .)
+
+
+state 65
+
+    (22) expression -> ISTRUE ( expression ) .
+
+    +               reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    -               reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    *               reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    /               reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    GT              reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    LT              reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    GTE             reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    LTE             reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    NE              reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    EQUAL           reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    WHEN            reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    $end            reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    )               reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    THEN            reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+    SEMICOLON       reduce using rule 22 (expression -> ISTRUE ( expression ) .)
+
+
+state 66
+
+    (28) expression -> DEF ( NAME , . expression )
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 72
+
+state 67
+
+    (30) expression -> ALTER ( NAME , . expression )
+    (11) expression -> . expression + expression
+    (12) expression -> . expression - expression
+    (13) expression -> . expression * expression
+    (14) expression -> . expression / expression
+    (21) expression -> . expression relation expression
+    (22) expression -> . ISTRUE ( expression )
+    (23) expression -> . - expression
+    (24) expression -> . ( expression )
+    (25) expression -> . INTEGER
+    (26) expression -> . BOOL
+    (27) expression -> . NAME
+    (28) expression -> . DEF ( NAME , expression )
+    (29) expression -> . NAME ( expression )
+    (30) expression -> . ALTER ( NAME , expression )
+    (31) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+
+    ISTRUE          shift and go to state 13
+    -               shift and go to state 12
+    (               shift and go to state 4
+    INTEGER         shift and go to state 14
+    BOOL            shift and go to state 15
+    NAME            shift and go to state 3
+    DEF             shift and go to state 16
+    ALTER           shift and go to state 17
+    REPEAT          shift and go to state 18
+
+    expression                     shift and go to state 73
+
+state 68
+
+    (31) expression -> REPEAT LPAREN expression SEMICOLON . BREAK SEMICOLON RPAREN SEMICOLON
+
+    BREAK           shift and go to state 74
+
+
+state 69
+
+    (8) statement -> statement WHEN expression THEN statement .
+    (8) statement -> statement . WHEN expression THEN statement
+
+  ! shift/reduce conflict for WHEN resolved as shift
+    $end            reduce using rule 8 (statement -> statement WHEN expression THEN statement .)
+    WHEN            shift and go to state 19
+
+  ! WHEN            [ reduce using rule 8 (statement -> statement WHEN expression THEN statement .) ]
+
+
+state 70
+
+    (1) statement -> PROC NAME ( expression ) .
+
+    WHEN            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
+    $end            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
+
+
+state 71
+
+    (6) statement -> CASE WHEN expression THEN statement .
+    (8) statement -> statement . WHEN expression THEN statement
+
+  ! shift/reduce conflict for WHEN resolved as shift
+    $end            reduce using rule 6 (statement -> CASE WHEN expression THEN statement .)
+    WHEN            shift and go to state 19
+
+  ! WHEN            [ reduce using rule 6 (statement -> CASE WHEN expression THEN statement .) ]
+
+
+state 72
+
+    (28) expression -> DEF ( NAME , expression . )
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    )               shift and go to state 75
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 73
+
+    (30) expression -> ALTER ( NAME , expression . )
+    (11) expression -> expression . + expression
+    (12) expression -> expression . - expression
+    (13) expression -> expression . * expression
+    (14) expression -> expression . / expression
+    (21) expression -> expression . relation expression
+    (15) relation -> . GT
+    (16) relation -> . LT
+    (17) relation -> . GTE
+    (18) relation -> . LTE
+    (19) relation -> . NE
+    (20) relation -> . EQUAL
+
+    )               shift and go to state 76
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+    /               shift and go to state 26
+    GT              shift and go to state 28
+    LT              shift and go to state 29
+    GTE             shift and go to state 30
+    LTE             shift and go to state 31
+    NE              shift and go to state 32
+    EQUAL           shift and go to state 33
+
+    relation                       shift and go to state 27
+
+state 74
+
+    (31) expression -> REPEAT LPAREN expression SEMICOLON BREAK . SEMICOLON RPAREN SEMICOLON
+
+    SEMICOLON       shift and go to state 77
+
+
+state 75
+
+    (28) expression -> DEF ( NAME , expression ) .
+
+    +               reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    -               reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    *               reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    /               reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    GT              reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    LT              reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    GTE             reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    LTE             reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    NE              reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    EQUAL           reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    WHEN            reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    $end            reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    )               reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    THEN            reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+    SEMICOLON       reduce using rule 28 (expression -> DEF ( NAME , expression ) .)
+
+
+state 76
+
+    (30) expression -> ALTER ( NAME , expression ) .
+
+    +               reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    -               reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    *               reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    /               reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    GT              reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    LT              reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    GTE             reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    LTE             reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    NE              reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    EQUAL           reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    WHEN            reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    $end            reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    )               reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    THEN            reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+    SEMICOLON       reduce using rule 30 (expression -> ALTER ( NAME , expression ) .)
+
+
+state 77
+
+    (31) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 78
+
+
+state 78
+
+    (31) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 79
+
+
+state 79
+
+    (31) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .
+
+    +               reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    -               reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    *               reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    /               reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    GT              reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    LT              reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    GTE             reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    LTE             reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    NE              reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    EQUAL           reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    WHEN            reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    $end            reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    )               reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    THEN            reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    SEMICOLON       reduce using rule 31 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for + in state 52 resolved as shift
+WARNING: shift/reduce conflict for - in state 52 resolved as shift
+WARNING: shift/reduce conflict for * in state 52 resolved as shift
+WARNING: shift/reduce conflict for / in state 52 resolved as shift
+WARNING: shift/reduce conflict for GT in state 52 resolved as shift
+WARNING: shift/reduce conflict for LT in state 52 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 52 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 52 resolved as shift
+WARNING: shift/reduce conflict for NE in state 52 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 52 resolved as shift
+WARNING: shift/reduce conflict for WHEN in state 69 resolved as shift
+WARNING: shift/reduce conflict for WHEN in state 71 resolved as shift

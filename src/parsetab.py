@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROC PRINT PRINTLINE SEMICOLON LPAREN RPAREN BREAK REPEATstatement : PROC NAME "(" expression ")"statement : COMMENT statement : PRINTLINEstatement : expression\n    statement : PRINT PRINTLINE\n    expression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," expression ")"expression : NAME "(" expression ")"expression : ALTER "(" NAME "," expression ")"\n    expression : REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON\n    '
+_lr_signature = 'left+-left*/rightUMINUSrightCASEWHENNAME INTEGER BOOL COMMENT ALTER DEF PROC PRINT PRINTLINE SEMICOLON LPAREN RPAREN BREAK REPEAT MOVER ALEATORIO MOVIMIENTO GT LT GTE LTE NE EQUAL ISTRUE CASE WHEN THEN ELSEstatement : PROC NAME "(" expression ")"statement : COMMENT statement : PRINTLINEstatement : expression\n    statement : PRINT PRINTLINE\n    statement : CASE WHEN expression THEN statement statement : CASE expression statement : statement WHEN expression THEN statement\n    statement : ALEATORIO LPAREN RPAREN\n    \n    statement : MOVER LPAREN MOVIMIENTO RPAREN\n    expression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expression relation : GT  relation : LT  relation : GTE  relation : LTE  relation : NE  relation : EQUAL expression : expression relation expressionexpression : ISTRUE \'(\' expression \')\' expression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," expression ")"expression : NAME "(" expression ")"expression : ALTER "(" NAME "," expression ")"\n    expression : REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON\n    empty :'
     
-_lr_action_items = {'PROC':([0,],[2,]),'COMMENT':([0,],[6,]),'PRINTLINE':([0,8,],[7,22,]),'PRINT':([0,],[8,]),'-':([0,3,4,5,9,10,11,16,17,18,19,20,21,23,26,27,28,29,30,31,32,33,36,37,38,39,40,43,44,46,47,50,],[9,-14,9,19,9,-12,-13,9,19,9,9,9,9,-10,9,9,19,-11,-6,-7,-8,-9,19,19,-16,9,9,19,19,-15,-17,-18,]),'(':([0,3,4,9,12,13,15,16,18,19,20,21,26,27,39,40,],[4,16,4,4,24,25,27,4,4,4,4,4,4,4,4,4,]),'INTEGER':([0,4,9,16,18,19,20,21,26,27,39,40,],[10,10,10,10,10,10,10,10,10,10,10,10,]),'BOOL':([0,4,9,16,18,19,20,21,26,27,39,40,],[11,11,11,11,11,11,11,11,11,11,11,11,]),'NAME':([0,2,4,9,16,18,19,20,21,24,25,26,27,39,40,],[3,15,3,3,3,3,3,3,3,34,35,3,3,3,3,]),'DEF':([0,4,9,16,18,19,20,21,26,27,39,40,],[12,12,12,12,12,12,12,12,12,12,12,12,]),'ALTER':([0,4,9,16,18,19,20,21,26,27,39,40,],[13,13,13,13,13,13,13,13,13,13,13,13,]),'REPEAT':([0,4,9,16,18,19,20,21,26,27,39,40,],[14,14,14,14,14,14,14,14,14,14,14,14,]),'$end':([1,3,5,6,7,10,11,22,23,29,30,31,32,33,38,42,46,47,50,],[0,-14,-4,-2,-3,-12,-13,-5,-10,-11,-6,-7,-8,-9,-16,-1,-15,-17,-18,]),'+':([3,5,10,11,17,23,28,29,30,31,32,33,36,37,38,43,44,46,47,50,],[-14,18,-12,-13,18,-10,18,-11,-6,-7,-8,-9,18,18,-16,18,18,-15,-17,-18,]),'*':([3,5,10,11,17,23,28,29,30,31,32,33,36,37,38,43,44,46,47,50,],[-14,20,-12,-13,20,-10,20,-11,20,20,-8,-9,20,20,-16,20,20,-15,-17,-18,]),'/':([3,5,10,11,17,23,28,29,30,31,32,33,36,37,38,43,44,46,47,50,],[-14,21,-12,-13,21,-10,21,-11,21,21,-8,-9,21,21,-16,21,21,-15,-17,-18,]),')':([3,10,11,17,23,28,29,30,31,32,33,37,38,43,44,46,47,50,],[-14,-12,-13,29,-10,38,-11,-6,-7,-8,-9,42,-16,46,47,-15,-17,-18,]),'SEMICOLON':([3,10,11,23,29,30,31,32,33,36,38,45,46,47,49,50,],[-14,-12,-13,-10,-11,-6,-7,-8,-9,41,-16,48,-15,-17,50,-18,]),'LPAREN':([14,],[26,]),',':([34,35,],[39,40,]),'BREAK':([41,],[45,]),'RPAREN':([48,],[49,]),}
+_lr_action_items = {'PROC':([0,60,63,],[2,2,2,]),'COMMENT':([0,60,63,],[6,6,6,]),'PRINTLINE':([0,8,60,63,],[7,34,7,7,]),'PRINT':([0,60,63,],[8,8,8,]),'CASE':([0,60,63,],[9,9,9,]),'ALEATORIO':([0,60,63,],[10,10,10,]),'MOVER':([0,60,63,],[11,11,11,]),'ISTRUE':([0,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[13,13,13,13,13,13,13,13,13,13,13,-15,-16,-17,-18,-19,-20,13,13,13,13,13,13,13,13,]),'-':([0,3,4,5,9,12,14,15,19,21,22,23,24,25,26,27,28,29,30,31,32,33,35,36,39,40,43,44,45,46,47,48,49,50,51,52,53,56,59,60,61,62,63,65,66,67,72,73,75,76,79,],[12,-27,12,24,12,12,-25,-26,12,12,24,12,12,12,12,12,-15,-16,-17,-18,-19,-20,12,24,-23,12,12,24,12,24,-24,-11,-12,-13,-14,24,24,24,24,12,24,-29,12,-22,12,12,24,24,-28,-30,-31,]),'(':([0,3,4,9,12,13,16,17,19,20,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[4,21,4,4,4,40,41,42,4,45,4,4,4,4,4,4,-15,-16,-17,-18,-19,-20,4,4,4,4,4,4,4,4,]),'INTEGER':([0,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[14,14,14,14,14,14,14,14,14,14,14,-15,-16,-17,-18,-19,-20,14,14,14,14,14,14,14,14,]),'BOOL':([0,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[15,15,15,15,15,15,15,15,15,15,15,-15,-16,-17,-18,-19,-20,15,15,15,15,15,15,15,15,]),'NAME':([0,2,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,41,42,43,45,60,63,66,67,],[3,20,3,3,3,3,3,3,3,3,3,3,-15,-16,-17,-18,-19,-20,3,3,57,58,3,3,3,3,3,3,]),'DEF':([0,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[16,16,16,16,16,16,16,16,16,16,16,-15,-16,-17,-18,-19,-20,16,16,16,16,16,16,16,16,]),'ALTER':([0,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[17,17,17,17,17,17,17,17,17,17,17,-15,-16,-17,-18,-19,-20,17,17,17,17,17,17,17,17,]),'REPEAT':([0,4,9,12,19,21,23,24,25,26,27,28,29,30,31,32,33,35,40,43,45,60,63,66,67,],[18,18,18,18,18,18,18,18,18,18,18,-15,-16,-17,-18,-19,-20,18,18,18,18,18,18,18,18,]),'$end':([1,3,5,6,7,14,15,34,36,39,47,48,49,50,51,52,54,62,64,65,69,70,71,75,76,79,],[0,-27,-4,-2,-3,-25,-26,-5,-7,-23,-24,-11,-12,-13,-14,-21,-9,-29,-10,-22,-8,-1,-6,-28,-30,-31,]),'WHEN':([1,3,5,6,7,9,14,15,34,36,39,47,48,49,50,51,52,54,62,64,65,69,70,71,75,76,79,],[19,-27,-4,-2,-3,35,-25,-26,-5,-7,-23,-24,-11,-12,-13,-14,-21,-9,-29,-10,-22,19,-1,19,-28,-30,-31,]),'+':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,23,-25,-26,23,23,-23,23,23,-24,-11,-12,-13,-14,23,23,23,23,23,-29,-22,23,23,-28,-30,-31,]),'*':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,25,-25,-26,25,25,-23,25,25,-24,25,25,-13,-14,25,25,25,25,25,-29,-22,25,25,-28,-30,-31,]),'/':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,26,-25,-26,26,26,-23,26,26,-24,26,26,-13,-14,26,26,26,26,26,-29,-22,26,26,-28,-30,-31,]),'GT':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,28,-25,-26,28,28,-23,28,28,-24,-11,-12,-13,-14,28,28,28,28,28,-29,-22,28,28,-28,-30,-31,]),'LT':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,29,-25,-26,29,29,-23,29,29,-24,-11,-12,-13,-14,29,29,29,29,29,-29,-22,29,29,-28,-30,-31,]),'GTE':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,30,-25,-26,30,30,-23,30,30,-24,-11,-12,-13,-14,30,30,30,30,30,-29,-22,30,30,-28,-30,-31,]),'LTE':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,31,-25,-26,31,31,-23,31,31,-24,-11,-12,-13,-14,31,31,31,31,31,-29,-22,31,31,-28,-30,-31,]),'NE':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,32,-25,-26,32,32,-23,32,32,-24,-11,-12,-13,-14,32,32,32,32,32,-29,-22,32,32,-28,-30,-31,]),'EQUAL':([3,5,14,15,22,36,39,44,46,47,48,49,50,51,52,53,56,59,61,62,65,72,73,75,76,79,],[-27,33,-25,-26,33,33,-23,33,33,-24,-11,-12,-13,-14,33,33,33,33,33,-29,-22,33,33,-28,-30,-31,]),')':([3,14,15,22,39,46,47,48,49,50,51,52,56,61,62,65,72,73,75,76,79,],[-27,-25,-26,47,-23,62,-24,-11,-12,-13,-14,-21,65,70,-29,-22,75,76,-28,-30,-31,]),'THEN':([3,14,15,39,44,47,48,49,50,51,52,53,62,65,75,76,79,],[-27,-25,-26,-23,60,-24,-11,-12,-13,-14,-21,63,-29,-22,-28,-30,-31,]),'SEMICOLON':([3,14,15,39,47,48,49,50,51,52,59,62,65,74,75,76,78,79,],[-27,-25,-26,-23,-24,-11,-12,-13,-14,-21,68,-29,-22,77,-28,-30,79,-31,]),'LPAREN':([10,11,18,],[37,38,43,]),'RPAREN':([37,55,77,],[54,64,78,]),'MOVIMIENTO':([38,],[55,]),',':([57,58,],[66,67,]),'BREAK':([68,],[74,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,4,9,16,18,19,20,21,26,27,39,40,],[5,17,23,28,30,31,32,33,36,37,43,44,]),}
+_lr_goto_items = {'statement':([0,60,63,],[1,69,71,]),'expression':([0,4,9,12,19,21,23,24,25,26,27,35,40,43,45,60,63,66,67,],[5,22,36,39,44,46,48,49,50,51,52,53,56,59,61,5,5,72,73,]),'relation':([5,22,36,39,44,46,48,49,50,51,52,53,56,59,61,72,73,],[27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,22 +26,36 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',73),
-  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',80),
-  ('statement -> PRINTLINE','statement',1,'p_statement_printline','Compilador.py',83),
-  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',85),
-  ('statement -> PRINT PRINTLINE','statement',2,'p_statement_print','Compilador.py',90),
-  ('expression -> expression + expression','expression',3,'p_expression_binop','Compilador.py',95),
-  ('expression -> expression - expression','expression',3,'p_expression_binop','Compilador.py',96),
-  ('expression -> expression * expression','expression',3,'p_expression_binop','Compilador.py',97),
-  ('expression -> expression / expression','expression',3,'p_expression_binop','Compilador.py',98),
-  ('expression -> - expression','expression',2,'p_expression_uminus','Compilador.py',110),
-  ('expression -> ( expression )','expression',3,'p_expression_group','Compilador.py',115),
-  ('expression -> INTEGER','expression',1,'p_expression_integer','Compilador.py',120),
-  ('expression -> BOOL','expression',1,'p_expression_bool','Compilador.py',124),
-  ('expression -> NAME','expression',1,'p_expression_name','Compilador.py',129),
-  ('expression -> DEF ( NAME , expression )','expression',6,'p_expression_def','Compilador.py',137),
-  ('expression -> NAME ( expression )','expression',4,'p_expression_change','Compilador.py',142),
-  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Compilador.py',150),
-  ('expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON','expression',8,'p_expression_repeat','Compilador.py',161),
+  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Parser.py',21),
+  ('statement -> COMMENT','statement',1,'p_statement_comment','Parser.py',28),
+  ('statement -> PRINTLINE','statement',1,'p_statement_printline','Parser.py',31),
+  ('statement -> expression','statement',1,'p_statement_expr','Parser.py',34),
+  ('statement -> PRINT PRINTLINE','statement',2,'p_statement_print','Parser.py',39),
+  ('statement -> CASE WHEN expression THEN statement','statement',5,'p_statement_case','Parser.py',44),
+  ('statement -> CASE expression','statement',2,'p_statement_cases','Parser.py',52),
+  ('statement -> statement WHEN expression THEN statement','statement',5,'p_statement_when','Parser.py',57),
+  ('statement -> ALEATORIO LPAREN RPAREN','statement',3,'p_statement_aleatorio','Parser.py',75),
+  ('statement -> MOVER LPAREN MOVIMIENTO RPAREN','statement',4,'p_statement_mover','Parser.py',79),
+  ('expression -> expression + expression','expression',3,'p_expression_binop','Parser.py',106),
+  ('expression -> expression - expression','expression',3,'p_expression_binop','Parser.py',107),
+  ('expression -> expression * expression','expression',3,'p_expression_binop','Parser.py',108),
+  ('expression -> expression / expression','expression',3,'p_expression_binop','Parser.py',109),
+  ('relation -> GT','relation',1,'p_relation_GT','Parser.py',120),
+  ('relation -> LT','relation',1,'p_relation_LT','Parser.py',124),
+  ('relation -> GTE','relation',1,'p_relation_GTE','Parser.py',128),
+  ('relation -> LTE','relation',1,'p_relation_LTE','Parser.py',132),
+  ('relation -> NE','relation',1,'p_relation_NE','Parser.py',136),
+  ('relation -> EQUAL','relation',1,'p_relation_EQUAL','Parser.py',140),
+  ('expression -> expression relation expression','expression',3,'p_expression_compr','Parser.py',144),
+  ('expression -> ISTRUE ( expression )','expression',4,'p_expression_istrue','Parser.py',168),
+  ('expression -> - expression','expression',2,'p_expression_uminus','Parser.py',177),
+  ('expression -> ( expression )','expression',3,'p_expression_group','Parser.py',181),
+  ('expression -> INTEGER','expression',1,'p_expression_integer','Parser.py',185),
+  ('expression -> BOOL','expression',1,'p_expression_bool','Parser.py',189),
+  ('expression -> NAME','expression',1,'p_expression_name','Parser.py',193),
+  ('expression -> DEF ( NAME , expression )','expression',6,'p_expression_def','Parser.py',201),
+  ('expression -> NAME ( expression )','expression',4,'p_expression_change','Parser.py',206),
+  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Parser.py',214),
+  ('expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON','expression',8,'p_expression_repeat','Parser.py',225),
+  ('empty -> <empty>','empty',0,'p_empty','Parser.py',236),
 ]
