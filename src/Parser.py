@@ -252,10 +252,7 @@ def readFile(dir, run):
     parser = yacc.yacc()
     fp.close()
     par = parser.parse(cadena)
-    pars.append(str(par))
-    print(cadena)
-    print(str(par))
-    print(pars)
+    pars.append(par)
     return pars
 
 def clearpars():
