@@ -32,13 +32,13 @@ def p_statement_printline(p):
 
 def p_statement_expr(p):
     'statement : expression'
-    print(p[1])
+    p[0]=p[1]
 
 def p_statement_print(p):
     '''
     statement : PRINT PRINTLINE
     '''
-    print(p[2])
+    p[0]=p[2]
 
 def p_statement_case(p):
     '''statement : CASE WHEN expression THEN statement'''
@@ -232,25 +232,31 @@ def p_expression_repeat(p):
     '''
     p[0]=(p[1],p[3])
 
+def p_expression_repeat_error(p):
+    '''
+    expression : REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
+    '''
+    print("Error expected break not found")
+
 def p_error(p):
     if p:
         print("Syntax error at '%s'" % p.value)
     else:
         print("Syntax error at EOF")
 
-def p_empty(p):
-    """empty :"""
-    pass
-
-def readFile(dir):
+def readFile(dir, run):
+    if not run:
+        run_flag = False
     fp = codecs.open(dir, "r", "utf-8")
     cadena = fp.read()
-    Parser = yacc.yacc()
+    parser = yacc.yacc()
     fp.close()
-    par = Parser.parse(cadena)
+    par = parser.parse(cadena)
+    pars.append(str(par))
+    print(cadena)
     print(str(par))
     print(pars)
-    return errors
+    return pars
 
 def clearpars():
     errors.clear()

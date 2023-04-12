@@ -43,6 +43,7 @@ t_CASE = "case"
 t_WHEN = "when"
 t_THEN = "then"
 t_ELSE = "else"
+
 def t_INTEGER(t):
     r'-?\d+'
     t.value = int(t.value)

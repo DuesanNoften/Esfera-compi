@@ -114,16 +114,14 @@ class IDE:
     def compile(self):
         self.outputBox.config(state=NORMAL)
         self.outputBox.delete('1.0',END)
+        self.outputBox.update()
         file = open("compile.txt","w")
         code = self.getEntryCode()
         file.write(code)
         file.close()
         toks = Lexer.read_File("compile.txt")
-        pars = Parser.readFile("compile.txt")
-        for par in pars:
-            self.outputBox.insert(END, (str(par) + "\n"))
-        for tok in toks:
-            self.outputBox.insert(END,(tok + "\n"))
+        pars = Parser.readFile("compile.txt", False)
+        self.outputBox.insert(END,(str(pars)+ "\n"))
         self.outputBox.config(state=DISABLED)
         Lexer.cleartoks()
         Parser.clearpars()
