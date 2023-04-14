@@ -64,12 +64,30 @@ def p_statement_print(p):
     p[0]=p[2]
 
 def p_statement_case(p):
-    '''statement : CASE WHEN expression THEN statement'''
+    '''statement : CASE WHEN expression statementt'''
 
     if p[3]:
         print('Esto es para separar')
         print(p[5])
         p[0] = p[5]
+
+def p_statement_then(p):
+    """ statementt : THEN statement """
+    if p[-1]:
+        print("ass")
+        p[0] = p[2]
+    else:
+        a = p[2]
+        if isinstance(a, list):
+            b = a[0]
+            c = a[1]
+            if isinstance(c,int):
+                names[b] = names[b] - c
+            else:
+                names.pop(b)
+        else:
+            print("aaa")
+        print(names)
 
 def p_statement_cases(p):
     """ statement : CASE expression """
@@ -77,7 +95,7 @@ def p_statement_cases(p):
     p[0] = p[2]
 
 def p_statement_when(p):
-    """statement : statement WHEN expression THEN statement"""
+    """statement : statement WHEN expression statement"""
 
     if p[1] == p[3]:
         print("vamos bien")
@@ -87,9 +105,8 @@ def p_statement_when(p):
         p[0] = p[1]
         print("no entro")
 
-def statement_else(p):
-    '''statement : ELSE statement
-                    | empty'''
+def p_statement_else(p):
+    '''statement : ELSE statement'''
 
     print(p[1])
     p[0] = p[1]
@@ -278,7 +295,7 @@ def p_relation_EQUAL(p):
 def p_expression_compr(p):
     '''expression : expression relation expression'''
 
-    if p[1] == int and p[3] == int:
+    if isinstance(p[1], int) and isinstance(p[3], int):
         if p[2] == '<':
             print(p[1] < p[3])
             p[0] = p[1] < p[3]
@@ -305,7 +322,7 @@ def p_expression_compr(p):
 def p_expression_istrue(p):
     '''expression : ISTRUE '(' expression ')' '''
 
-    if p[3] == bool:
+    if isinstance([3], bool):
         if p[3] == True:
             p[0] = True
             print("True")
@@ -341,6 +358,7 @@ def p_expression_def(p):
     'expression : DEF "(" NAME "," expression ")"'
     if len(p[3])>1 and len(p[3])<=10 :
         names[p[3]] = p[5]
+        p[0] = [p[3], 'd']
 
 def p_expression_change(p):
     'expression : NAME "(" expression ")"'
@@ -355,8 +373,10 @@ def p_expression_math(p):
     if isinstance(p[5],int) and isinstance(names[p[3]],int) :
         if p[5]=="-":
             names[p[3]]=names[p[3]]-p[5]
+            p[0] = [p[3], p[5]]
         else:
             names[p[3]]=names[p[3]]+p[5]
+            p[0] = [p[3], p[5]]
     else:
         p[0]="La funcion alter solo cambia el valor de las variables númericas"
 
@@ -374,11 +394,11 @@ def p_expression_repeat_error(p):
 
 def p_expression_until(p):
     '''
-    expression : UNTIL LPAREN expression RPAREN BOOL SEMICOLON
+    expression : UNTIL LPAREN expression RPAREN statement SEMICOLON
     '''
     p[0]=(p[1],p[3],p[5])
 
-def p_expression_until_erro(p):
+def p_expression_until_error(p):
     '''
     expression :  UNTIL LPAREN expression RPAREN
           |  UNTIL LPAREN expression RPAREN SEMICOLON
@@ -387,7 +407,7 @@ def p_expression_until_erro(p):
 
 def p_expression_while(p):
     '''
-    expression : WHILE BOOL LPAREN expression RPAREN SEMICOLON
+    expression : WHILE statement LPAREN expression RPAREN SEMICOLON
     '''
     p[0]=(p[1],p[2],p[3])
 
