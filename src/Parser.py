@@ -36,8 +36,9 @@ rightMotor = Motor(Port.C)
 carBall = DriveBase(leftMotor, rightMotor, wheel_diameter = 55.5, axle_track = 104)
 def stop():
     carBall.stop()
-    leftMotor.stop()
-    rightMotor.stop()
+    leftMotor.brake()
+    rightMotor.brake()
+carBall.settings(straight_speed=3000,straight_acceleration=1500)
 
 def p_statement_proc(p):
     'statement : PROC NAME "(" expression ")"'
