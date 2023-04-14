@@ -203,7 +203,7 @@ def p_relation_EQUAL(p):
 def p_expression_compr(p):
     '''expression : expression relation expression'''
 
-    if p[1] == int and p[2] == int:
+    if p[1] == int and p[3] == int:
         if p[2] == '<':
             print(p[1] < p[3])
             p[0] = p[1] < p[3]
