@@ -6,7 +6,7 @@ if sys.version_info[0] >= 3:
 
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC',   
+    'PROC', 'TYPE'  
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
@@ -31,6 +31,9 @@ def t_BOOL(t):
         t.value=False
     return t
 
+def t_TYPE(t):
+    r'(integer|boolean)'
+    return t
 t_ignore = " \t"
 
 
@@ -118,9 +121,24 @@ def p_expression_name(p):
         p[0] = 0
 
 def p_expression_def(p):
-    'expression : DEF "(" NAME "," expression ")"'
+    '''expression : DEF "(" NAME "," TYPE "," INTEGER ")"
+                  | DEF "(" NAME "," TYPE "," BOOL ")"
+                  | DEF "(" NAME "," TYPE ")"'''
     if len(p[3])>1 and len(p[3])<=10 :
-        names[p[3]] = p[5]
+        if p[6]== ',':    
+            if (p[5]=='integer'):
+                if isinstance(p[7],int):
+                    names[p[3]] = [p[5],p[7]]
+                else:
+                    print ("Error, tipo de la variable no coincide con el valor dado")
+            elif (p[5]=='boolean'):
+                if (p[7]=='True')or(p[7]=='False'):
+                    names[p[3]] = [p[5],p[7]]
+                else:
+                    print ("Error, tipo de la variable no coincide con el valor dado")
+        elif p[6]==')':
+            names[p[3]] = [p[5],None]
+         
 
 def p_expression_change(p):
     'expression : NAME "(" expression ")"'
