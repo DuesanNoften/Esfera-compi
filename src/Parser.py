@@ -297,6 +297,25 @@ def p_expression_repeat_error(p):
     '''
     p[0]="Error expected break not found"
 
+def p_expression_until(p):
+    '''
+    expression : UNTIL LPAREN expression RPAREN BOOL SEMICOLON
+    '''
+    p[0]=(p[1],p[3],p[5])
+
+def p_expression_until_erro(p):
+    '''
+    expression :  UNTIL LPAREN expression RPAREN
+          |  UNTIL LPAREN expression RPAREN SEMICOLON
+    '''
+    p[0]="Error expected condition not found"
+
+def p_expression_while(p):
+    '''
+    expression : WHILE BOOL LPAREN expression RPAREN SEMICOLON
+    '''
+    p[0]=(p[1],p[2],p[3])
+
 def p_error(p):
     if p:
         print("Syntax error at '%s'" % p.value)
