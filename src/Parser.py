@@ -303,7 +303,7 @@ def p_expression_compr(p):
 def p_expression_istrue(p):
     '''expression : ISTRUE '(' expression ')' '''
 
-    if p[3] == bool:
+    if isinstance([3], bool):
         if p[3] == True:
             p[0] = True
             print("True")
@@ -372,11 +372,11 @@ def p_expression_repeat_error(p):
 
 def p_expression_until(p):
     '''
-    expression : UNTIL LPAREN expression RPAREN BOOL SEMICOLON
+    expression : UNTIL LPAREN expression RPAREN statement SEMICOLON
     '''
     p[0]=(p[1],p[3],p[5])
 
-def p_expression_until_erro(p):
+def p_expression_until_error(p):
     '''
     expression :  UNTIL LPAREN expression RPAREN
           |  UNTIL LPAREN expression RPAREN SEMICOLON
@@ -385,7 +385,7 @@ def p_expression_until_erro(p):
 
 def p_expression_while(p):
     '''
-    expression : WHILE BOOL LPAREN expression RPAREN SEMICOLON
+    expression : WHILE statement LPAREN expression RPAREN SEMICOLON
     '''
     p[0]=(p[1],p[2],p[3])
 

@@ -37,9 +37,9 @@ Rule 31    expression -> NAME ( expression )
 Rule 32    expression -> ALTER ( NAME , expression )
 Rule 33    expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
 Rule 34    expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-Rule 35    expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-Rule 36    expression -> UNTIL LPAREN expression RPAREN
-Rule 37    expression -> UNTIL LPAREN expression RPAREN SEMICOLON
+Rule 35    expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON
+Rule 36    expression -> UNTIL LPAREN expression RPAREN BOOL
+Rule 37    expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON
 Rule 38    expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
 Terminals, with rules where they appear
@@ -53,7 +53,7 @@ Terminals, with rules where they appear
 /                    : 16
 ALEATORIO            : 10
 ALTER                : 32
-BOOL                 : 28 35 38
+BOOL                 : 28 36 37 38
 BREAK                : 33
 CASE                 : 6 7
 COMMENT              : 2
@@ -88,7 +88,7 @@ Nonterminals, with rules where they appear
 
 expression           : 1 4 6 7 8 13 13 14 14 15 15 16 16 23 23 24 25 26 30 31 32 33 34 35 36 37 38
 relation             : 23
-statement            : 6 8 8 9 0
+statement            : 6 8 8 9 35 0
 
 Parsing method: LALR
 
@@ -123,9 +123,9 @@ state 0
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     PROC            shift and go to state 2
@@ -185,8 +185,8 @@ state 3
     WHEN            reduce using rule 29 (expression -> NAME .)
     $end            reduce using rule 29 (expression -> NAME .)
     )               reduce using rule 29 (expression -> NAME .)
-    THEN            reduce using rule 29 (expression -> NAME .)
     SEMICOLON       reduce using rule 29 (expression -> NAME .)
+    THEN            reduce using rule 29 (expression -> NAME .)
     RPAREN          reduce using rule 29 (expression -> NAME .)
     (               shift and go to state 25
 
@@ -210,9 +210,9 @@ state 4
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -246,6 +246,7 @@ state 5
 
     WHEN            reduce using rule 4 (statement -> expression .)
     $end            reduce using rule 4 (statement -> expression .)
+    SEMICOLON       reduce using rule 4 (statement -> expression .)
     +               shift and go to state 27
     -               shift and go to state 28
     *               shift and go to state 29
@@ -265,6 +266,7 @@ state 6
 
     WHEN            reduce using rule 2 (statement -> COMMENT .)
     $end            reduce using rule 2 (statement -> COMMENT .)
+    SEMICOLON       reduce using rule 2 (statement -> COMMENT .)
 
 
 state 7
@@ -273,6 +275,7 @@ state 7
 
     WHEN            reduce using rule 3 (statement -> PRINTLINE .)
     $end            reduce using rule 3 (statement -> PRINTLINE .)
+    SEMICOLON       reduce using rule 3 (statement -> PRINTLINE .)
 
 
 state 8
@@ -302,9 +305,9 @@ state 9
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     WHEN            shift and go to state 39
@@ -353,9 +356,9 @@ state 10
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     PROC            shift and go to state 2
@@ -422,9 +425,9 @@ state 14
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -465,8 +468,8 @@ state 16
     WHEN            reduce using rule 27 (expression -> INTEGER .)
     $end            reduce using rule 27 (expression -> INTEGER .)
     )               reduce using rule 27 (expression -> INTEGER .)
-    THEN            reduce using rule 27 (expression -> INTEGER .)
     SEMICOLON       reduce using rule 27 (expression -> INTEGER .)
+    THEN            reduce using rule 27 (expression -> INTEGER .)
     RPAREN          reduce using rule 27 (expression -> INTEGER .)
 
 
@@ -487,8 +490,8 @@ state 17
     WHEN            reduce using rule 28 (expression -> BOOL .)
     $end            reduce using rule 28 (expression -> BOOL .)
     )               reduce using rule 28 (expression -> BOOL .)
-    THEN            reduce using rule 28 (expression -> BOOL .)
     SEMICOLON       reduce using rule 28 (expression -> BOOL .)
+    THEN            reduce using rule 28 (expression -> BOOL .)
     RPAREN          reduce using rule 28 (expression -> BOOL .)
 
 
@@ -516,9 +519,9 @@ state 20
 
 state 21
 
-    (35) expression -> UNTIL . LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> UNTIL . LPAREN expression RPAREN
-    (37) expression -> UNTIL . LPAREN expression RPAREN SEMICOLON
+    (35) expression -> UNTIL . LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> UNTIL . LPAREN expression RPAREN BOOL
+    (37) expression -> UNTIL . LPAREN expression RPAREN BOOL SEMICOLON
 
     LPAREN          shift and go to state 50
 
@@ -549,9 +552,9 @@ state 23
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -594,9 +597,9 @@ state 25
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -661,9 +664,9 @@ state 27
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -699,9 +702,9 @@ state 28
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -737,9 +740,9 @@ state 29
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -775,9 +778,9 @@ state 30
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -813,9 +816,9 @@ state 31
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -940,6 +943,7 @@ state 38
 
     WHEN            reduce using rule 5 (statement -> PRINT PRINTLINE .)
     $end            reduce using rule 5 (statement -> PRINT PRINTLINE .)
+    SEMICOLON       reduce using rule 5 (statement -> PRINT PRINTLINE .)
 
 
 state 39
@@ -961,9 +965,9 @@ state 39
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -997,6 +1001,7 @@ state 40
 
     WHEN            reduce using rule 7 (statement -> CASE expression .)
     $end            reduce using rule 7 (statement -> CASE expression .)
+    SEMICOLON       reduce using rule 7 (statement -> CASE expression .)
     +               shift and go to state 27
     -               shift and go to state 28
     *               shift and go to state 29
@@ -1017,6 +1022,7 @@ state 41
 
   ! shift/reduce conflict for WHEN resolved as shift
     $end            reduce using rule 9 (statement -> ELSE statement .)
+    SEMICOLON       reduce using rule 9 (statement -> ELSE statement .)
     WHEN            shift and go to state 23
 
   ! WHEN            [ reduce using rule 9 (statement -> ELSE statement .) ]
@@ -1071,8 +1077,8 @@ state 45
     WHEN            reduce using rule 25 (expression -> - expression .)
     $end            reduce using rule 25 (expression -> - expression .)
     )               reduce using rule 25 (expression -> - expression .)
-    THEN            reduce using rule 25 (expression -> - expression .)
     SEMICOLON       reduce using rule 25 (expression -> - expression .)
+    THEN            reduce using rule 25 (expression -> - expression .)
     RPAREN          reduce using rule 25 (expression -> - expression .)
 
   ! +               [ shift and go to state 27 ]
@@ -1107,9 +1113,9 @@ state 46
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -1160,9 +1166,9 @@ state 49
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -1181,9 +1187,9 @@ state 49
 
 state 50
 
-    (35) expression -> UNTIL LPAREN . expression RPAREN BOOL SEMICOLON
-    (36) expression -> UNTIL LPAREN . expression RPAREN
-    (37) expression -> UNTIL LPAREN . expression RPAREN SEMICOLON
+    (35) expression -> UNTIL LPAREN . expression RPAREN statement SEMICOLON
+    (36) expression -> UNTIL LPAREN . expression RPAREN BOOL
+    (37) expression -> UNTIL LPAREN . expression RPAREN BOOL SEMICOLON
     (13) expression -> . expression + expression
     (14) expression -> . expression - expression
     (15) expression -> . expression * expression
@@ -1200,9 +1206,9 @@ state 50
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -1274,9 +1280,9 @@ state 53
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -1339,8 +1345,8 @@ state 55
     WHEN            reduce using rule 26 (expression -> ( expression ) .)
     $end            reduce using rule 26 (expression -> ( expression ) .)
     )               reduce using rule 26 (expression -> ( expression ) .)
-    THEN            reduce using rule 26 (expression -> ( expression ) .)
     SEMICOLON       reduce using rule 26 (expression -> ( expression ) .)
+    THEN            reduce using rule 26 (expression -> ( expression ) .)
     RPAREN          reduce using rule 26 (expression -> ( expression ) .)
 
 
@@ -1370,8 +1376,8 @@ state 56
     WHEN            reduce using rule 13 (expression -> expression + expression .)
     $end            reduce using rule 13 (expression -> expression + expression .)
     )               reduce using rule 13 (expression -> expression + expression .)
-    THEN            reduce using rule 13 (expression -> expression + expression .)
     SEMICOLON       reduce using rule 13 (expression -> expression + expression .)
+    THEN            reduce using rule 13 (expression -> expression + expression .)
     RPAREN          reduce using rule 13 (expression -> expression + expression .)
     *               shift and go to state 29
     /               shift and go to state 30
@@ -1415,8 +1421,8 @@ state 57
     WHEN            reduce using rule 14 (expression -> expression - expression .)
     $end            reduce using rule 14 (expression -> expression - expression .)
     )               reduce using rule 14 (expression -> expression - expression .)
-    THEN            reduce using rule 14 (expression -> expression - expression .)
     SEMICOLON       reduce using rule 14 (expression -> expression - expression .)
+    THEN            reduce using rule 14 (expression -> expression - expression .)
     RPAREN          reduce using rule 14 (expression -> expression - expression .)
     *               shift and go to state 29
     /               shift and go to state 30
@@ -1462,8 +1468,8 @@ state 58
     WHEN            reduce using rule 15 (expression -> expression * expression .)
     $end            reduce using rule 15 (expression -> expression * expression .)
     )               reduce using rule 15 (expression -> expression * expression .)
-    THEN            reduce using rule 15 (expression -> expression * expression .)
     SEMICOLON       reduce using rule 15 (expression -> expression * expression .)
+    THEN            reduce using rule 15 (expression -> expression * expression .)
     RPAREN          reduce using rule 15 (expression -> expression * expression .)
 
   ! +               [ shift and go to state 27 ]
@@ -1507,8 +1513,8 @@ state 59
     WHEN            reduce using rule 16 (expression -> expression / expression .)
     $end            reduce using rule 16 (expression -> expression / expression .)
     )               reduce using rule 16 (expression -> expression / expression .)
-    THEN            reduce using rule 16 (expression -> expression / expression .)
     SEMICOLON       reduce using rule 16 (expression -> expression / expression .)
+    THEN            reduce using rule 16 (expression -> expression / expression .)
     RPAREN          reduce using rule 16 (expression -> expression / expression .)
 
   ! +               [ shift and go to state 27 ]
@@ -1552,8 +1558,8 @@ state 60
     WHEN            reduce using rule 23 (expression -> expression relation expression .)
     $end            reduce using rule 23 (expression -> expression relation expression .)
     )               reduce using rule 23 (expression -> expression relation expression .)
-    THEN            reduce using rule 23 (expression -> expression relation expression .)
     SEMICOLON       reduce using rule 23 (expression -> expression relation expression .)
+    THEN            reduce using rule 23 (expression -> expression relation expression .)
     RPAREN          reduce using rule 23 (expression -> expression relation expression .)
     +               shift and go to state 27
     -               shift and go to state 28
@@ -1614,6 +1620,7 @@ state 62
 
     WHEN            reduce using rule 10 (statement -> ALEATORIO LPAREN RPAREN .)
     $end            reduce using rule 10 (statement -> ALEATORIO LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 10 (statement -> ALEATORIO LPAREN RPAREN .)
 
 
 state 63
@@ -1622,6 +1629,7 @@ state 63
 
     WHEN            reduce using rule 11 (statement -> HORN LPAREN RPAREN .)
     $end            reduce using rule 11 (statement -> HORN LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 11 (statement -> HORN LPAREN RPAREN .)
 
 
 state 64
@@ -1706,9 +1714,9 @@ state 68
 
 state 69
 
-    (35) expression -> UNTIL LPAREN expression . RPAREN BOOL SEMICOLON
-    (36) expression -> UNTIL LPAREN expression . RPAREN
-    (37) expression -> UNTIL LPAREN expression . RPAREN SEMICOLON
+    (35) expression -> UNTIL LPAREN expression . RPAREN statement SEMICOLON
+    (36) expression -> UNTIL LPAREN expression . RPAREN BOOL
+    (37) expression -> UNTIL LPAREN expression . RPAREN BOOL SEMICOLON
     (13) expression -> expression . + expression
     (14) expression -> expression . - expression
     (15) expression -> expression . * expression
@@ -1754,9 +1762,9 @@ state 70
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -1804,9 +1812,9 @@ state 71
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     PROC            shift and go to state 2
@@ -1879,8 +1887,8 @@ state 73
     WHEN            reduce using rule 31 (expression -> NAME ( expression ) .)
     $end            reduce using rule 31 (expression -> NAME ( expression ) .)
     )               reduce using rule 31 (expression -> NAME ( expression ) .)
-    THEN            reduce using rule 31 (expression -> NAME ( expression ) .)
     SEMICOLON       reduce using rule 31 (expression -> NAME ( expression ) .)
+    THEN            reduce using rule 31 (expression -> NAME ( expression ) .)
     RPAREN          reduce using rule 31 (expression -> NAME ( expression ) .)
 
 
@@ -1915,9 +1923,9 @@ state 74
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     PROC            shift and go to state 2
@@ -1950,6 +1958,7 @@ state 75
 
     WHEN            reduce using rule 12 (statement -> MOVER LPAREN MOVIMIENTO RPAREN .)
     $end            reduce using rule 12 (statement -> MOVER LPAREN MOVIMIENTO RPAREN .)
+    SEMICOLON       reduce using rule 12 (statement -> MOVER LPAREN MOVIMIENTO RPAREN .)
 
 
 state 76
@@ -1969,8 +1978,8 @@ state 76
     WHEN            reduce using rule 24 (expression -> ISTRUE ( expression ) .)
     $end            reduce using rule 24 (expression -> ISTRUE ( expression ) .)
     )               reduce using rule 24 (expression -> ISTRUE ( expression ) .)
-    THEN            reduce using rule 24 (expression -> ISTRUE ( expression ) .)
     SEMICOLON       reduce using rule 24 (expression -> ISTRUE ( expression ) .)
+    THEN            reduce using rule 24 (expression -> ISTRUE ( expression ) .)
     RPAREN          reduce using rule 24 (expression -> ISTRUE ( expression ) .)
 
 
@@ -1993,9 +2002,9 @@ state 77
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -2031,9 +2040,9 @@ state 78
     (32) expression -> . ALTER ( NAME , expression )
     (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
-    (35) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
-    (36) expression -> . UNTIL LPAREN expression RPAREN
-    (37) expression -> . UNTIL LPAREN expression RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
     (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
     ISTRUE          shift and go to state 15
@@ -2061,31 +2070,65 @@ state 79
 
 state 80
 
-    (35) expression -> UNTIL LPAREN expression RPAREN . BOOL SEMICOLON
-    (36) expression -> UNTIL LPAREN expression RPAREN .
-    (37) expression -> UNTIL LPAREN expression RPAREN . SEMICOLON
+    (35) expression -> UNTIL LPAREN expression RPAREN . statement SEMICOLON
+    (36) expression -> UNTIL LPAREN expression RPAREN . BOOL
+    (37) expression -> UNTIL LPAREN expression RPAREN . BOOL SEMICOLON
+    (1) statement -> . PROC NAME ( expression )
+    (2) statement -> . COMMENT
+    (3) statement -> . PRINTLINE
+    (4) statement -> . expression
+    (5) statement -> . PRINT PRINTLINE
+    (6) statement -> . CASE WHEN expression THEN statement
+    (7) statement -> . CASE expression
+    (8) statement -> . statement WHEN expression THEN statement
+    (9) statement -> . ELSE statement
+    (10) statement -> . ALEATORIO LPAREN RPAREN
+    (11) statement -> . HORN LPAREN RPAREN
+    (12) statement -> . MOVER LPAREN MOVIMIENTO RPAREN
+    (13) expression -> . expression + expression
+    (14) expression -> . expression - expression
+    (15) expression -> . expression * expression
+    (16) expression -> . expression / expression
+    (23) expression -> . expression relation expression
+    (24) expression -> . ISTRUE ( expression )
+    (25) expression -> . - expression
+    (26) expression -> . ( expression )
+    (27) expression -> . INTEGER
+    (28) expression -> . BOOL
+    (29) expression -> . NAME
+    (30) expression -> . DEF ( NAME , expression )
+    (31) expression -> . NAME ( expression )
+    (32) expression -> . ALTER ( NAME , expression )
+    (33) expression -> . REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
+    (34) expression -> . REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
+    (35) expression -> . UNTIL LPAREN expression RPAREN statement SEMICOLON
+    (36) expression -> . UNTIL LPAREN expression RPAREN BOOL
+    (37) expression -> . UNTIL LPAREN expression RPAREN BOOL SEMICOLON
+    (38) expression -> . WHILE BOOL LPAREN expression RPAREN SEMICOLON
 
-  ! shift/reduce conflict for SEMICOLON resolved as shift
-    BOOL            shift and go to state 89
-    +               reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    -               reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    *               reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    /               reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    GT              reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    LT              reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    GTE             reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    LTE             reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    NE              reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    EQUAL           reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    WHEN            reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    $end            reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    )               reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    THEN            reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .)
-    SEMICOLON       shift and go to state 90
+    BOOL            shift and go to state 90
+    PROC            shift and go to state 2
+    COMMENT         shift and go to state 6
+    PRINTLINE       shift and go to state 7
+    PRINT           shift and go to state 8
+    CASE            shift and go to state 9
+    ELSE            shift and go to state 10
+    ALEATORIO       shift and go to state 11
+    HORN            shift and go to state 12
+    MOVER           shift and go to state 13
+    ISTRUE          shift and go to state 15
+    -               shift and go to state 14
+    (               shift and go to state 4
+    INTEGER         shift and go to state 16
+    NAME            shift and go to state 3
+    DEF             shift and go to state 18
+    ALTER           shift and go to state 19
+    REPEAT          shift and go to state 20
+    UNTIL           shift and go to state 21
+    WHILE           shift and go to state 22
 
-  ! SEMICOLON       [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN .) ]
-
+    expression                     shift and go to state 5
+    statement                      shift and go to state 89
 
 state 81
 
@@ -2123,6 +2166,7 @@ state 82
 
   ! shift/reduce conflict for WHEN resolved as shift
     $end            reduce using rule 8 (statement -> statement WHEN expression THEN statement .)
+    SEMICOLON       reduce using rule 8 (statement -> statement WHEN expression THEN statement .)
     WHEN            shift and go to state 23
 
   ! WHEN            [ reduce using rule 8 (statement -> statement WHEN expression THEN statement .) ]
@@ -2134,6 +2178,7 @@ state 83
 
     WHEN            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
     $end            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
+    SEMICOLON       reduce using rule 1 (statement -> PROC NAME ( expression ) .)
 
 
 state 84
@@ -2143,6 +2188,7 @@ state 84
 
   ! shift/reduce conflict for WHEN resolved as shift
     $end            reduce using rule 6 (statement -> CASE WHEN expression THEN statement .)
+    SEMICOLON       reduce using rule 6 (statement -> CASE WHEN expression THEN statement .)
     WHEN            shift and go to state 23
 
   ! WHEN            [ reduce using rule 6 (statement -> CASE WHEN expression THEN statement .) ]
@@ -2222,38 +2268,69 @@ state 88
 
 state 89
 
-    (35) expression -> UNTIL LPAREN expression RPAREN BOOL . SEMICOLON
+    (35) expression -> UNTIL LPAREN expression RPAREN statement . SEMICOLON
+    (8) statement -> statement . WHEN expression THEN statement
 
     SEMICOLON       shift and go to state 96
+    WHEN            shift and go to state 23
 
 
 state 90
 
-    (37) expression -> UNTIL LPAREN expression RPAREN SEMICOLON .
+    (36) expression -> UNTIL LPAREN expression RPAREN BOOL .
+    (37) expression -> UNTIL LPAREN expression RPAREN BOOL . SEMICOLON
+    (28) expression -> BOOL .
 
-    +               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    -               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    *               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    /               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    GT              reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    LT              reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    GTE             reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    LTE             reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    NE              reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    EQUAL           reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    WHEN            reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    $end            reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    )               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    THEN            reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    SEMICOLON       reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
-    RPAREN          reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN SEMICOLON .)
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+  ! reduce/reduce conflict for + resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for - resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for * resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for / resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for GT resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for LT resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for GTE resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for LTE resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for NE resolved using rule 28 (expression -> BOOL .)
+  ! reduce/reduce conflict for EQUAL resolved using rule 28 (expression -> BOOL .)
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+  ! reduce/reduce conflict for WHEN resolved using rule 28 (expression -> BOOL .)
+    $end            reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .)
+    )               reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .)
+    THEN            reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .)
+    RPAREN          reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .)
+    SEMICOLON       shift and go to state 97
+    +               reduce using rule 28 (expression -> BOOL .)
+    -               reduce using rule 28 (expression -> BOOL .)
+    *               reduce using rule 28 (expression -> BOOL .)
+    /               reduce using rule 28 (expression -> BOOL .)
+    GT              reduce using rule 28 (expression -> BOOL .)
+    LT              reduce using rule 28 (expression -> BOOL .)
+    GTE             reduce using rule 28 (expression -> BOOL .)
+    LTE             reduce using rule 28 (expression -> BOOL .)
+    NE              reduce using rule 28 (expression -> BOOL .)
+    EQUAL           reduce using rule 28 (expression -> BOOL .)
+    WHEN            reduce using rule 28 (expression -> BOOL .)
+
+  ! +               [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! -               [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! *               [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! /               [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! GT              [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! LT              [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! GTE             [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! LTE             [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! NE              [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! EQUAL           [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! WHEN            [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! SEMICOLON       [ reduce using rule 36 (expression -> UNTIL LPAREN expression RPAREN BOOL .) ]
+  ! SEMICOLON       [ reduce using rule 28 (expression -> BOOL .) ]
 
 
 state 91
 
     (38) expression -> WHILE BOOL LPAREN expression RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 97
+    SEMICOLON       shift and go to state 98
 
 
 state 92
@@ -2273,8 +2350,8 @@ state 92
     WHEN            reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
     $end            reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
     )               reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
-    THEN            reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
     SEMICOLON       reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
+    THEN            reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
     RPAREN          reduce using rule 30 (expression -> DEF ( NAME , expression ) .)
 
 
@@ -2295,8 +2372,8 @@ state 93
     WHEN            reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
     $end            reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
     )               reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
-    THEN            reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
     SEMICOLON       reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
+    THEN            reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
     RPAREN          reduce using rule 32 (expression -> ALTER ( NAME , expression ) .)
 
 
@@ -2304,7 +2381,7 @@ state 94
 
     (33) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON . RPAREN SEMICOLON
 
-    RPAREN          shift and go to state 98
+    RPAREN          shift and go to state 99
 
 
 state 95
@@ -2324,34 +2401,56 @@ state 95
     WHEN            reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
     $end            reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
     )               reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
-    THEN            reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
     SEMICOLON       reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
+    THEN            reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
     RPAREN          reduce using rule 34 (expression -> REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON .)
 
 
 state 96
 
-    (35) expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .
+    (35) expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .
 
-    +               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    -               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    *               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    /               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    GT              reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    LT              reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    GTE             reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    LTE             reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    NE              reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    EQUAL           reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    WHEN            reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    $end            reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    )               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    THEN            reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    SEMICOLON       reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
-    RPAREN          reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    +               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    -               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    *               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    /               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    GT              reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    LT              reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    GTE             reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    LTE             reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    NE              reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    EQUAL           reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    WHEN            reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    $end            reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    )               reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    SEMICOLON       reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    THEN            reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
+    RPAREN          reduce using rule 35 (expression -> UNTIL LPAREN expression RPAREN statement SEMICOLON .)
 
 
 state 97
+
+    (37) expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .
+
+    +               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    -               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    *               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    /               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    GT              reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    LT              reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    GTE             reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    LTE             reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    NE              reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    EQUAL           reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    WHEN            reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    $end            reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    )               reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    SEMICOLON       reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    THEN            reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+    RPAREN          reduce using rule 37 (expression -> UNTIL LPAREN expression RPAREN BOOL SEMICOLON .)
+
+
+state 98
 
     (38) expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .
 
@@ -2368,19 +2467,19 @@ state 97
     WHEN            reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
     $end            reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
     )               reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
-    THEN            reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
     SEMICOLON       reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
+    THEN            reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
     RPAREN          reduce using rule 38 (expression -> WHILE BOOL LPAREN expression RPAREN SEMICOLON .)
 
 
-state 98
+state 99
 
     (33) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 99
+    SEMICOLON       shift and go to state 100
 
 
-state 99
+state 100
 
     (33) expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .
 
@@ -2397,8 +2496,8 @@ state 99
     WHEN            reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
     $end            reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
     )               reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
-    THEN            reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
     SEMICOLON       reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
+    THEN            reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
     RPAREN          reduce using rule 33 (expression -> REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON .)
 
 WARNING: 
@@ -2415,6 +2514,9 @@ WARNING: shift/reduce conflict for GTE in state 60 resolved as shift
 WARNING: shift/reduce conflict for LTE in state 60 resolved as shift
 WARNING: shift/reduce conflict for NE in state 60 resolved as shift
 WARNING: shift/reduce conflict for EQUAL in state 60 resolved as shift
-WARNING: shift/reduce conflict for SEMICOLON in state 80 resolved as shift
 WARNING: shift/reduce conflict for WHEN in state 82 resolved as shift
 WARNING: shift/reduce conflict for WHEN in state 84 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 90 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 90 resolved as shift
+WARNING: reduce/reduce conflict in state 90 resolved using rule (expression -> BOOL)
+WARNING: rejected rule (expression -> UNTIL LPAREN expression RPAREN BOOL) in state 90
