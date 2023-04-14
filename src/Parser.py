@@ -277,7 +277,7 @@ def p_relation_EQUAL(p):
 def p_expression_compr(p):
     '''expression : expression relation expression'''
 
-    if p[1] == int and p[2] == int:
+    if p[1] == int and p[3] == int:
         if p[2] == '<':
             print(p[1] < p[3])
             p[0] = p[1] < p[3]
@@ -370,6 +370,25 @@ def p_expression_repeat_error(p):
     expression : REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
     '''
     p[0]="Error expected break not found"
+
+def p_expression_until(p):
+    '''
+    expression : UNTIL LPAREN expression RPAREN BOOL SEMICOLON
+    '''
+    p[0]=(p[1],p[3],p[5])
+
+def p_expression_until_erro(p):
+    '''
+    expression :  UNTIL LPAREN expression RPAREN
+          |  UNTIL LPAREN expression RPAREN SEMICOLON
+    '''
+    p[0]="Error expected condition not found"
+
+def p_expression_while(p):
+    '''
+    expression : WHILE BOOL LPAREN expression RPAREN SEMICOLON
+    '''
+    p[0]=(p[1],p[2],p[3])
 
 def p_error(p):
     if p:
