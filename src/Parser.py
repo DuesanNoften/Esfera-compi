@@ -22,7 +22,7 @@ def p_statement_proc(p):
     if len(p[2])>1 and len(p[2])<10 :
         procs[p[2]] = p[4]
     else:
-        print("Los procesos deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @")
+        p[0]="Los procesos deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @"
 
 def p_statement_comment(p):
     'statement : COMMENT '
@@ -165,7 +165,7 @@ def p_expression_compr(p):
         else:
             print("no sirve")
     else:
-        print("Compara valores no validos")
+        p[0]="Compara valores no validos"
 
 def p_expression_istrue(p):
     '''expression : ISTRUE '(' expression ')' '''
@@ -178,7 +178,7 @@ def p_expression_istrue(p):
             p[0] = False
             print("False")
     else:
-        print("IsTrue con formatos no validos ")
+        p[0]="IsTrue con formatos no validos "
 def p_expression_uminus(p):
     "expression : '-' expression %prec UMINUS"
     p[0] = -p[2]
@@ -200,8 +200,7 @@ def p_expression_name(p):
     try:
         p[0] = names[p[1]]
     except LookupError:
-        print("Undefined name '%s'" % p[1])
-        p[0] = 0
+        p[0]="Undefined name '%s'" % p[1]
 
 def p_expression_def(p):
     'expression : DEF "(" NAME "," expression ")"'
@@ -214,7 +213,7 @@ def p_expression_change(p):
     if names[p[1]]!=None and isinstance(names[p[1]], int)^isinstance(p[3],bool):
         names.update({p[1]:p[3]})
     else:
-        print("El valor asignado a la variable debe ser del mismo tipo")
+        p[0]="El valor asignado a la variable debe ser del mismo tipo"
 
 def p_expression_math(p):
     'expression : ALTER "(" NAME "," expression ")"'
@@ -224,7 +223,7 @@ def p_expression_math(p):
         else:
             names[p[3]]=names[p[3]]+p[5]
     else:
-        print ("La funcion alter solo cambia el valor de las variables númericas")
+        p[0]="La funcion alter solo cambia el valor de las variables númericas"
 
 def p_expression_repeat(p):
     '''
@@ -236,7 +235,7 @@ def p_expression_repeat_error(p):
     '''
     expression : REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
     '''
-    print("Error expected break not found")
+    p[0]="Error expected break not found"
 
 def p_error(p):
     if p:
