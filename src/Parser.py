@@ -3,6 +3,14 @@ import os
 import codecs
 import re
 from Lexer import tokens
+#EV3
+from pybricks.hubs import EV3Brick
+from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                 InfraredSensor, UltrasonicSensor, GyroSensor)
+from pybricks.parameters import Port, Stop, Direction, Button, Color
+from pybricks.tools import wait, StopWatch, DataLog
+from pybricks.robotics import DriveBase
+from pybricks.media.ev3dev import SoundFile, ImageFile
 
 precedence = (
     ('left', '+', '-'),
@@ -16,6 +24,18 @@ pars = []
 errors = []
 names = {}
 procs = {}
+
+#Ev3 initializing
+ev3 = EV3Brick()
+#Motors initializing 
+leftMotor = Motor(Port.B)
+rightMotor = Motor(Port.C)
+#Motor driver initializing
+carBall = DriveBase(leftMotor, rightMotor, wheel_diameter = 55.5, axle_track = 104)
+def stop():
+    carBall.stop()
+    leftMotor.stop()
+    rightMotor.stop()
 
 def p_statement_proc(p):
     'statement : PROC NAME "(" expression ")"'
@@ -79,28 +99,68 @@ def p_statement_mover(p):
     statement : MOVER LPAREN MOVIMIENTO RPAREN
     '''
     if p[3].value == 'ATR':
-        print("Aqui va a moverse hacia atras")
+        print("La esfera va a moverse hacia atras")
+        carBall.straight(-200)
+        stop()
     
     elif p[3].value == 'ADL':
-        print("Aqui va a moverse hacia delante")
+        print("La esfera va a moverse hacia delante")
+        carBall.straight(200)
+        stop()
     
     elif p[3].value == 'ADE':
-        print("Aqui va a moverse hacia atras a la derecha")
+        print("La esfera va a moverse hacia atras a la derecha")
+        carBall.turn(45)
+        stop()
+        carBall.straight(200)
+        stop()
+        carBall.turn(-45)
+        stop()
     
     elif p[3].value == 'AIZ':
-        print("Aqui va a moverse hacia atras a la izquierda")
+        print("La esfera va a moverse hacia atras a la izquierda")
+        carBall.turn(-45)
+        stop()
+        carBall.straight(-200)
+        stop()
+        carBall.turn(45)
+        stop()
     
     elif p[3].value == 'IZQ':
-        print("Aqui va a moverse hacia la izquierda")
+        print("La esfera va a moverse hacia la izquierda")
+        carBall.turn(90)
+        stop()
+        carBall.straight(200)
+        stop()
+        carBall.turn(-90)
+        stop()
 
     elif p[3].value == 'DER':
-        print("Aqui va a moverse hacia la derecha")
+        print("La esfera va a moverse hacia la derecha")
+        carBall.turn(-90)
+        stop()
+        carBall.straight(200)
+        stop()
+        carBall.turn(90)
+        stop()
 
     elif p[3].value == 'DDE':
-        print("Aqui va a moverse hacia delante a la derecha")
+        print("La esfera va a moverse hacia delante a la derecha")
+        carBall.turn(-45)
+        stop()
+        carBall.straight(200)
+        stop()
+        carBall.turn(45)
+        stop()
     
     elif p[3].value == 'DIZ':
-        print("Aqui va a moverse hacia delante a la izquierda")
+        print("La esfera va a moverse hacia delante a la izquierda")
+        carBall.turn(45)
+        stop()
+        carBall.straight(200)
+        stop()
+        carBall.turn(-45)
+        stop()
 
 def p_expression_binop(p):
     '''expression : expression '+' expression
