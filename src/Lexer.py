@@ -11,8 +11,8 @@ toks = []
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
     'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
-    'RPAREN', 'BREAK', 'REPEAT', 'UNTIL', 'WHILE', 'MOVER', 'ALEATORIO',
-    'MOVIMIENTO', 'GT', 'LT', 'GTE', 'LTE', 'NE', 'EQUAL',
+    'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO',
+    'MOVIMIENTO', 'HORN', 'GT', 'LT', 'GTE', 'LTE', 'NE', 'EQUAL',
     'ISTRUE', 'CASE', 'WHEN', 'THEN', 'ELSE'
 ]
 
@@ -29,11 +29,10 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_BREAK = 'break'
 t_REPEAT = 'Repeat'
-t_UNTIL = 'Until'
-t_WHILE = 'While'
 t_MOVER = 'Mover'
 t_ALEATORIO = 'Aleatorio'
-t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
+t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ|SPINL|SPINR'
+t_HORN = 'HORN' 
 t_GT = '>'
 t_LT = '<'
 t_LTE = '<='
