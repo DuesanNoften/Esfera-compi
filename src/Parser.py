@@ -12,6 +12,8 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
+import random
+
 precedence = (
     ('left', '+', '-'),
     ('left', '*', '/'),
@@ -94,6 +96,67 @@ def p_statement_aleatorio(p):
     '''
     statement : ALEATORIO LPAREN RPAREN
     '''
+    i = 10
+    while i>0:
+        a = random.randint(1, 8)
+        
+        if a == 1:
+            carBall.straight(-200)
+            stop()
+        elif a == 2:
+            carBall.straight(200)
+            stop()
+        elif a == 3:
+            carBall.turn(45)
+            stop()
+            carBall.straight(200)
+            stop()
+            carBall.turn(-45)
+            stop()
+        elif a == 4:
+            carBall.turn(-45)
+            stop()
+            carBall.straight(-200)
+            stop()
+            carBall.turn(45)
+            stop()
+
+        elif a == 5:
+            carBall.turn(90)
+            stop()
+            carBall.straight(200)
+            stop()
+            carBall.turn(-90)
+            stop()
+        elif a == 6:
+            carBall.turn(-90)
+            stop()
+            carBall.straight(200)
+            stop()
+            carBall.turn(90)
+            stop()
+        elif a == 7:
+            carBall.turn(-45)
+            stop()
+            carBall.straight(200)
+            stop()
+            carBall.turn(45)
+            stop()
+        elif a == 8:
+            carBall.turn(45)
+            stop()
+            carBall.straight(200)
+            stop()
+            carBall.turn(-45)
+            stop()
+
+def p_statement_horn(p):
+    '''
+    statement : HORN LPAREN RPAREN
+    '''
+    ev3.speaker.beep()
+
+
 def p_statement_mover(p):
     '''
     statement : MOVER LPAREN MOVIMIENTO RPAREN
@@ -161,6 +224,17 @@ def p_statement_mover(p):
         stop()
         carBall.turn(-45)
         stop()
+
+    elif p[3].value == 'SPINL':
+        print("La esfera va a dar varias vueltas hacia la izquierda")
+        carBall.turn(-1080)
+        stop()
+
+    elif p[3].value == 'SPINR':
+        print("La esfera va a dar varias vueltas hacia la derecha")
+        carBall.turn(1080)
+        stop()
+
 
 def p_expression_binop(p):
     '''expression : expression '+' expression

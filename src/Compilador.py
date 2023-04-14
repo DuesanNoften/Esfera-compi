@@ -8,7 +8,7 @@ tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
     'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
     'RPAREN', 'BREAK', 'REPEAT', 'MOVER', 'ALEATORIO',
-    'MOVIMIENTO'
+    'MOVIMIENTO', 'HORN'
 ]
 
 pars =[]
@@ -30,7 +30,8 @@ t_BREAK = 'break'
 t_REPEAT = 'Repeat'
 t_MOVER = 'Mover'
 t_ALEATORIO = 'Aleatorio'
-t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ'
+t_MOVIMIENTO = r'ATR|ADL|ADE|AIZ|IZQ|DER|DDE|DIZ|SPINL|SPINR'
+t_HORN = 'HORN' 
 
 
 def t_INTEGER(t):
