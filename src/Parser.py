@@ -86,9 +86,8 @@ def p_statement_when(p):
         p[0] = p[1]
         print("no entro")
 
-def statement_else(p):
-    '''statement : ELSE statement
-                    | empty'''
+def p_statement_else(p):
+    '''statement : ELSE statement'''
 
     print(p[1])
     p[0] = p[1]
@@ -277,7 +276,7 @@ def p_relation_EQUAL(p):
 def p_expression_compr(p):
     '''expression : expression relation expression'''
 
-    if p[1] == int and p[3] == int:
+    if isinstance(p[1], int) and isinstance(p[3], int):
         if p[2] == '<':
             print(p[1] < p[3])
             p[0] = p[1] < p[3]
