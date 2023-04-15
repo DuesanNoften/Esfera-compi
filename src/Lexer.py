@@ -10,7 +10,7 @@ if sys.version_info[0] >= 3:
 toks = []
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'COMMA', 'LPAREN',
+    'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'COMMA','TYPE', 'NOT', 'LPAREN',
     'RPAREN', 'BREAK', 'REPEAT', 'UNTIL', 'WHILE', 'MOVER', 'ALEATORIO',
     'MOVIMIENTO', 'HORN', 'GT', 'LT', 'GTE', 'LTE', 'NE', 'EQUAL',
     'ISTRUE', 'CASE', 'WHEN', 'THEN', 'ELSE'
@@ -43,10 +43,11 @@ t_GTE = '>='
 t_NE = '<>'
 t_EQUAL = '=='
 t_ISTRUE = "IsTrue"
-t_CASE = "case"
-t_WHEN = "when"
-t_THEN = "then"
-t_ELSE = "else"
+t_CASE = "Case"
+t_WHEN = "When"
+t_THEN = "Then"
+t_ELSE = "Else"
+t_NOT = "Not"
 
 def t_INTEGER(t):
     r'-?\d+'
@@ -59,6 +60,10 @@ def t_BOOL(t):
         t.value=True
     elif t.value == "False":
         t.value=False
+    return t
+
+def t_TYPE(t):
+    r'(integer|boolean)'
     return t
 
 t_ignore = " \t"

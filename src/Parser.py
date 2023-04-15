@@ -363,36 +363,57 @@ def p_expression_bool(p):
 def p_expression_name(p):
     "expression : NAME"
     try:
-        p[0] = names[p[1]]
+        p[0] = names[p[1]][1]
     except LookupError:
         print("Undefined name '%s'" % p[1])
         p[0] = 0
 
 def p_expression_def(p):
-    'expression : DEF LPAREN NAME COMMA expression RPAREN SEMICOLON'
+    '''expression : DEF LPAREN NAME COMMA TYPE COMMA INTEGER RPAREN
+                  | DEF LPAREN NAME COMMA TYPE COMMA BOOL RPAREN
+                  | DEF LPAREN NAME COMMA TYPE RPAREN '''
     if len(p[3])>1 and len(p[3])<=10 :
-        names[p[3]] = p[5]
-        p[0] = (p[3], p[5])
+        if p[6]== ',':
+            if (p[5]=='integer'):
+                if isinstance(p[7],int):
+                    names[p[3]] = [p[5],p[7]]
+                else:
+                    print ("Error, tipo de la variable no coincide con el valor dado")
+            elif (p[5]=='boolean'):
+                if isinstance(p[7],bool):
+                    names[p[3]] = [p[5],p[7]]
+                else:
+                    print ("Error, tipo de la variable no coincide con el valor dado")
+        elif p[6]==')':
+            names[p[3]] = [p[5],None]
 
 def p_expression_change(p):
     'expression : NAME "(" expression ")"'
-    breakpoint()
-    if names[p[1]]!=None and isinstance(names[p[1]], int)^isinstance(p[3],bool):
-        names.update({p[1]:p[3]})
+    if names[p[1]][0]=="integer":
+        if names[p[1]]!=None and isinstance(names[p[1]][1], int)^isinstance(p[3],bool):
+            names[p[1]][1]=p[3]
+    elif names[p[1]][0]=="boolean":
+        if names[p[1]]!=None and (names[p[1]][0]=="boolean") ^ isinstance(p[3],int) :
+            names[p[1]][1]=p[3]
     else:
-        p[0]="El valor asignado a la variable debe ser del mismo tipo"
+        print("El valor asignado a la variabl debe ser del mismo tipo")
+
+def p_expression_not(p):
+    'expression : NOT "(" NAME ")"'
+    temp=names[p[3]][1]
+    if temp:
+        names[p[3]][1]=False
+    else:
+        names[p[3]][1]=True
+
 
 def p_expression_math(p):
-    'expression : ALTER LPAREN NAME COMMA expression RPAREN SEMICOLON'
-    if isinstance(p[5],int) and isinstance(names[p[3]],int) :
-        if p[5]=="-":
-            names[p[3]]=names[p[3]]-p[5]
-            p[0] = [p[3], p[5]]
-        else:
-            names[p[3]]=names[p[3]]+p[5]
-            p[0] = [p[3], p[5]]
+    'expression : ALTER "(" NAME "," expression ")"'
+    if isinstance(p[5], int) and isinstance(names[p[3]][1], int):
+
+        names[p[3]][1] = names[p[3]][1] + p[5]
     else:
-        p[0]="La funcion alter solo cambia el valor de las variables númericas"
+        print("La funcion alter solo cambia el valor de las variables númericas")
 
 def p_expression_repeat(p):
     '''
