@@ -19,7 +19,7 @@ tokens = [
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
 t_DEF = 'Def'
 t_PROC ='Proc'
-t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
+t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[;]'
 t_NAME = r'[@][a-zA-Z0-9_#]*'
 t_ALTER = 'Alter'
 t_PRINT = r'\=>'
@@ -48,6 +48,7 @@ t_WHEN = "When"
 t_THEN = "Then"
 t_ELSE = "Else"
 t_NOT = "Not"
+t_STR = '[a-zA-Z][a-zA-Z]*'
 
 def t_INTEGER(t):
     r'-?\d+'
