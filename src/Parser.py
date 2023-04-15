@@ -76,53 +76,48 @@ def p_statement_print(p):
     '''
     p[0]=p[2]
 
-def p_statement_case(p):
-    '''statement : CASE WHEN expression statementt'''
+def p_statement_case(p):#el statement del case
+    '''statement : CASE WHEN expression statementt statementE''' #La gramatica para el statement
 
-    if p[3]:
-        print('Esto es para separar')
+    if p[3]:# Verifica si la expression es verdadera.
         print(p[5])
         p[0] = p[5]
 
-def p_statement_then(p):
-    """ statementt : THEN statement """
-    if p[-1]:
-        print("ass")
+def p_statement_then(p):#el then del case when y del case x when
+    """ statementt : THEN statement """ #La gramatica para el then
+    if p[-1]: # verifica si la condicion es real.
         p[0] = p[2]
-    else:
-        a = p[2]
+    else:# en caso de que no sea verdadera la condicion
+        a = p[2] #Se verifica que se reciba una lista
         if isinstance(a, list):
             b = a[0]
             c = a[1]
-            if isinstance(c,int):
-                names[b] = names[b] - c
+            if type(c[1]) == int:
+                names[b] = names[b][1] - c #elimina los cambios a la variable
             else:
-                names.pop(b)
-        else:
-            print("aaa")
-        print(names)
+                names.pop(b) #Elimina la variable
 
-def p_statement_cases(p):
+
+def p_statement_cases(p): #el cases de when
     """ statement : CASE expression """
     p[1] = p[2]
     p[0] = p[2]
 
-def p_statement_when(p):
-    """statement : statement WHEN expression statement"""
+def p_statement_when(p):# el statement when
+    """statement : statement WHEN expression then statement statementE"""
 
-    if p[1] == p[3]:
-        print("vamos bien")
+    if p[1] == p[3]:#verifica que el case sea valido
         print(p[5])
         p[0] = p[5]
     else:
         p[0] = p[1]
-        print("no entro")
 
-def p_statement_else(p):
-    '''statement : ELSE statement'''
+def p_statement_else(p): #Statement de else
+    '''statementE : ELSE statement
+                | empty'''
 
-    print(p[1])
-    p[0] = p[1]
+    if type(p[1]) == str: #Verifica que no sea vacio
+        p[0] == p[2]
 def p_statement_aleatorio(p):
     '''
     statement : ALEATORIO LPAREN RPAREN
@@ -291,6 +286,7 @@ def p_expression_binop(p):
     elif p[2] == '/':
         p[0] = p[1] / p[3]
 
+# Manda la comparacion a hacer
 def p_relation_GT(p):
     """ relation : GT """
     p[0] = '>'
@@ -315,10 +311,10 @@ def p_relation_EQUAL(p):
     ''' relation : EQUAL '''
     p[0] = '=='
 
-def p_expression_compr(p):
+def p_expression_compr(p): #Realiza las comapraciones
     '''expression : expression relation expression'''
 
-    if isinstance(p[1], int) and isinstance(p[3], int):
+    if type(p[1]) == int and type(p[3]) == int:# Verifica que sean ints los datos
         if p[2] == '<':
             print(p[1] < p[3])
             p[0] = p[1] < p[3]
@@ -342,10 +338,10 @@ def p_expression_compr(p):
     else:
         p[0]="Compara valores no validos"
 
-def p_expression_istrue(p):
+def p_expression_istrue(p): # Verifica que la variable sea True
     '''expression : ISTRUE LPAREN expression RPAREN SEMICOLON '''
 
-    if isinstance([3], bool):
+    if isinstance([3], bool): #Verifica que la variable sea bool
         if p[3] == True:
             p[0] = True
             print("True")
