@@ -53,7 +53,6 @@ t_THEN = "Then"
 t_ELSE = "Else"
 t_NOT = "Not"
 
-
 #Reglas lexicas para el token de integer, además de convertir el texto dado
 #a entero.
 def t_INTEGER(t):
@@ -89,8 +88,6 @@ def t_newline(t):
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
-
-
 
 lexer = lex.lex()
 
