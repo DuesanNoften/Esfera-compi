@@ -40,26 +40,25 @@ def p_symbols(p):
     p[0] = p[1]
 
 start = 'Body'
-def stop():
+def stop(): #Manda la señal para que los motores se detengan
     carBall.stop()
     leftMotor.brake()
     rightMotor.brake()
-    carBall.settings(straight_speed=3000,straight_acceleration=1500)
 
-def p_statement_proc(p):
+def p_statement_proc(p): #Crea los procesos para el nombre de las variables
     'statement : PROC NAME LPAREN expression RPAREN SEMICOLON'
     if len(p[2])>1 and len(p[2])<10 :
         procs[p[2]] = p[4]
     else:
         p[0]="Los procesos deben constar de minimo 3 caracteres y maximo 10 \ncontando con el @"
 
-def p_statement_comment(p):
+def p_statement_comment(p): #Crea comentarios
     'statement : COMMENT '
 
-def p_statement_printline(p):
+def p_statement_printline(p): #Crea la estrucutra para imprimir en consola
     'statement : PRINTLINE'
 
-def p_statement_expr(p):
+def p_statement_expr(p): #Diferente definición de expresion para que analice y guarde el valor de toda función
     '''
     statement : expression
               | expression statement
@@ -70,7 +69,7 @@ def p_statement_expr(p):
     if len(p)==3:
         p[0]=(p[1],p[2])
 
-def p_statement_print(p):
+def p_statement_print(p):#Imprime la estructura de la linea a imprimir
     '''
     statement : PRINT PRINTLINE
     '''
@@ -118,9 +117,9 @@ def p_statement_else(p): #Statement de else
 
     if type(p[1]) == str: #Verifica que no sea vacio
         p[0] == p[2]
-def p_statement_aleatorio(p):
+def p_statement_aleatorio(p):#Crea un movimiento aleatorio
     '''
-    statement : ALEATORIO LPAREN RPAREN
+    statement : ALEATORIO LPAREN RPAREN SEMICOLON
     '''
     i = 10
     while i>0:
@@ -176,14 +175,14 @@ def p_statement_aleatorio(p):
             carBall.turn(-45)
             stop()
 
-def p_statement_horn(p):
+def p_statement_horn(p):#Bocina del auto función extra
     '''
     statement : HORN LPAREN RPAREN
     '''
     ev3.speaker.beep()
 
 
-def p_statement_mover(p):
+def p_statement_mover(p):#Movimiento del auto en las 8 direcciones
     '''
     statement : MOVER LPAREN MOVIMIENTO RPAREN SEMICOLON
     '''
@@ -272,7 +271,7 @@ def p_statement_mover(p):
         stop()
 
 
-def p_expression_binop(p):
+def p_expression_binop(p):#La función para analisis matematicas
     '''expression : expression '+' expression
                   | expression '-' expression
                   | expression '*' expression
@@ -350,23 +349,23 @@ def p_expression_istrue(p): # Verifica que la variable sea True
             print("False")
     else:
         p[0]="IsTrue con formatos no validos "
-def p_expression_uminus(p):
+def p_expression_uminus(p):#Menos antes de un digito no resta
     "expression : '-' expression %prec UMINUS"
     p[0] = -p[2]
 
-def p_expression_group(p):
+def p_expression_group(p):#Grupo de expresiones
     "expression : LPAREN expression RPAREN "
     p[0] = p[2]
 
-def p_expression_integer(p):
+def p_expression_integer(p):#Expresion puede ser un entero solo
     "expression : INTEGER"
     p[0] = p[1]
 
-def p_expression_bool(p):
+def p_expression_bool(p):#Expresión puede ser un booleano solo
     "expression : BOOL"
     p[0] = p[1]
 
-def p_expression_name(p):
+def p_expression_name(p):#Analiza el nombre de la variable dada
     "expression : NAME"
     try:
         p[0] = names[p[1]][1]
@@ -374,7 +373,7 @@ def p_expression_name(p):
         print("Undefined name '%s'" % p[1])
         p[0] = 0
 
-def p_expression_def(p):
+def p_expression_def(p):#Crea la función para crear variables y sus valores
     '''expression : DEF LPAREN NAME COMMA TYPE COMMA INTEGER RPAREN SEMICOLON
                   | DEF LPAREN NAME COMMA TYPE COMMA BOOL RPAREN SEMICOLON
                   | DEF LPAREN NAME COMMA TYPE RPAREN SEMICOLON '''
@@ -393,7 +392,7 @@ def p_expression_def(p):
         elif p[6]==')':
             names[p[3]] = [p[5],None]
 
-def p_expression_change(p):
+def p_expression_change(p):#Cambia la expresion y variable
     'expression : NAME LPAREN expression RPAREN SEMICOLON'
     if names[p[1]][0]=="integer":
         if names[p[1]]!=None and isinstance(names[p[1]][1], int)^isinstance(p[3],bool):
@@ -413,7 +412,7 @@ def p_expression_not(p):
         names[p[3]][1]=True
 
 
-def p_expression_math(p):
+def p_expression_math(p):#Altera el valor de una variable por el numero interno
     'expression : ALTER LPAREN NAME COMMA expression RPAREN SEMICOLON'
     if isinstance(p[5], int) and isinstance(names[p[3]][1], int):
 
@@ -421,32 +420,32 @@ def p_expression_math(p):
     else:
         print("La funcion alter solo cambia el valor de las variables númericas")
 
-def p_expression_repeat(p):
+def p_expression_repeat(p):#Repite los procesos dentro de la estructura
     '''
     expression : REPEAT LPAREN expression SEMICOLON BREAK SEMICOLON RPAREN SEMICOLON
     '''
     p[0]=(p[1],p[3])
 
-def p_expression_repeat_error(p):
+def p_expression_repeat_error(p):#Error si no se encuentra un break
     '''
     expression : REPEAT LPAREN expression SEMICOLON RPAREN SEMICOLON
     '''
     p[0]="Error expected break not found"
 
-def p_expression_until(p):
+def p_expression_until(p):#Estructura de loop hasta que deje de cumplir ejecuta minimo una vez
     '''
     expression : UNTIL LPAREN expression RPAREN statement SEMICOLON
     '''
     p[0]=(p[1],p[3],p[5])
 
-def p_expression_until_error(p):
+def p_expression_until_error(p):#Error de estructura
     '''
     expression :  UNTIL LPAREN expression RPAREN
           |  UNTIL LPAREN expression RPAREN SEMICOLON
     '''
     p[0]="Error expected condition not found"
 
-def p_statement_while(p):
+def p_statement_while(p):#Estrucutra de loop while no ejecuta si no cumple condición
     '''
     statement : WHILE LPAREN expression RPAREN LPAREN statement RPAREN SEMICOLON
     '''
@@ -454,7 +453,7 @@ def p_statement_while(p):
     if p[3]==True:
         p[0]=(p[1],p[6])
 
-def p_statement_while_errors(p):
+def p_statement_while_errors(p):#Errores de la estructura
     '''
     statement : WHILE LPAREN  RPAREN LPAREN statement RPAREN SEMICOLON
               | WHILE LPAREN  RPAREN LPAREN RPAREN SEMICOLON
@@ -463,7 +462,7 @@ def p_statement_while_errors(p):
     '''
     p[0]="Expected element not found"
 
-def p_expression_Body(p):
+def p_expression_Body(p):#Crea el cuerpo del programa para guardar todos sus valores
     '''
     Body : expression statement expression
          | expression statement
@@ -482,13 +481,13 @@ def p_expression_Body(p):
         p[0] = p[1]
 
 
-def p_error(p):
+def p_error(p):#Errores causados por razones externas
     if p:
         print("Syntax error at '%s'" % p.value)
     else:
         print("Syntax error at EOF")
 
-def readFile(dir, run):
+def readFile(dir, run):#Lee el documento
     if not run:
         run_flag = False
     fp = codecs.open(dir, "r", "utf-8")
@@ -499,6 +498,6 @@ def readFile(dir, run):
     pars.append(par)
     return pars
 
-def clearpars():
+def clearpars():#Limpia los valores de pars guardados
     errors.clear()
     pars.clear()
