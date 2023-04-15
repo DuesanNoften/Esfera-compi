@@ -17,6 +17,10 @@ tokens = [
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
+
+#Estos son los caracteres que acepta cada uno de los tokens, algunos aceptando
+#carecteres de manera indefinida como t_COMMENT, y otros solo aceptando palabras
+#predefinidas como t_DEF
 t_DEF = 'Def'
 t_PROC ='Proc'
 t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[;]'
@@ -50,11 +54,15 @@ t_ELSE = "Else"
 t_NOT = "Not"
 
 
+#Reglas lexicas para el token de integer, además de convertir el texto dado
+#a entero.
 def t_INTEGER(t):
     r'-?\d+'
     t.value = int(t.value)
     return t
 
+#Reglas lexicas para el token de bool, además de convertir el texto dado
+#a su respectivo valor booleano.
 def t_BOOL(t):
     r'(True|False)'
     if t.value == "True":
@@ -63,16 +71,21 @@ def t_BOOL(t):
         t.value=False
     return t
 
+##Reglas lexicas para el token de Type, el cual devuelve como resultado el
+#texto dado.
 def t_TYPE(t):
     r'(integer|boolean)'
     return t
 
+
 t_ignore = " \t"
 
+#Encargado de manejar la creación de nuevas lineas, además de númerarlas
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
+#Encargado de manejar los errores lexicos al ingresar un caracter invalido
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -81,6 +94,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
+#Indica el orden de precedencia entre las operaciones
 precedence = (
     ('left', '+', '-'),
     ('left', '*', '/'),
@@ -89,7 +103,7 @@ precedence = (
 )
 
 
-
+#Se encarga de abrir y leer el archivo que se le indique
 def read_File(dir):
     fp = codecs.open(dir, "r", "utf-8")
     cadena = fp.read()
