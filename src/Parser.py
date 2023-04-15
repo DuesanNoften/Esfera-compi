@@ -47,7 +47,7 @@ def stop():
     carBall.settings(straight_speed=3000,straight_acceleration=1500)
 
 def p_statement_proc(p):
-    'statement : PROC NAME "(" expression ")"'
+    'statement : PROC NAME LPAREN expression RPAREN SEMICOLON'
     if len(p[2])>1 and len(p[2])<10 :
         procs[p[2]] = p[4]
     else:
@@ -104,7 +104,7 @@ def p_statement_cases(p): #el cases de when
     p[0] = p[2]
 
 def p_statement_when(p):# el statement when
-    """statement : statement WHEN expression then statement statementE"""
+    """statement : statement WHEN expression THEN statement statementE"""
 
     if p[1] == p[3]:#verifica que el case sea valido
         print(p[5])
@@ -114,7 +114,7 @@ def p_statement_when(p):# el statement when
 
 def p_statement_else(p): #Statement de else
     '''statementE : ELSE statement
-                | empty'''
+                | '''
 
     if type(p[1]) == str: #Verifica que no sea vacio
         p[0] == p[2]
@@ -187,19 +187,19 @@ def p_statement_mover(p):
     '''
     statement : MOVER LPAREN MOVIMIENTO RPAREN SEMICOLON
     '''
-    if p[3].value == 'ATR':
+    if str(p[3]) == 'ATR':
         print("La esfera va a moverse hacia atras")
         p[0]="La esfera va a moverse hacia atras"
         carBall.straight(-200)
         stop()
     
-    elif p[3].value == 'ADL':
+    elif str(p[3]) == 'ADL':
         print("La esfera va a moverse hacia delante")
         p[0]="La esfera va a moverse hacia delante"
         carBall.straight(200)
         stop()
     
-    elif p[3].value == 'ADE':
+    elif str(p[3]) == 'ADE':
         print("La esfera va a moverse hacia atras a la derecha")
         p[0]="La esfera va a moverse hacia atras a la derecha"
         carBall.turn(45)
@@ -394,7 +394,7 @@ def p_expression_def(p):
             names[p[3]] = [p[5],None]
 
 def p_expression_change(p):
-    'expression : NAME "(" expression ")"'
+    'expression : NAME LPAREN expression RPAREN SEMICOLON'
     if names[p[1]][0]=="integer":
         if names[p[1]]!=None and isinstance(names[p[1]][1], int)^isinstance(p[3],bool):
             names[p[1]][1]=p[3]
@@ -405,7 +405,7 @@ def p_expression_change(p):
         print("El valor asignado a la variabl debe ser del mismo tipo")
 
 def p_expression_not(p):
-    'expression : NOT "(" NAME ")"'
+    'expression : NOT LPAREN NAME RPAREN SEMICOLON'
     temp=names[p[3]][1]
     if temp:
         names[p[3]][1]=False
@@ -414,7 +414,7 @@ def p_expression_not(p):
 
 
 def p_expression_math(p):
-    'expression : ALTER "(" NAME "," expression ")"'
+    'expression : ALTER LPAREN NAME COMMA expression RPAREN SEMICOLON'
     if isinstance(p[5], int) and isinstance(names[p[3]][1], int):
 
         names[p[3]][1] = names[p[3]][1] + p[5]
@@ -453,6 +453,15 @@ def p_statement_while(p):
     print(p[3])
     if p[3]==True:
         p[0]=(p[1],p[6])
+
+def p_statement_while_errors(p):
+    '''
+    statement : WHILE LPAREN  RPAREN LPAREN statement RPAREN SEMICOLON
+              | WHILE LPAREN  RPAREN LPAREN RPAREN SEMICOLON
+              | WHILE LPAREN expression RPAREN LPAREN RPAREN SEMICOLON
+              | WHILE LPAREN expression RPAREN LPAREN statement RPAREN
+    '''
+    p[0]="Expected element not found"
 
 def p_expression_Body(p):
     '''
