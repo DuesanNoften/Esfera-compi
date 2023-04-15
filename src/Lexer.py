@@ -10,7 +10,7 @@ if sys.version_info[0] >= 3:
 toks = []
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'LPAREN',
+    'PROC', 'PRINT', 'PRINTLINE', 'SEMICOLON', 'COMMA', 'LPAREN',
     'RPAREN', 'BREAK', 'REPEAT', 'UNTIL', 'WHILE', 'MOVER', 'ALEATORIO',
     'MOVIMIENTO', 'HORN', 'GT', 'LT', 'GTE', 'LTE', 'NE', 'EQUAL',
     'ISTRUE', 'CASE', 'WHEN', 'THEN', 'ELSE'
@@ -26,6 +26,7 @@ t_PRINT = r'\=>'
 t_PRINTLINE='[("][ a-zA-z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*[")]'
 t_SEMICOLON = r'\;'
 t_LPAREN = r'\('
+t_COMMA = r'\,'
 t_RPAREN = r'\)'
 t_BREAK = 'break'
 t_REPEAT = 'Repeat'

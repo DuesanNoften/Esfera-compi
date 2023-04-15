@@ -34,11 +34,17 @@ leftMotor = Motor(Port.B)
 rightMotor = Motor(Port.C)
 #Motor driver initializing
 carBall = DriveBase(leftMotor, rightMotor, wheel_diameter = 55.5, axle_track = 104)
+
+def p_symbols(p):
+    'symbol : Body'
+    p[0] = p[1]
+
+start = 'Body'
 def stop():
     carBall.stop()
     leftMotor.brake()
     rightMotor.brake()
-carBall.settings(straight_speed=3000,straight_acceleration=1500)
+    carBall.settings(straight_speed=3000,straight_acceleration=1500)
 
 def p_statement_proc(p):
     'statement : PROC NAME "(" expression ")"'
@@ -54,8 +60,15 @@ def p_statement_printline(p):
     'statement : PRINTLINE'
 
 def p_statement_expr(p):
-    'statement : expression'
-    p[0]=p[1]
+    '''
+    statement : expression
+              | expression statement
+              |
+    '''
+    if len(p)==2:
+        p[0]=(p[1])
+    if len(p)==3:
+        p[0]=(p[1],p[2])
 
 def p_statement_print(p):
     '''
@@ -352,13 +365,14 @@ def p_expression_name(p):
     try:
         p[0] = names[p[1]]
     except LookupError:
-        p[0]="Undefined name '%s'" % p[1]
+        print("Undefined name '%s'" % p[1])
+        p[0] = 0
 
 def p_expression_def(p):
-    'expression : DEF "(" NAME "," expression ")"'
+    'expression : DEF LPAREN NAME COMMA expression RPAREN SEMICOLON'
     if len(p[3])>1 and len(p[3])<=10 :
         names[p[3]] = p[5]
-        p[0] = [p[3], 'd']
+        p[0] = (p[3], p[5])
 
 def p_expression_change(p):
     'expression : NAME "(" expression ")"'
@@ -405,11 +419,32 @@ def p_expression_until_error(p):
     '''
     p[0]="Error expected condition not found"
 
-def p_expression_while(p):
+def p_statement_while(p):
     '''
-    expression : WHILE statement LPAREN expression RPAREN SEMICOLON
+    statement : WHILE LPAREN expression RPAREN LPAREN statement RPAREN SEMICOLON
     '''
-    p[0]=(p[1],p[2],p[3])
+    print(p[3])
+    if p[3]==True:
+        p[0]=(p[1],p[6])
+
+def p_expression_Body(p):
+    '''
+    Body : expression statement expression
+         | expression statement
+         | statement expression
+         | statement
+         | statement statement
+         | statement expression statement
+         | expression expression
+    '''
+
+    if len(p) == 4:
+        p[0] = (p[1], p[2], p[3])
+    elif len(p) == 3:
+        p[0] = (p[1], p[2])
+    elif len(p) == 2:
+        p[0] = p[1]
+
 
 def p_error(p):
     if p:

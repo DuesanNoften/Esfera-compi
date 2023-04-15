@@ -18,7 +18,7 @@ literals = ['=', '+', '-', '*', '/', '(', ')', ',']
 # Tokens
 t_DEF = 'Def'
 t_PROC ='Proc'
-t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
+t_COMMENT = '[--][ a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
 t_NAME = r'[@][a-zA-Z0-9_#]*'
 t_ALTER = 'Alter'
 t_PRINT = r'\=>'
@@ -138,6 +138,7 @@ def p_expression_integer(p):
 def p_expression_bool(p):
     "expression : BOOL"
     p[0] = p[1]
+    pars.append(p[0])
 
 
 def p_expression_name(p):
