@@ -190,7 +190,7 @@ def p_statement_horn(p):
 
 def p_statement_mover(p):
     '''
-    statement : MOVER LPAREN MOVIMIENTO RPAREN
+    statement : MOVER LPAREN MOVIMIENTO RPAREN SEMICOLON
     '''
     if p[3].value == 'ATR':
         print("La esfera va a moverse hacia atras")
@@ -333,7 +333,7 @@ def p_expression_compr(p):
         p[0]="Compara valores no validos"
 
 def p_expression_istrue(p):
-    '''expression : ISTRUE '(' expression ')' '''
+    '''expression : ISTRUE LPAREN expression RPAREN SEMICOLON '''
 
     if isinstance([3], bool):
         if p[3] == True:
@@ -349,7 +349,7 @@ def p_expression_uminus(p):
     p[0] = -p[2]
 
 def p_expression_group(p):
-    "expression : '(' expression ')'"
+    "expression : LPAREN expression RPAREN "
     p[0] = p[2]
 
 def p_expression_integer(p):
@@ -369,9 +369,9 @@ def p_expression_name(p):
         p[0] = 0
 
 def p_expression_def(p):
-    '''expression : DEF LPAREN NAME COMMA TYPE COMMA INTEGER RPAREN
-                  | DEF LPAREN NAME COMMA TYPE COMMA BOOL RPAREN
-                  | DEF LPAREN NAME COMMA TYPE RPAREN '''
+    '''expression : DEF LPAREN NAME COMMA TYPE COMMA INTEGER RPAREN SEMICOLON
+                  | DEF LPAREN NAME COMMA TYPE COMMA BOOL RPAREN SEMICOLON
+                  | DEF LPAREN NAME COMMA TYPE RPAREN SEMICOLON '''
     if len(p[3])>1 and len(p[3])<=10 :
         if p[6]== ',':
             if (p[5]=='integer'):
