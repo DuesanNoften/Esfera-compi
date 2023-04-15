@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROC TYPEstatement : PROC NAME "(" expression ")"statement : COMMENT statement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," TYPE "," INTEGER ")"\n                  | DEF "(" NAME "," TYPE "," BOOL ")"\n                  | DEF "(" NAME "," TYPE ")"expression : NAME "(" expression ")"expression : ALTER "(" NAME "," expression ")"'
+_lr_signature = 'left+-left*/rightUMINUSNAME INTEGER BOOL COMMENT ALTER DEF PROC TYPE NOTstatement : PROC NAME "(" expression ")"statement : COMMENT statement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INTEGERexpression : BOOLexpression : NAMEexpression : DEF "(" NAME "," TYPE "," INTEGER ")"\n                  | DEF "(" NAME "," TYPE "," BOOL ")"\n                  | DEF "(" NAME "," TYPE ")"expression : NAME "(" expression ")"expression : ALTER "(" NAME "," expression ")"expression : NOT "(" NAME ")"'
     
-_lr_action_items = {'PROC':([0,],[2,]),'COMMENT':([0,],[6,]),'-':([0,3,4,5,7,8,9,13,14,15,16,17,18,19,22,23,24,25,26,27,28,31,32,34,37,39,40,43,44,],[7,-12,7,16,7,-10,-11,7,16,7,7,7,7,-8,7,16,-9,-4,-5,-6,-7,16,-16,7,16,-15,-17,-13,-14,]),'(':([0,3,4,7,10,11,12,13,15,16,17,18,22,34,],[4,13,4,4,20,21,22,4,4,4,4,4,4,4,]),'INTEGER':([0,4,7,13,15,16,17,18,22,34,38,],[8,8,8,8,8,8,8,8,8,8,41,]),'BOOL':([0,4,7,13,15,16,17,18,22,34,38,],[9,9,9,9,9,9,9,9,9,9,42,]),'NAME':([0,2,4,7,13,15,16,17,18,20,21,22,34,],[3,12,3,3,3,3,3,3,3,29,30,3,3,]),'DEF':([0,4,7,13,15,16,17,18,22,34,],[10,10,10,10,10,10,10,10,10,10,]),'ALTER':([0,4,7,13,15,16,17,18,22,34,],[11,11,11,11,11,11,11,11,11,11,]),'$end':([1,3,5,6,8,9,19,24,25,26,27,28,32,35,39,40,43,44,],[0,-12,-3,-2,-10,-11,-8,-9,-4,-5,-6,-7,-16,-1,-15,-17,-13,-14,]),'+':([3,5,8,9,14,19,23,24,25,26,27,28,31,32,37,39,40,43,44,],[-12,15,-10,-11,15,-8,15,-9,-4,-5,-6,-7,15,-16,15,-15,-17,-13,-14,]),'*':([3,5,8,9,14,19,23,24,25,26,27,28,31,32,37,39,40,43,44,],[-12,17,-10,-11,17,-8,17,-9,17,17,-6,-7,17,-16,17,-15,-17,-13,-14,]),'/':([3,5,8,9,14,19,23,24,25,26,27,28,31,32,37,39,40,43,44,],[-12,18,-10,-11,18,-8,18,-9,18,18,-6,-7,18,-16,18,-15,-17,-13,-14,]),')':([3,8,9,14,19,23,24,25,26,27,28,31,32,36,37,39,40,41,42,43,44,],[-12,-10,-11,24,-8,32,-9,-4,-5,-6,-7,35,-16,39,40,-15,-17,43,44,-13,-14,]),',':([29,30,36,],[33,34,38,]),'TYPE':([33,],[36,]),}
+_lr_action_items = {'PROC':([0,],[2,]),'COMMENT':([0,],[6,]),'-':([0,3,4,5,7,8,9,14,15,16,17,18,19,20,24,25,26,27,28,29,30,34,35,37,38,41,43,44,47,48,],[7,-12,7,17,7,-10,-11,7,17,7,7,7,7,-8,7,17,-9,-4,-5,-6,-7,17,-16,7,-18,17,-15,-17,-13,-14,]),'(':([0,3,4,7,10,11,12,13,14,16,17,18,19,24,37,],[4,14,4,4,21,22,23,24,4,4,4,4,4,4,4,]),'INTEGER':([0,4,7,14,16,17,18,19,24,37,42,],[8,8,8,8,8,8,8,8,8,8,45,]),'BOOL':([0,4,7,14,16,17,18,19,24,37,42,],[9,9,9,9,9,9,9,9,9,9,46,]),'NAME':([0,2,4,7,14,16,17,18,19,21,22,23,24,37,],[3,13,3,3,3,3,3,3,3,31,32,33,3,3,]),'DEF':([0,4,7,14,16,17,18,19,24,37,],[10,10,10,10,10,10,10,10,10,10,]),'ALTER':([0,4,7,14,16,17,18,19,24,37,],[11,11,11,11,11,11,11,11,11,11,]),'NOT':([0,4,7,14,16,17,18,19,24,37,],[12,12,12,12,12,12,12,12,12,12,]),'$end':([1,3,5,6,8,9,20,26,27,28,29,30,35,38,39,43,44,47,48,],[0,-12,-3,-2,-10,-11,-8,-9,-4,-5,-6,-7,-16,-18,-1,-15,-17,-13,-14,]),'+':([3,5,8,9,15,20,25,26,27,28,29,30,34,35,38,41,43,44,47,48,],[-12,16,-10,-11,16,-8,16,-9,-4,-5,-6,-7,16,-16,-18,16,-15,-17,-13,-14,]),'*':([3,5,8,9,15,20,25,26,27,28,29,30,34,35,38,41,43,44,47,48,],[-12,18,-10,-11,18,-8,18,-9,18,18,-6,-7,18,-16,-18,18,-15,-17,-13,-14,]),'/':([3,5,8,9,15,20,25,26,27,28,29,30,34,35,38,41,43,44,47,48,],[-12,19,-10,-11,19,-8,19,-9,19,19,-6,-7,19,-16,-18,19,-15,-17,-13,-14,]),')':([3,8,9,15,20,25,26,27,28,29,30,33,34,35,38,40,41,43,44,45,46,47,48,],[-12,-10,-11,26,-8,35,-9,-4,-5,-6,-7,38,39,-16,-18,43,44,-15,-17,47,48,-13,-14,]),',':([31,32,40,],[36,37,42,]),'TYPE':([36,],[40,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,4,7,13,15,16,17,18,22,34,],[5,14,19,23,25,26,27,28,31,37,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,4,7,14,16,17,18,19,24,37,],[5,15,20,25,27,28,29,30,34,41,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,9 +26,9 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',66),
-  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',73),
-  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',77),
+  ('statement -> PROC NAME ( expression )','statement',5,'p_statement_proc','Compilador.py',67),
+  ('statement -> COMMENT','statement',1,'p_statement_comment','Compilador.py',74),
+  ('statement -> expression','statement',1,'p_statement_expr','Compilador.py',78),
   ('expression -> expression + expression','expression',3,'p_expression_binop','Compilador.py',82),
   ('expression -> expression - expression','expression',3,'p_expression_binop','Compilador.py',83),
   ('expression -> expression * expression','expression',3,'p_expression_binop','Compilador.py',84),
@@ -42,5 +42,6 @@ _lr_productions = [
   ('expression -> DEF ( NAME , TYPE , BOOL )','expression',8,'p_expression_def','Compilador.py',125),
   ('expression -> DEF ( NAME , TYPE )','expression',6,'p_expression_def','Compilador.py',126),
   ('expression -> NAME ( expression )','expression',4,'p_expression_change','Compilador.py',144),
-  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Compilador.py',152),
+  ('expression -> ALTER ( NAME , expression )','expression',6,'p_expression_math','Compilador.py',156),
+  ('expression -> NOT ( NAME )','expression',4,'p_expression_not','Compilador.py',166),
 ]

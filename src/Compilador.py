@@ -6,7 +6,7 @@ if sys.version_info[0] >= 3:
 
 tokens = [
     'NAME', 'INTEGER', 'BOOL','COMMENT','ALTER','DEF',
-    'PROC', 'TYPE'  
+    'PROC', 'TYPE', 'NOT'  
 ]
 
 literals = ['=', '+', '-', '*', '/', '(', ')', ',']
@@ -17,6 +17,7 @@ t_PROC ='Proc'
 t_COMMENT = '[--][a-zA-Z0-9_#$%&/()=!"?\¡¿+~}`{^;,:.@°|¬-]*'
 t_NAME = r'[@][a-zA-Z0-9_#]*'
 t_ALTER = 'Alter'
+t_NOT = 'Not'
 
 def t_INTEGER(t):
     r'-?\d+'
@@ -77,7 +78,6 @@ def p_statement_expr(p):
     'statement : expression'
     print(p[1])
 
-
 def p_expression_binop(p):
     '''expression : expression '+' expression
                   | expression '-' expression
@@ -91,6 +91,7 @@ def p_expression_binop(p):
         p[0] = p[1] * p[3]
     elif p[2] == '/':
         p[0] = p[1] / p[3]
+
 
 
 def p_expression_uminus(p):
@@ -115,7 +116,7 @@ def p_expression_bool(p):
 def p_expression_name(p):
     "expression : NAME"
     try:
-        p[0] = names[p[1]]
+        p[0] = names[p[1]][1]
     except LookupError:
         print("Undefined name '%s'" % p[1])
         p[0] = 0
@@ -132,7 +133,7 @@ def p_expression_def(p):
                 else:
                     print ("Error, tipo de la variable no coincide con el valor dado")
             elif (p[5]=='boolean'):
-                if (p[7]=='True')or(p[7]=='False'):
+                if isinstance(p[7],bool):
                     names[p[3]] = [p[5],p[7]]
                 else:
                     print ("Error, tipo de la variable no coincide con el valor dado")
@@ -142,23 +143,31 @@ def p_expression_def(p):
 
 def p_expression_change(p):
     'expression : NAME "(" expression ")"'
-    breakpoint()
-    if names[p[1]]!=None and isinstance(names[p[1]], int)^isinstance(p[3],bool):
-        names.update({p[1]:p[3]})
+
+    if names[p[1]][0]=="integer":
+        if names[p[1]]!=None and isinstance(names[p[1]][1], int)^isinstance(p[3],bool):
+            names[p[1]][1]=p[3]
+    elif names[p[1]][0]=="boolean":
+        if names[p[1]]!=None and (names[p[1]][0]=="boolean") ^ isinstance(p[3],int) :
+            names[p[1]][1]=p[3]
     else:
         print("El valor asignado a la variabl debe ser del mismo tipo")
 
 def p_expression_math(p):
     'expression : ALTER "(" NAME "," expression ")"'
-    if isinstance(p[5],int) and isinstance(names[p[3]],int) :
-        if p[5]=="-":
-            names[p[3]]=names[p[3]]-p[5]
-        else:
-            names[p[3]]=names[p[3]]+p[5]
+    if isinstance(p[5],int) and isinstance(names[p[3]][1],int) :
+        names[p[3]][1]=names[p[3]][1]+p[5]
     else:
         print ("La funcion alter solo cambia el valor de las variables númericas")
 
-
+def p_expression_not(p):
+    'expression : NOT "(" NAME ")"'
+    temp=name[p[3]]
+    if temp:
+        name[p[3]][1]=False
+    else:
+        name[p[3]][1]=True
+        
 def p_error(p):
     if p:
         print("Syntax error at '%s'" % p.value)
@@ -176,3 +185,6 @@ while 1:
     if not s:
         continue
     yacc.parse(s)
+
+
+    

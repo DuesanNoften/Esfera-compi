@@ -20,11 +20,12 @@ Rule 14    expression -> DEF ( NAME , TYPE , BOOL )
 Rule 15    expression -> DEF ( NAME , TYPE )
 Rule 16    expression -> NAME ( expression )
 Rule 17    expression -> ALTER ( NAME , expression )
+Rule 18    expression -> NOT ( NAME )
 
 Terminals, with rules where they appear
 
-(                    : 1 9 13 14 15 16 17
-)                    : 1 9 13 14 15 16 17
+(                    : 1 9 13 14 15 16 17 18
+)                    : 1 9 13 14 15 16 17 18
 *                    : 6
 +                    : 4
 ,                    : 13 13 14 14 15 17
@@ -35,7 +36,8 @@ BOOL                 : 11 14
 COMMENT              : 2
 DEF                  : 13 14 15
 INTEGER              : 10 13
-NAME                 : 1 12 13 14 15 16 17
+NAME                 : 1 12 13 14 15 16 17 18
+NOT                  : 18
 PROC                 : 1
 TYPE                 : 13 14 15
 error                : 
@@ -67,6 +69,7 @@ state 0
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     PROC            shift and go to state 2
     COMMENT         shift and go to state 6
@@ -77,6 +80,7 @@ state 0
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
     statement                      shift and go to state 1
     expression                     shift and go to state 5
@@ -91,7 +95,7 @@ state 2
 
     (1) statement -> PROC . NAME ( expression )
 
-    NAME            shift and go to state 12
+    NAME            shift and go to state 13
 
 
 state 3
@@ -105,7 +109,7 @@ state 3
     /               reduce using rule 12 (expression -> NAME .)
     $end            reduce using rule 12 (expression -> NAME .)
     )               reduce using rule 12 (expression -> NAME .)
-    (               shift and go to state 13
+    (               shift and go to state 14
 
 
 state 4
@@ -125,6 +129,7 @@ state 4
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -133,8 +138,9 @@ state 4
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 15
 
 state 5
 
@@ -145,10 +151,10 @@ state 5
     (7) expression -> expression . / expression
 
     $end            reduce using rule 3 (statement -> expression .)
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
 
 
 state 6
@@ -175,6 +181,7 @@ state 7
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -183,8 +190,9 @@ state 7
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 20
 
 state 8
 
@@ -216,24 +224,31 @@ state 10
     (14) expression -> DEF . ( NAME , TYPE , BOOL )
     (15) expression -> DEF . ( NAME , TYPE )
 
-    (               shift and go to state 20
+    (               shift and go to state 21
 
 
 state 11
 
     (17) expression -> ALTER . ( NAME , expression )
 
-    (               shift and go to state 21
+    (               shift and go to state 22
 
 
 state 12
 
-    (1) statement -> PROC NAME . ( expression )
+    (18) expression -> NOT . ( NAME )
 
-    (               shift and go to state 22
+    (               shift and go to state 23
 
 
 state 13
+
+    (1) statement -> PROC NAME . ( expression )
+
+    (               shift and go to state 24
+
+
+state 14
 
     (16) expression -> NAME ( . expression )
     (4) expression -> . expression + expression
@@ -250,6 +265,7 @@ state 13
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -258,10 +274,11 @@ state 13
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 23
+    expression                     shift and go to state 25
 
-state 14
+state 15
 
     (9) expression -> ( expression . )
     (4) expression -> expression . + expression
@@ -269,14 +286,14 @@ state 14
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
 
-    )               shift and go to state 24
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 26
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
 
 
-state 15
+state 16
 
     (4) expression -> expression + . expression
     (4) expression -> . expression + expression
@@ -293,6 +310,7 @@ state 15
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -301,10 +319,11 @@ state 15
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 25
+    expression                     shift and go to state 27
 
-state 16
+state 17
 
     (5) expression -> expression - . expression
     (4) expression -> . expression + expression
@@ -321,6 +340,7 @@ state 16
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -329,10 +349,11 @@ state 16
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 28
 
-state 17
+state 18
 
     (6) expression -> expression * . expression
     (4) expression -> . expression + expression
@@ -349,6 +370,7 @@ state 17
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -357,10 +379,11 @@ state 17
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 27
+    expression                     shift and go to state 29
 
-state 18
+state 19
 
     (7) expression -> expression / . expression
     (4) expression -> . expression + expression
@@ -377,6 +400,7 @@ state 18
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -385,10 +409,11 @@ state 18
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 30
 
-state 19
+state 20
 
     (8) expression -> - expression .
     (4) expression -> expression . + expression
@@ -403,29 +428,36 @@ state 19
     $end            reduce using rule 8 (expression -> - expression .)
     )               reduce using rule 8 (expression -> - expression .)
 
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
-  ! *               [ shift and go to state 17 ]
-  ! /               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! *               [ shift and go to state 18 ]
+  ! /               [ shift and go to state 19 ]
 
 
-state 20
+state 21
 
     (13) expression -> DEF ( . NAME , TYPE , INTEGER )
     (14) expression -> DEF ( . NAME , TYPE , BOOL )
     (15) expression -> DEF ( . NAME , TYPE )
 
-    NAME            shift and go to state 29
-
-
-state 21
-
-    (17) expression -> ALTER ( . NAME , expression )
-
-    NAME            shift and go to state 30
+    NAME            shift and go to state 31
 
 
 state 22
+
+    (17) expression -> ALTER ( . NAME , expression )
+
+    NAME            shift and go to state 32
+
+
+state 23
+
+    (18) expression -> NOT ( . NAME )
+
+    NAME            shift and go to state 33
+
+
+state 24
 
     (1) statement -> PROC NAME ( . expression )
     (4) expression -> . expression + expression
@@ -442,6 +474,7 @@ state 22
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -450,10 +483,11 @@ state 22
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 31
+    expression                     shift and go to state 34
 
-state 23
+state 25
 
     (16) expression -> NAME ( expression . )
     (4) expression -> expression . + expression
@@ -461,14 +495,14 @@ state 23
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
 
-    )               shift and go to state 32
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 35
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
 
 
-state 24
+state 26
 
     (9) expression -> ( expression ) .
 
@@ -480,7 +514,7 @@ state 24
     )               reduce using rule 9 (expression -> ( expression ) .)
 
 
-state 25
+state 27
 
     (4) expression -> expression + expression .
     (4) expression -> expression . + expression
@@ -492,16 +526,16 @@ state 25
     -               reduce using rule 4 (expression -> expression + expression .)
     $end            reduce using rule 4 (expression -> expression + expression .)
     )               reduce using rule 4 (expression -> expression + expression .)
-    *               shift and go to state 17
-    /               shift and go to state 18
+    *               shift and go to state 18
+    /               shift and go to state 19
 
   ! *               [ reduce using rule 4 (expression -> expression + expression .) ]
   ! /               [ reduce using rule 4 (expression -> expression + expression .) ]
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
 
 
-state 26
+state 28
 
     (5) expression -> expression - expression .
     (4) expression -> expression . + expression
@@ -513,16 +547,16 @@ state 26
     -               reduce using rule 5 (expression -> expression - expression .)
     $end            reduce using rule 5 (expression -> expression - expression .)
     )               reduce using rule 5 (expression -> expression - expression .)
-    *               shift and go to state 17
-    /               shift and go to state 18
+    *               shift and go to state 18
+    /               shift and go to state 19
 
   ! *               [ reduce using rule 5 (expression -> expression - expression .) ]
   ! /               [ reduce using rule 5 (expression -> expression - expression .) ]
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
 
 
-state 27
+state 29
 
     (6) expression -> expression * expression .
     (4) expression -> expression . + expression
@@ -537,13 +571,13 @@ state 27
     $end            reduce using rule 6 (expression -> expression * expression .)
     )               reduce using rule 6 (expression -> expression * expression .)
 
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
-  ! *               [ shift and go to state 17 ]
-  ! /               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! *               [ shift and go to state 18 ]
+  ! /               [ shift and go to state 19 ]
 
 
-state 28
+state 30
 
     (7) expression -> expression / expression .
     (4) expression -> expression . + expression
@@ -558,29 +592,36 @@ state 28
     $end            reduce using rule 7 (expression -> expression / expression .)
     )               reduce using rule 7 (expression -> expression / expression .)
 
-  ! +               [ shift and go to state 15 ]
-  ! -               [ shift and go to state 16 ]
-  ! *               [ shift and go to state 17 ]
-  ! /               [ shift and go to state 18 ]
+  ! +               [ shift and go to state 16 ]
+  ! -               [ shift and go to state 17 ]
+  ! *               [ shift and go to state 18 ]
+  ! /               [ shift and go to state 19 ]
 
 
-state 29
+state 31
 
     (13) expression -> DEF ( NAME . , TYPE , INTEGER )
     (14) expression -> DEF ( NAME . , TYPE , BOOL )
     (15) expression -> DEF ( NAME . , TYPE )
 
-    ,               shift and go to state 33
+    ,               shift and go to state 36
 
 
-state 30
+state 32
 
     (17) expression -> ALTER ( NAME . , expression )
 
-    ,               shift and go to state 34
+    ,               shift and go to state 37
 
 
-state 31
+state 33
+
+    (18) expression -> NOT ( NAME . )
+
+    )               shift and go to state 38
+
+
+state 34
 
     (1) statement -> PROC NAME ( expression . )
     (4) expression -> expression . + expression
@@ -588,14 +629,14 @@ state 31
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
 
-    )               shift and go to state 35
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 39
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
 
 
-state 32
+state 35
 
     (16) expression -> NAME ( expression ) .
 
@@ -607,16 +648,16 @@ state 32
     )               reduce using rule 16 (expression -> NAME ( expression ) .)
 
 
-state 33
+state 36
 
     (13) expression -> DEF ( NAME , . TYPE , INTEGER )
     (14) expression -> DEF ( NAME , . TYPE , BOOL )
     (15) expression -> DEF ( NAME , . TYPE )
 
-    TYPE            shift and go to state 36
+    TYPE            shift and go to state 40
 
 
-state 34
+state 37
 
     (17) expression -> ALTER ( NAME , . expression )
     (4) expression -> . expression + expression
@@ -633,6 +674,7 @@ state 34
     (15) expression -> . DEF ( NAME , TYPE )
     (16) expression -> . NAME ( expression )
     (17) expression -> . ALTER ( NAME , expression )
+    (18) expression -> . NOT ( NAME )
 
     -               shift and go to state 7
     (               shift and go to state 4
@@ -641,27 +683,40 @@ state 34
     NAME            shift and go to state 3
     DEF             shift and go to state 10
     ALTER           shift and go to state 11
+    NOT             shift and go to state 12
 
-    expression                     shift and go to state 37
+    expression                     shift and go to state 41
 
-state 35
+state 38
+
+    (18) expression -> NOT ( NAME ) .
+
+    +               reduce using rule 18 (expression -> NOT ( NAME ) .)
+    -               reduce using rule 18 (expression -> NOT ( NAME ) .)
+    *               reduce using rule 18 (expression -> NOT ( NAME ) .)
+    /               reduce using rule 18 (expression -> NOT ( NAME ) .)
+    $end            reduce using rule 18 (expression -> NOT ( NAME ) .)
+    )               reduce using rule 18 (expression -> NOT ( NAME ) .)
+
+
+state 39
 
     (1) statement -> PROC NAME ( expression ) .
 
     $end            reduce using rule 1 (statement -> PROC NAME ( expression ) .)
 
 
-state 36
+state 40
 
     (13) expression -> DEF ( NAME , TYPE . , INTEGER )
     (14) expression -> DEF ( NAME , TYPE . , BOOL )
     (15) expression -> DEF ( NAME , TYPE . )
 
-    ,               shift and go to state 38
-    )               shift and go to state 39
+    ,               shift and go to state 42
+    )               shift and go to state 43
 
 
-state 37
+state 41
 
     (17) expression -> ALTER ( NAME , expression . )
     (4) expression -> expression . + expression
@@ -669,23 +724,23 @@ state 37
     (6) expression -> expression . * expression
     (7) expression -> expression . / expression
 
-    )               shift and go to state 40
-    +               shift and go to state 15
-    -               shift and go to state 16
-    *               shift and go to state 17
-    /               shift and go to state 18
+    )               shift and go to state 44
+    +               shift and go to state 16
+    -               shift and go to state 17
+    *               shift and go to state 18
+    /               shift and go to state 19
 
 
-state 38
+state 42
 
     (13) expression -> DEF ( NAME , TYPE , . INTEGER )
     (14) expression -> DEF ( NAME , TYPE , . BOOL )
 
-    INTEGER         shift and go to state 41
-    BOOL            shift and go to state 42
+    INTEGER         shift and go to state 45
+    BOOL            shift and go to state 46
 
 
-state 39
+state 43
 
     (15) expression -> DEF ( NAME , TYPE ) .
 
@@ -697,7 +752,7 @@ state 39
     )               reduce using rule 15 (expression -> DEF ( NAME , TYPE ) .)
 
 
-state 40
+state 44
 
     (17) expression -> ALTER ( NAME , expression ) .
 
@@ -709,21 +764,21 @@ state 40
     )               reduce using rule 17 (expression -> ALTER ( NAME , expression ) .)
 
 
-state 41
+state 45
 
     (13) expression -> DEF ( NAME , TYPE , INTEGER . )
 
-    )               shift and go to state 43
+    )               shift and go to state 47
 
 
-state 42
+state 46
 
     (14) expression -> DEF ( NAME , TYPE , BOOL . )
 
-    )               shift and go to state 44
+    )               shift and go to state 48
 
 
-state 43
+state 47
 
     (13) expression -> DEF ( NAME , TYPE , INTEGER ) .
 
@@ -735,7 +790,7 @@ state 43
     )               reduce using rule 13 (expression -> DEF ( NAME , TYPE , INTEGER ) .)
 
 
-state 44
+state 48
 
     (14) expression -> DEF ( NAME , TYPE , BOOL ) .
 
