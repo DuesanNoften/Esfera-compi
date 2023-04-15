@@ -5,7 +5,7 @@ import Parser
 
 class IDE:
 
-    def __init__(self):
+    def __init__(self):#Crea la ventana principal del interprete
         self.ideWindow = Tk()
         self.ideWindow.geometry("800x600+200+200")
         self.ideWindow.resizable(False, False)
@@ -20,17 +20,17 @@ class IDE:
         self.ideWindow.bind("<Return>", lambda event: self.addRow())
         self.ideWindow.bind("<BackSpace>", lambda event2: self.checkRow())
 
-    def topBar(self):
+    def topBar(self):#Crea la barra de acciones superior tanto para compilar como abrir y guardar
         menuBar = Menu(self.ideWindow)
         self.ideWindow.config(menu=menuBar)
         fileMenu = Menu(menuBar, tearoff=0)
         menuBar.add_cascade(label="Archivo", menu=fileMenu)
-        fileMenu.add_command(label="Abrir", command=self.openFile)
-        fileMenu.add_command(label="Guardar", command=self.saveFile)
+        menuBar.add_command(label="Abrir", command=self.openFile)
+        menuBar.add_command(label="Guardar", command=self.saveFile)
         menuBar.add_command(label="Compilar", command=self.compile)
         menuBar.add_command(label="Ejecutar", command=self.runCompile)
 
-    def codeEntry(self):
+    def codeEntry(self):#Crea la sección donde uno puede introducir codigo
         self.entryBox = Text(self.ideWindow,
                               font=("Times New Romas", 16),
                               bg="#44287c",
@@ -47,16 +47,16 @@ class IDE:
         self.entryBox.config(yscrollcommand=self.updateScroll)
         self.lineNum.config(yscrollcommand=self.updateScroll)
 
-    def scrollBoth(self, action, position, type=None):
+    def scrollBoth(self, action, position, type=None):#Movimiento de la caja de codigo
         self.entryBox.yview_moveto(position)
         self.lineNum.yview_moveto(position)
 
-    def updateScroll(self, first, last, type=None):
+    def updateScroll(self, first, last, type=None):#Refrezca la vista al moverse
         self.entryBox.yview_moveto(first)
         self.lineNum.yview_moveto(first)
         self.uniscrollbar.set(first, last)
 
-    def codeOutput(self):
+    def codeOutput(self):#Consola del interprete
         self.outputBox = Text(self.ideWindow,
                               font=("Times New Romans", 16),
                               bg="#8c8599", bd=1,
@@ -64,13 +64,13 @@ class IDE:
         self.outputBox.place(x=10, y=315, width=780, height=275)
         self.outputBox.config(state=DISABLED)
 
-    def startIDE(self):
+    def startIDE(self):#Inicia el IDE
         self.topBar()
         self.codeEntry()
         self.codeOutput()
         self.ideWindow.mainloop()
 
-    def openFile(self):
+    def openFile(self):#Abre el documento pedido mientras sea .txt
         path = filedialog.askopenfilename(initialdir="/",
                                           title="Abrir archivo",
                                           filetypes=(("text files", "*.txt"),
@@ -89,15 +89,15 @@ class IDE:
             self.lineNum.config(state=DISABLED)
             self.setEntryCode(code)
 
-    def setEntryCode(self, codeRaw):
+    def setEntryCode(self, codeRaw):#Inserta el codigo
         self.entryBox.delete('1.0', END)
         self.entryBox.insert(END, codeRaw)
 
-    def getEntryCode(self):
+    def getEntryCode(self):#Obtiene el codigo insertado
         code = self.entryBox.get("1.0",END)
         return code
 
-    def saveFile(self):
+    def saveFile(self):#Guarda el archivo como un .txt
         path = filedialog.asksaveasfilename(initialdir="/", title=
                                             "Guardar como",
                                             filetypes=(("text files", "*.txt"),
@@ -107,11 +107,11 @@ class IDE:
         file.write(code)
         file.close()
 
-    def setLineText(self, numbersTxt):
+    def setLineText(self, numbersTxt):#Indica linea de codigo
         self.lineNum.delete('1.0', END)
         self.lineNum.insert(END, numbersTxt)
 
-    def compile(self):
+    def compile(self):#Compila el codigo
         self.outputBox.config(state=NORMAL)
         self.outputBox.delete('1.0',END)
         self.outputBox.update()
@@ -129,7 +129,7 @@ class IDE:
     def runCompile(self):
         pass
 
-    def addRow(self):
+    def addRow(self):#Añade una fila
         self.row = self.row + 1
         self.tmpText = ""
         for num in range(1, self.row + 1):
@@ -138,7 +138,7 @@ class IDE:
         self.setLineText(self.tmpText)
         self.lineNum.config(state=DISABLED)
 
-    def deleteRow(self):
+    def deleteRow(self):#Borra una fila
         if self.row == 1:
             self.row = 1
         else:
@@ -151,7 +151,7 @@ class IDE:
         self.setLineText(self.tmpText)
         self.lineNum.config(state=DISABLED)
 
-    def checkRow(self):
+    def checkRow(self):#Revisa cuantas filas hay
         content = self.entryBox.get("1.0","end")
         linebrake = content.count('\n')
         if self.row > int(linebrake):

@@ -48,7 +48,7 @@ t_WHEN = "When"
 t_THEN = "Then"
 t_ELSE = "Else"
 t_NOT = "Not"
-t_STR = '[a-zA-Z][a-zA-Z]*'
+
 
 def t_INTEGER(t):
     r'-?\d+'

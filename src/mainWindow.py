@@ -1,6 +1,6 @@
 import GUI
 
-def main():
+def main():#Ventana principal del proyecto llama a la clase GUI y crea el interprete del lenguaje
     ideWindow= GUI.IDE()
     ideWindow.startIDE()
 
