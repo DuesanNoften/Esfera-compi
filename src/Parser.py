@@ -383,7 +383,7 @@ def p_expression_change(p):
         p[0]="El valor asignado a la variable debe ser del mismo tipo"
 
 def p_expression_math(p):
-    'expression : ALTER "(" NAME "," expression ")"'
+    'expression : ALTER LPAREN NAME COMMA expression RPAREN SEMICOLON'
     if isinstance(p[5],int) and isinstance(names[p[3]],int) :
         if p[5]=="-":
             names[p[3]]=names[p[3]]-p[5]
