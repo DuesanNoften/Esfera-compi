@@ -194,16 +194,19 @@ def p_statement_mover(p):
     '''
     if p[3].value == 'ATR':
         print("La esfera va a moverse hacia atras")
+        p[0]="La esfera va a moverse hacia atras"
         carBall.straight(-200)
         stop()
     
     elif p[3].value == 'ADL':
         print("La esfera va a moverse hacia delante")
+        p[0]="La esfera va a moverse hacia delante"
         carBall.straight(200)
         stop()
     
     elif p[3].value == 'ADE':
         print("La esfera va a moverse hacia atras a la derecha")
+        p[0]="La esfera va a moverse hacia atras a la derecha"
         carBall.turn(45)
         stop()
         carBall.straight(200)
@@ -211,8 +214,9 @@ def p_statement_mover(p):
         carBall.turn(-45)
         stop()
     
-    elif p[3].value == 'AIZ':
+    elif str(p[3]) == 'AIZ':
         print("La esfera va a moverse hacia atras a la izquierda")
+        p[0]="La esfera va a moverse hacia atras a la izquierda"
         carBall.turn(-45)
         stop()
         carBall.straight(-200)
@@ -220,8 +224,9 @@ def p_statement_mover(p):
         carBall.turn(45)
         stop()
     
-    elif p[3].value == 'IZQ':
+    elif str(p[3]) == 'IZQ':
         print("La esfera va a moverse hacia la izquierda")
+        p[0]="La esfera va a moverse hacia la izquierda"
         carBall.turn(90)
         stop()
         carBall.straight(200)
@@ -229,8 +234,9 @@ def p_statement_mover(p):
         carBall.turn(-90)
         stop()
 
-    elif p[3].value == 'DER':
+    elif str(p[3]) == 'DER':
         print("La esfera va a moverse hacia la derecha")
+        p[0]="La esfera va a moverse hacia la derecha"
         carBall.turn(-90)
         stop()
         carBall.straight(200)
@@ -238,8 +244,9 @@ def p_statement_mover(p):
         carBall.turn(90)
         stop()
 
-    elif p[3].value == 'DDE':
+    elif str(p[3]) == 'DDE':
         print("La esfera va a moverse hacia delante a la derecha")
+        p[0]="La esfera va a moverse hacia delante a la derecha"
         carBall.turn(-45)
         stop()
         carBall.straight(200)
@@ -247,8 +254,9 @@ def p_statement_mover(p):
         carBall.turn(45)
         stop()
     
-    elif p[3].value == 'DIZ':
+    elif str(p[3]) == 'DIZ':
         print("La esfera va a moverse hacia delante a la izquierda")
+        p[0]="La esfera va a moverse hacia delante a la izquierda"
         carBall.turn(45)
         stop()
         carBall.straight(200)
@@ -256,13 +264,15 @@ def p_statement_mover(p):
         carBall.turn(-45)
         stop()
 
-    elif p[3].value == 'SPINL':
+    elif str(p[3]) == 'SPINL':
         print("La esfera va a dar varias vueltas hacia la izquierda")
+        p[0]="La esfera va a dar varias vueltas hacia la izquierda"
         carBall.turn(-1080)
         stop()
 
-    elif p[3].value == 'SPINR':
+    elif str(p[3]) == 'SPINR':
         print("La esfera va a dar varias vueltas hacia la derecha")
+        p[0]="La esfera va a dar varias vueltas hacia la derecha"
         carBall.turn(1080)
         stop()
 
